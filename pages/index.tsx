@@ -3,10 +3,50 @@ import { gql } from 'graphql-request'
 import Layout from '@/components/layout'
 import { graphQLClient } from '@/utils/graphql-client'
 import { getAuthCookie } from '@/utils/auth-cookies'
+import useSWR from 'swr'
 // import { useState } from 'react'
 
-const Home = ({upcomingGames, data}: { token: any, upcomingGames: any, data: any }) => {
+const Home = ({token, upcomingGames, data}: { token: any, upcomingGames: any, data: any }) => {
 	const leagues = data
+	const fetcher = async (query) => await graphQLClient(token).request(query)
+
+	const { mutate } = useSWR(
+		gql`
+      {
+        allLeagues {
+          data {
+            name
+          }
+        }
+      }
+    `,
+		fetcher
+	)
+
+
+	const joinLeague = async (userID, leagueID) => {
+		const mutation = gql`
+      mutation JoinLeague($userID: ID!, $leagueID: ID!) {
+        partialUpdateLeague(id: $leagueID, data: { members: { connect: $userID } } ) {
+          name
+        }
+      }
+    `
+
+		const variables = {
+			userID,
+			leagueID
+		}
+
+		try {
+			await graphQLClient(token)
+				.setHeader('X-Schema-Preview', 'partial-update-mutation')
+				.request(mutation, variables)
+			mutate()
+		} catch (error) {
+			console.error(error)
+		}
+	}
 	// const [errorMessage, setErrorMessage] = useState('')
 
 	// if (errorMessage) return (
@@ -31,6 +71,7 @@ const Home = ({upcomingGames, data}: { token: any, upcomingGames: any, data: any
 										{league.name}
 									</Link>
 								</div>
+								<span onClick={() => joinLeague()}>Join</span>
 								{league.members.data.length > 0 && (
 									<div className="ml-2">
 											-
@@ -94,6 +135,7 @@ export async function getServerSideProps(ctx: any) {
  
 	const upcomingGames = await fetch('https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328').then(res => res.json())
 	return { props: { 
+		token: token || null,
 		upcomingGames,
 		data: data?.allLeagues
 	} }
