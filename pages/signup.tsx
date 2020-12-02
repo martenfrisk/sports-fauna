@@ -54,6 +54,26 @@ const Signup = () => {
 				</div>
 
 				<div>
+					<label>Username</label>
+					<input
+						type="text"
+						name="username"
+						placeholder="Your Username"
+						ref={register}
+					/>
+				</div>
+
+				<div>
+					<label>Favorite team</label>
+					<input
+						type="text"
+						name="favTeam"
+						placeholder="DIF"
+						ref={register}
+					/>
+				</div>
+
+				<div>
 					<label>Password</label>
 					<input
 						type="password"

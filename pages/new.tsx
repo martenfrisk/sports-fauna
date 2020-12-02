@@ -12,24 +12,32 @@ const New = ({token}: {token: any}) => {
 	const { handleSubmit, register, errors } = useForm()
 	const { data: user } = useSWR('/api/user')
 
-	const onSubmit = handleSubmit(async ({ task }) => {
+	const onSubmit = handleSubmit(async ({ name }) => {
 		if (errorMessage) setErrorMessage('')
 
 		const mutation = gql`
-      mutation CreateATodo($task: String!, $owner: ID!) {
-        createTodo(data: { task: $task, completed: false, owner: { connect: $owner } }) {
-          task
-          completed
-					owner {
-						_id
+      mutation NewLeague($name: String!, $id: [ID]) {
+        createLeague(
+					data: { 
+						name: $name,
+						members: { 
+							connect: $id
+						} 
 					}
-        }
+				) {
+					name
+					members {
+						data {
+							username
+						}
+					}
+				}
       }
 		`
 		
 		const variables = {
-			task,
-			owner: user && user.id,
+			name,
+			members: user && user.id,
 		}
 
 		try {
@@ -48,17 +56,17 @@ const New = ({token}: {token: any}) => {
 
 				<form onSubmit={onSubmit}>
 					<div  className="flex flex-col">
-						<label>Task</label>
+						<label>League name</label>
 						<input
-							type="test"
-							name="task"
+							type="text"
+							name="name"
 							className="px-4 py-2 text-gray-700 border border-blue-400 rounded-md"
-							placeholder="e.g. do something"
-							ref={register({ required: 'Task is required' })}
+							placeholder="Your League name"
+							ref={register({ required: 'League name is required' })}
 						/>
-						{errors.task && (
+						{errors.name && (
 							<span role="alert">
-								{errors.task.message}
+								{errors.name.message}
 							</span>
 						)}
 					</div>

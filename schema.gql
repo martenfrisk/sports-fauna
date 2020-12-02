@@ -4,13 +4,28 @@ type Todo {
   owner: User!
 }
 
+enum UserRole {
+	ADMIN
+	GUEST
+	MEMBER
+}
+
 type User {
+	username: String! @unique
   email: String! @unique
-  todos: [Todo!] @relation
+  todos: [Todo] @relation
+	favTeam: String
+	leagues: [League] @relation
+	role: UserRole
+}
+
+type League {
+	name: String! @unique
+	members: [User!] @relation
 }
 
 type Query {
   allTodos: [Todo!]
 	allUsers: [User!]
-	findUserByID(id: ID!): User
+	allLeagues: [League!]
 }

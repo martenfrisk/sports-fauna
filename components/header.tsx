@@ -29,7 +29,7 @@ const Header = () => {
 						<>
 							<div>
 								<Link href="/profile">
-									<a>{user.email}</a>
+									<a>Profile</a>
 								</Link>
 							</div>
 							<div>

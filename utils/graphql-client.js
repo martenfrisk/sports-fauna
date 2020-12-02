@@ -4,7 +4,7 @@ const endpoint = 'https://graphql.fauna.com/graphql'
 
 export const graphQLClient = (token) => {
 	
-	const secret = process.env.NEXT_PUBLIC_FAUNA_SECRET
+	const secret = token || process.env.NEXT_PUBLIC_FAUNA_GUEST_SECRET
 
 	return new GraphQLClient(endpoint, {
 		headers: {

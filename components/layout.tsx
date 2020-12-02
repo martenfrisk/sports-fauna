@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: any }) {
 				<title>Next FaunaDB test</title>
 			</Head>
 			<Header />
-			<div className="flex flex-wrap justify-center w-full">
+			<div className="w-full max-w-6xl mx-auto">
 				{children}
 			</div>
 		</>
