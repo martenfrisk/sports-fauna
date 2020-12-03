@@ -1,12 +1,16 @@
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 
 const UserContext = createContext()
 
 // eslint-disable-next-line react/prop-types
-const UserContextProvider = ({ children }) => (
-	<UserContext.Provider value={'testid'}>
-		{children}
-	</UserContext.Provider>
-)
+const UserContextProvider = ({ children }) => {
+	const [userID, setUserID] = useState('testid')
+	return (
+		<UserContext.Provider value={{userID, setUserID}}>
+			{children}
+		</UserContext.Provider>
+	)
 
-export { UserContextProvider, Consumer as UserContextConsumer }
+}
+
+export { UserContextProvider, UserContext }

@@ -22,6 +22,29 @@ type User {
 type League {
 	name: String! @unique
 	members: [User!] @relation
+	options: LeagueOptions
+	standings: [Standings] @relation
+}
+
+type Standings {
+	member: User @relation
+	points: Int
+	league: League @relation
+}
+
+enum LeagueType {
+	SINGLETEAM
+	SINGLEDIVISION
+	MULTITEAM
+	MULTIDIVISION
+	ANY
+}
+
+type LeagueOptions {
+	class: LeagueType
+	divisions: [String]
+	teams: [String]
+	public: Boolean
 }
 
 type Query {

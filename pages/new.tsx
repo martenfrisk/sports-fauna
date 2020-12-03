@@ -1,16 +1,16 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Router from 'next/router'
-import useSWR from 'swr'
 import { gql } from 'graphql-request'
 import { useForm } from 'react-hook-form'
 import Layout from '../components/layout'
 import { graphQLClient } from '../utils/graphql-client'
 import { getAuthCookie } from '@/utils/auth-cookies'
+import { UserContext } from '@/utils/user-context'
 
 const New = ({token}: {token: any}) => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const { handleSubmit, register, errors } = useForm()
-	const { data: user } = useSWR('/api/user')
+	const { userID } = useContext(UserContext)
 
 	const onSubmit = handleSubmit(async ({ name }) => {
 		if (errorMessage) setErrorMessage('')
@@ -37,7 +37,7 @@ const New = ({token}: {token: any}) => {
 		
 		const variables = {
 			name,
-			members: user && user.id,
+			members: userID && userID.id,
 		}
 
 		try {

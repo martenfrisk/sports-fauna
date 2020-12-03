@@ -1,13 +1,21 @@
+import { UserContext } from '@/utils/user-context'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useContext, useEffect } from 'react'
 import useSWR from 'swr'
 
 const Header = () => {
 	const router = useRouter()
-
+	const { setUserID } = useContext(UserContext)
+	// const fetcher = (url) => fetch(url).then((r) => r.json())
+	
 	const fetcher = (url) => fetch(url).then((r) => r.json())
-
+	
 	const { data: user, mutate: mutateUser } = useSWR('/api/user', fetcher)
+	
+	useEffect(() => {
+		setUserID(user)
+	}, [user])
 
 	const logout = async () => {
 		const res = await fetch('/api/logout')

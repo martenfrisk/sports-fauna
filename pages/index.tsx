@@ -1,52 +1,13 @@
 import Link from 'next/link'
 import { gql } from 'graphql-request'
 import Layout from '@/components/layout'
+import Leagues from '@/components/leagues'
 import { graphQLClient } from '@/utils/graphql-client'
 import { getAuthCookie } from '@/utils/auth-cookies'
-import useSWR from 'swr'
 // import { useState } from 'react'
 
 const Home = ({token, upcomingGames, data}: { token: any, upcomingGames: any, data: any }) => {
-	const leagues = data
-	const fetcher = async (query) => await graphQLClient(token).request(query)
 
-	const { mutate } = useSWR(
-		gql`
-      {
-        allLeagues {
-          data {
-            name
-          }
-        }
-      }
-    `,
-		fetcher
-	)
-
-
-	const joinLeague = async (userID, leagueID) => {
-		const mutation = gql`
-      mutation JoinLeague($userID: ID!, $leagueID: ID!) {
-        partialUpdateLeague(id: $leagueID, data: { members: { connect: $userID } } ) {
-          name
-        }
-      }
-    `
-
-		const variables = {
-			userID,
-			leagueID
-		}
-
-		try {
-			await graphQLClient(token)
-				.setHeader('X-Schema-Preview', 'partial-update-mutation')
-				.request(mutation, variables)
-			mutate()
-		} catch (error) {
-			console.error(error)
-		}
-	}
 	// const [errorMessage, setErrorMessage] = useState('')
 
 	// if (errorMessage) return (
@@ -58,34 +19,15 @@ const Home = ({token, upcomingGames, data}: { token: any, upcomingGames: any, da
 	return (
 		<Layout>
 			<div className="flex flex-col items-center w-full mx-auto">
-				<Link href="/new">
-					Create new league
-				</Link>
-				{leagues && (
-					<div>
-						<p>Leagues</p>
-						{leagues.data.map((league) => (
-							<div className="flex" key={league._id}>
-								<div>
-									<Link href="/league/[id]" as={`/league/${league._id}`}>
-										{league.name}
-									</Link>
-								</div>
-								<span onClick={() => joinLeague()}>Join</span>
-								{league.members.data.length > 0 && (
-									<div className="ml-2">
-											-
-										{league.members.data.map((member) => (
-											<span className="ml-2" key={member._id}>
-												{member.username}
-											</span>
-										))}
-									</div>
-								)}
-							</div>
-						))}
-					</div>
-				)}
+				{data && (
+					<>
+						<Link href="/new">
+							Create new league
+						</Link>
+						<Leagues leagueData={data} token={token} />
+					</>
+				)	
+				}
 				{upcomingGames ? (
 					<div className="w-full sm:w-1/2">
 						<p className="mb-2 font-light">Next 5 PL Games</p>
@@ -129,16 +71,18 @@ export async function getServerSideProps(ctx: any) {
 					}
 				}
 		}`
-	const res = await graphQLClient(token).request(query)
-	console.log(res)
-	const data = await res
+	let res
+	
+	if (token) res = await graphQLClient(token).request(query)
  
 	const upcomingGames = await fetch('https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328').then(res => res.json())
-	return { props: { 
-		token: token || null,
-		upcomingGames,
-		data: data?.allLeagues
-	} }
+	return { 
+		props: { 
+			token: token || null,
+			upcomingGames,
+			data: res?.allLeagues || null
+		} 
+	}
 }
 
 export default Home
