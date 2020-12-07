@@ -1,7 +1,7 @@
 [build]
 	functions = "functions-build"
-	command = "yarn build"
-	publish = "build"
+	command = "yarn build && yarn export"
+	publish = "out"
 
 [dev]
 	command = "next start"

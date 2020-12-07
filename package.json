@@ -9,7 +9,8 @@
     "start:app": "next start",
     "start:server": "netlify-lambda serve functions -c ./webpack.config.js",
     "build:app": "next build",
-    "build:functions": "netlify-lambda build functions -c ./webpack.config.js"
+		"build:functions": "netlify-lambda build functions -c ./webpack.config.js",
+		"export": "next export"
   },
   "dependencies": {
     "autoprefixer": "^10.0.4",
