@@ -74,7 +74,7 @@ export async function getServerSideProps(ctx: any) {
 	let res
 	
 	if (token) res = await graphQLClient(token).request(query)
- 
+
 	const upcomingGames = await fetch('https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328').then(res => res.json())
 	return { 
 		props: { 

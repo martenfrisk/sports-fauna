@@ -14,11 +14,11 @@ const client = new faunadb.Client({
 
 const url = 'https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328'
 
-exports.handler = async () => {
-	await fetch(url)
+exports.handler = () => {
+	fetch(url)
 		.then(res => res.json())
 		.then(res => {
-			res.events.forEach(event => {
+			return res.events.forEach(event => {
 				console.log(event)
 				return client.query(q.Create(q.Collection('Event'), { 
 					data: {
@@ -37,4 +37,8 @@ exports.handler = async () => {
 			})
 		})
 		.catch(error => (console.log(error)))
+
+	return {
+		statusCode: 200,
+	}
 }

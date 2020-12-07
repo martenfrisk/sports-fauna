@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npm-run-all --parallel start:app start:server",
-    "start:app": "next start",
+    "start:app": "next dev",
     "start:server": "netlify-lambda serve functions -c ./webpack.config.js",
     "build:app": "next build",
     "build:functions": "netlify-lambda build functions -c ./webpack.config.js",
