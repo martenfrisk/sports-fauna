@@ -11,7 +11,7 @@ export default async function signup(req, res) {
 
 	try {
 		const existingEmail = await guestClient.query(
-			q.Exists(q.Match(q.Index('user_by_email'), q.Casefold(email)))
+			q.Exists(q.Match(q.Index('unique_User_email'), q.Casefold(email)))
 		)
 
 		if (existingEmail) {

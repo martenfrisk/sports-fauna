@@ -34,6 +34,8 @@ enum LeagueType {
 }
 
 type Event {
+	eventId: String @unique
+	lastUpdate: String
 	homeTeamName: String
 	awayTeamName: String
 	homeTeamId: String
@@ -45,8 +47,8 @@ type Event {
 }
 
 type TeamType {
+	teamId: String @unique
 	teamName: String
-	teamId: String
 	division: [DivisionType] @relation
 	badge: String
 	country: String
@@ -54,7 +56,7 @@ type TeamType {
 }
 
 type DivisionType {
-	divisionId: String
+	divisionId: String @unique
 	divisionName: String
 	country: String
 	teams: [TeamType] @relation
