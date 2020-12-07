@@ -1,5 +1,5 @@
 import faunadb from 'faunadb'
-import fetch from 'node-fetch'
+import fetch from 'isomorphic-unfetch'
 
 /* 
 https://www.netlify.com/blog/2018/07/09/building-serverless-crud-apps-with-netlify-functions-faunadb/
