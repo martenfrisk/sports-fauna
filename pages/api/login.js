@@ -11,7 +11,7 @@ export default async function login(req, res) {
 
 	try {
 		const auth = await guestClient.query(
-			q.Login(q.Match(q.Index('user_by_email'), q.Casefold(email)), {
+			q.Login(q.Match(q.Index('unique_User_email'), q.Casefold(email)), {
 				password,
 			})
 		)
