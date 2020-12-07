@@ -71,6 +71,796 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-crypto/crc32@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@aws-crypto/crc32@npm:1.0.0"
+  dependencies:
+    tslib: ^1.11.1
+  checksum: dcf2568b80ca025d5b1861b4165130cd5e3868fef5c918a4a8205e20d5482980967d6817a3a7eee348ddcc6ccbeeedb24c8347ab3a95a1d2c0c2451f3e76805e
+  languageName: node
+  linkType: hard
+
+"@aws-crypto/ie11-detection@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@aws-crypto/ie11-detection@npm:1.0.0"
+  dependencies:
+    tslib: ^1.11.1
+  checksum: 8cf092c5d3b02623d9906fe0148d7827f8f136e6d65d84f8d8cc2df7ebb54a6139633c0cdb1831c32fcc70be22a0670b89ebe540b2a2ab84ef63f22f843a88f5
+  languageName: node
+  linkType: hard
+
+"@aws-crypto/sha256-browser@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@aws-crypto/sha256-browser@npm:1.0.0"
+  dependencies:
+    "@aws-crypto/ie11-detection": ^1.0.0
+    "@aws-crypto/sha256-js": ^1.0.0
+    "@aws-crypto/supports-web-crypto": ^1.0.0
+    "@aws-sdk/types": ^1.0.0-rc.1
+    "@aws-sdk/util-locate-window": ^1.0.0-rc.1
+    "@aws-sdk/util-utf8-browser": ^1.0.0-rc.1
+    tslib: ^1.11.1
+  checksum: 7c7c0c7c91838459de2b1bf140b09b17587305c138cf5cd52e6d3ca42b8a3c29c5996141d04f9c191feea7068be2c66f66016886b30e690b43b46f394d229178
+  languageName: node
+  linkType: hard
+
+"@aws-crypto/sha256-js@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@aws-crypto/sha256-js@npm:1.0.0"
+  dependencies:
+    "@aws-sdk/types": ^1.0.0-rc.1
+    "@aws-sdk/util-utf8-browser": ^1.0.0-rc.1
+    tslib: ^1.11.1
+  checksum: 32de9d248d2772ec41ff3591c79347d0cb026fc5157f48d7e786ddb1eb530d29214b876c465fce4019ad5634181b76c9adb545d55966539b42f9127f3b030810
+  languageName: node
+  linkType: hard
+
+"@aws-crypto/supports-web-crypto@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@aws-crypto/supports-web-crypto@npm:1.0.0"
+  dependencies:
+    tslib: ^1.11.1
+  checksum: 3948a67b94c3851b56a98c95a8a266a805375ed5810bf9b1c43a04cf950401c3fa502257529f24c6f28b893b8a32ca085999138a9251cae413d9e8247ddca4dd
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/abort-controller@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/abort-controller@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: b930ed527221c1a05a1a784eb53f424b7d0b1e28d3d393c510e684b6c3c7552117cf4e02aca1315f044324981fba32dda7164479b1cbd390049c507486c106c1
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/chunked-blob-reader-native@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/chunked-blob-reader-native@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/util-base64-browser": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: e824d0531de1dbbf0614195cc550ecc1639779184299b8d7538b16b68bb077344626474b47fb681622c3ff73ba097984d6cc6003642460826239b070af4c688e
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/chunked-blob-reader@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/chunked-blob-reader@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: f4826b5dc442a995177a0d4644d81a9ab11a33eef8fda46fd5676f84af9f23303bd11046a9edf4c63acafb606394ddf1ad2750949776cb51a2ef4ffb7ca0f975
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/client-s3@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/client-s3@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-crypto/sha256-browser": ^1.0.0
+    "@aws-crypto/sha256-js": ^1.0.0
+    "@aws-sdk/config-resolver": 1.0.0-rc.3
+    "@aws-sdk/credential-provider-node": 1.0.0-rc.3
+    "@aws-sdk/eventstream-serde-browser": 1.0.0-rc.3
+    "@aws-sdk/eventstream-serde-config-resolver": 1.0.0-rc.3
+    "@aws-sdk/eventstream-serde-node": 1.0.0-rc.3
+    "@aws-sdk/fetch-http-handler": 1.0.0-rc.3
+    "@aws-sdk/hash-blob-browser": 1.0.0-rc.3
+    "@aws-sdk/hash-node": 1.0.0-rc.3
+    "@aws-sdk/hash-stream-node": 1.0.0-rc.3
+    "@aws-sdk/invalid-dependency": 1.0.0-rc.3
+    "@aws-sdk/md5-js": 1.0.0-rc.3
+    "@aws-sdk/middleware-apply-body-checksum": 1.0.0-rc.3
+    "@aws-sdk/middleware-bucket-endpoint": 1.0.0-rc.3
+    "@aws-sdk/middleware-content-length": 1.0.0-rc.3
+    "@aws-sdk/middleware-expect-continue": 1.0.0-rc.3
+    "@aws-sdk/middleware-host-header": 1.0.0-rc.3
+    "@aws-sdk/middleware-location-constraint": 1.0.0-rc.3
+    "@aws-sdk/middleware-logger": 1.0.0-rc.3
+    "@aws-sdk/middleware-retry": 1.0.0-rc.3
+    "@aws-sdk/middleware-sdk-s3": 1.0.0-rc.3
+    "@aws-sdk/middleware-serde": 1.0.0-rc.3
+    "@aws-sdk/middleware-signing": 1.0.0-rc.3
+    "@aws-sdk/middleware-ssec": 1.0.0-rc.3
+    "@aws-sdk/middleware-stack": 1.0.0-rc.3
+    "@aws-sdk/middleware-user-agent": 1.0.0-rc.3
+    "@aws-sdk/node-config-provider": 1.0.0-rc.3
+    "@aws-sdk/node-http-handler": 1.0.0-rc.3
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/smithy-client": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/url-parser-browser": 1.0.0-rc.3
+    "@aws-sdk/url-parser-node": 1.0.0-rc.3
+    "@aws-sdk/util-base64-browser": 1.0.0-rc.3
+    "@aws-sdk/util-base64-node": 1.0.0-rc.3
+    "@aws-sdk/util-body-length-browser": 1.0.0-rc.3
+    "@aws-sdk/util-body-length-node": 1.0.0-rc.3
+    "@aws-sdk/util-user-agent-browser": 1.0.0-rc.3
+    "@aws-sdk/util-user-agent-node": 1.0.0-rc.3
+    "@aws-sdk/util-utf8-browser": 1.0.0-rc.3
+    "@aws-sdk/util-utf8-node": 1.0.0-rc.3
+    "@aws-sdk/xml-builder": 1.0.0-rc.3
+    fast-xml-parser: ^3.16.0
+    tslib: ^2.0.0
+  checksum: 3ef235c782f1e0199264ba032312fabdc720834e6b2549a755f928ba72115ea906c2bb00a76f884f5dca417dac51ead9ea48bb70e72a9276b73b2abae3924a7e
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/config-resolver@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/config-resolver@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/signature-v4": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: ce2f2c96adb1c2d010eb1b61702711cbe76f950c8ba2e761353670a82ec45701e6d391b96b519aeb93fd080f11ba371cbdf48159df9d14b759a11424e212b676
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/credential-provider-env@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/credential-provider-env@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/property-provider": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 1f5d1628bdfabfefaaedddcf8e772b1486dd8287a66d71fedc293f730e6fc6fc21db508800687a1f40d56241910022f278f669da94daa174d360f3b7a3c67148
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/credential-provider-imds@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/credential-provider-imds@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/property-provider": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 502f09b5cd5caa3e2dcab458bc5150019a3a0bd07da957390727b243a77c2bf1cc1cd2f793de1f562e403cd92155517f278de996da427dafcd90f6a3536c2f96
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/credential-provider-ini@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/credential-provider-ini@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/property-provider": 1.0.0-rc.3
+    "@aws-sdk/shared-ini-file-loader": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 2bb951c356bef48d909bd91f1624ca381b09d4901ce749414b7f50fa66fd9d0b126ce3d3ea7a48533e59e9739829abe5ef5c023a9c3fff547a3cc0bfe49e1521
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/credential-provider-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/credential-provider-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/credential-provider-env": 1.0.0-rc.3
+    "@aws-sdk/credential-provider-imds": 1.0.0-rc.3
+    "@aws-sdk/credential-provider-ini": 1.0.0-rc.3
+    "@aws-sdk/credential-provider-process": 1.0.0-rc.3
+    "@aws-sdk/property-provider": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 1fb4f4a6207cb3f95d098c7a4c4e797443465f75f3f818a3619db02a4dcee983ee1fbcdf161050e7efc64fdac0a9dcf4f54839fff2d60ce34df7e4c579028097
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/credential-provider-process@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/credential-provider-process@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/credential-provider-ini": 1.0.0-rc.3
+    "@aws-sdk/property-provider": 1.0.0-rc.3
+    "@aws-sdk/shared-ini-file-loader": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: b6ed3e3bd1f24f12cae3219bf1c9db6e256dfb179e44d71ea03322fd381ca77bf5d8ed5813d7e8995ea24b218fc67e19899c0cc2ea657b2528aaa9d9d8580559
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/eventstream-marshaller@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/eventstream-marshaller@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-crypto/crc32": ^1.0.0
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-hex-encoding": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 55143d985a1a1cd5fd318de0873f8c48cb4900eebe88ecfa50af6e09553daff606c494b696335f04f5fcb86d4ccdd78f2b8e4f78c439fc91db4a44dfdb8b5807
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/eventstream-serde-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/eventstream-serde-browser@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/eventstream-marshaller": 1.0.0-rc.3
+    "@aws-sdk/eventstream-serde-universal": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: f911e5007be69bec1497e2ccb08e696a24b15b3c64a2f5d5c84482a6eeda27479ebd22daa967877c56641a3525a43c3aaaa28c1237967af840168ec89a5cc215
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/eventstream-serde-config-resolver@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/eventstream-serde-config-resolver@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: f76f9ef7ef4c14debe5a8a8bd9a9d1cd2753e26708dddc324ca523dfbcb61e9761d905f7c20f7a7e58d1b4da59d5b17bf190c0031edea095a87b025e91b86c32
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/eventstream-serde-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/eventstream-serde-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/eventstream-marshaller": 1.0.0-rc.3
+    "@aws-sdk/eventstream-serde-universal": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 14e7041bd26e1297ebc84c028215c6bc6d161e33ac8c868c95a3169d86625cb08a1fd9563a5e21440d013ebac4d568642ccad3f4f14116312b6e181d20d01e0c
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/eventstream-serde-universal@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/eventstream-serde-universal@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/eventstream-marshaller": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: a154573acdd1a3746f9595d7b5dfac8761f01c27be40a00238a42e3a0b286c6e5dfd1ba00b3d0d6b305d248831d14a7617c73f0ae873a3bafcfb7d74decc191d
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/fetch-http-handler@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/fetch-http-handler@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/querystring-builder": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-base64-browser": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 927b766a7c2764174cc54aaa9880f756a828d3a5932aa16173081e6c2bdc930b86044d422bf90349fb212f1977e592f358486259c6256da279cef23359c62a74
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/hash-blob-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/hash-blob-browser@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/chunked-blob-reader": 1.0.0-rc.3
+    "@aws-sdk/chunked-blob-reader-native": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 09390c36d61c85a381d11045b41332410fc798a8677ef27d7030312b3f6fba40e8bcdbed11f44b87099fc7bfb0e22ceca7961337e7b4f722e490c77d9f477843
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/hash-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/hash-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-buffer-from": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 6b4849103f6612e60fa9262b8854226c07b0637c4e4adfa8151afb099c9565372c01666962026cef6942c71552255057f0f1fb30a18421185e1b1026559f9bb0
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/hash-stream-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/hash-stream-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 604bd9421ba5e5354e82698384c79f4a753db7fa418c804708fd9888c89d1250d0a64d705736571be88325043c4b3073aea030a3742513e552daccb517c715a4
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/invalid-dependency@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/invalid-dependency@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: e68d17391b7d655af92a53017482782db50877ac8fc741d056620bab4a7475ae6bd8668f0869465a791b9f56cf11e9719bb51d96a3c3c3051c47de8a3bc63ccd
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/is-array-buffer@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/is-array-buffer@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: cc77325195c1c7ef978a48d24c0e06d24eab67c83c85524f5b7bdcc20b1172899a92b7c12434c5e56505e900e72bd33498d89104b2345dfbe9935676e7338b89
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/md5-js@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/md5-js@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-utf8-browser": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 41e1f1710a877157e8664a6c9e4bd98959c456d5534413ce6b71f1b640c4d6964fdc68c470f98d824878dc1ca0a897445fd3ce1489cb558161132f0df863399c
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-apply-body-checksum@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-apply-body-checksum@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/is-array-buffer": 1.0.0-rc.3
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: c3fd88b0dff4c2ad699521690ed360e6fefbe475d7c740f1c6eab1b79d948a32648aba25df45bdcaf08b19b100152747ba9f7a10fd729fc3f0d54c3c94121c46
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-bucket-endpoint@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-bucket-endpoint@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-arn-parser": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 8f98ce4fb2801e4881b5ebd3792b85a5d6c38b02f099dd93175b49aeea9f378e5050e333f14a2015d5a7e36c578b4eb011b8b4406b604a1a27b164ca6a8a3b36
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-content-length@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-content-length@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 523a2ac325c89ceca191cb4cfeae858bdeb213eb96973c7d54933c916e0d0bdbe72eece637983da7d5bc0df88b1d464ccada32caa5db95379a419fa260198ef7
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-expect-continue@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-expect-continue@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/middleware-header-default": 1.0.0-rc.3
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: a8d8beef1c4c877c25bf677b7807592d8bbd4cf44bdbe53e36ee8969f671f8e3f7340e28152b1a298d9dfaabad0780faff22e013c58d05caa24250f812761b6f
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-header-default@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-header-default@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: d810493d7fa0647a69f426f8072a088e6b3fee35cf9c9281b7d8fc4bc2d3e8717591d6f06c5626e8377ccd617764363c1aedecd4a65a83c63abd8a00726baa78
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-host-header@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-host-header@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: a4e4ca87afa0adcb0a7b9f54e0d570e8fae704dc7f50077b8948cbd7c068060fc4abac3dfdd5e517f005a2e5eed512d57f1903ecf424630b6d1f6c101dcee34e
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-location-constraint@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-location-constraint@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: e63b5898b9294dc08b3e320b9b01ba36fda736c7ad0b57af432a31ded8832af5dbd097ac1d38ee58d27c28d1a13c2074f3c79b93d0d43e94a89e61eb48e210bd
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-logger@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-logger@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: c64464426932df342d37b7c11d9907832f110d2d52f8600a61b2b86766345dcb6fd7329e3007a9a972afc6550edb85a68a9e4309703a639f450469a914b95bfe
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-retry@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-retry@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/service-error-classification": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    react-native-get-random-values: ^1.4.0
+    tslib: ^1.8.0
+    uuid: ^3.0.0
+  checksum: 9aa6beda72435f3d2de0eab2ed58c8c032775c20ed295c3cb50d9c57ddb05658e36cbb676a4826c434a14dbf6b9eb67d07c6911a13633ec061ded8883d9f0c4a
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-sdk-s3@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-sdk-s3@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/util-arn-parser": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 4066989f6a66efb3f18dec2248f0dfa6b8ed9b0048ae34e87c2259b087d205f99f45cd255a4059673fdfc1477623213c940cf3a4a4c1ba826164b22264e1c741
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-serde@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-serde@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 2fb4d7ea9fbca390902270792dbd2fc0b0b08c97c37c9c127e152eec7dc4e7e94507eb90136dd6fa98e7d6dfd31275a7889454f5d7d02d27fa764f8a748369b2
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-signing@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-signing@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/signature-v4": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 6b1d0ffd3b0acbd8f59c044c9186d6adf89c9df07515199cafe228ce24b87a778750fdfafa08faccb27a63ff7d1a2cd6a8c7d8d99db2043d58722e5303a17a8a
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-ssec@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-ssec@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 20fb17bb9da65c4a79cfa52e1f2b32cce4d8788873912ccc4bc1d1ce3681fb3156b37ca8883d5ec6dfa21263b6d6172fb1cd028c1fe2b2e006dc59fa2e6db19a
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-stack@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-stack@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: c0477b10a420cedc79fa74ba246bcf6b7633bc0c8cb29f7246d0dc1e829898ed1f9cd79e2b747811c02d62df6acfe0b500f936ead4e7cfded0bfadf75514eedb
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/middleware-user-agent@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/middleware-user-agent@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 3f2d42bc7a9b8d4a18389f6f9c6b3a168e376bd40934f87a837e36836d67f2933e7fe4872410bc7b08e17d3881258fe25ab608f9be1904e2f30a1810119fcc6a
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/node-config-provider@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/node-config-provider@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/property-provider": 1.0.0-rc.3
+    "@aws-sdk/shared-ini-file-loader": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 316d79dd9c8539603eaed5c5f1db67f39993cef8a3aa4cb87d36e50949b0887c1ac0d721d49a4ab28502e2614ce276326e709828951be2fc1a9a9cd629e08ea3
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/node-http-handler@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/node-http-handler@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/abort-controller": 1.0.0-rc.3
+    "@aws-sdk/protocol-http": 1.0.0-rc.3
+    "@aws-sdk/querystring-builder": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: c048dfe3fab7ad50597af2ebf0938d072668dde4074bb7a7d8d1c284523555f015cb03eb62db69695448f27a079b21bb8ef5d6fd2b13dfbb8ce3865316baad87
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/property-provider@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/property-provider@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 2037559489cb7f5e8bca645b07f40ce1ce6501f07536faeea852e554e9655705dd485207432b7a80228e5ac27872ea933ce1e9ee72008fb1ebeb0556127e049d
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/protocol-http@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/protocol-http@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 9b711fdc80117de22d49a1fe0b74e0ee93df42b2afbb75e7cb091ca4d688e2209825b6acca1479ed05ff2e2c8534a8358e7dd7f2c5a5dbc1c4a326b1a6d12611
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/querystring-builder@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/querystring-builder@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-uri-escape": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 14b5ac8f2fcb78b346247182faaf030edcae68d5a9ce9afff1f035d595defb83990526462721255cb66af4a02ea1d6bf63d930000c18e194540d4f4cfa06b380
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/querystring-parser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/querystring-parser@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 94c46ecde039080bf042bbdeff8917e4825fe0b83ebcb031a792cadd60adff378c0f07ba4294af831e4d1f1239f2c23f393e5227de3fe0c62bbd5449cf0565fd
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/service-error-classification@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/service-error-classification@npm:1.0.0-rc.3"
+  checksum: cebcc28deff935082b26038a33c1b2c4804678541dd7662c961b77e2174ddde2881267896c10da0c8e7567dbed2d96bae9f45f858463b25d1b7938cb8e549a4e
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/shared-ini-file-loader@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/shared-ini-file-loader@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: b7b694b3c3a0d84060693cf64ca51d42c5ba246aa64b524e50c07329c5e3386c2b5b91c9f7456074cb3a0bd3bd45f8c105cab1da1181372099e76f8375eb11b6
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/signature-v4@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/signature-v4@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/is-array-buffer": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    "@aws-sdk/util-hex-encoding": 1.0.0-rc.3
+    "@aws-sdk/util-uri-escape": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 1dc66ae30a1f0945c55793dc2bbe73c9e63c068f38cfe19a4a6c2dc7e876bffebac366c9ccf292253d406bf92e259ee340ce4b43e3e81394dca139a7657c9e0c
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/smithy-client@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/smithy-client@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/middleware-stack": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: d79b6fe24e4da70689a8db9719eb222fa4088b99606a7b72a2e9ce5b7a8665038fad84ead74412d4f162f6157274bd9cd2faeccc6d4bdfbd92f4c59ccb5e8b0c
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/types@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/types@npm:1.0.0-rc.3"
+  checksum: d8178e71b8e8cad6422c56793072833c7fc0f6ede0f6cd8d1d173592b0e868f098eaa2679dffeecccfde75cccc4e602daa1d8aa9676040117be28da26ff6196c
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/types@npm:^1.0.0-rc.1":
+  version: 1.0.0-rc.8
+  resolution: "@aws-sdk/types@npm:1.0.0-rc.8"
+  checksum: 341a8b83fd74ded7569d8d8dbd8cd2a9a49f6c920814f365e6c905e500fad17101d96e9b32d0c9d42e5354ae4b40d0dc4a16ba9f86714ef116c01d216d0255d0
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/url-parser-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/url-parser-browser@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/querystring-parser": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 49a7135b004851c8fc6463febbc02a89fe8557ff3dc9441dc3c8c561d323ce140074c3ca3747f7520be4b6faf6f9edce481930a9830ac403cc303c5d73c1796b
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/url-parser-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/url-parser-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/querystring-parser": 1.0.0-rc.3
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+    url: ^0.11.0
+  checksum: 65c2abe761b2a84f30ebbfbfcf25e41fe50887f3328b5f702f16d4febd6ef5f3880311b3ac388d49d552df3192c0e1e45b3955e8f49839c6971353f9c4bb9051
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-arn-parser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-arn-parser@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 5de03efb395739d56395ac2754bc8b08af68da22da7a4125be7fc8ec7e82004b8df473aa8b81dda8e0c678f2b4b067aed90389c0e3ef85a731d722fcfaea1767
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-base64-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-base64-browser@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 6531c82597b7d11e085bbf3ad12554afc9d3ae3b3c20f558becd28af6d8cdfc26854417b5a7013c57ad6966be978170ddeed90e5c8db8d2ef6e9ddf5cb5959a4
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-base64-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-base64-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/util-buffer-from": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 017467dfda6b7509a6f988ccd0feb7239e4f2ab1677c34b269c6a138e1163a949aa7899012e21aafabdc25d4b20424ce86690a14d7aeeef9c9472b1fd0e5dde3
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-body-length-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-body-length-browser@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 63e7a2306f8f8a8440796c34189503f8323f465a86fee12bf0703ab2c186279fbe19c01e586262a3a22ea3132036b1ee98fa9d4f8b16b3c0823512ee6eea4362
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-body-length-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-body-length-node@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 63640cc9af1cd30bf3a8c4e0e5adfb48f13fe526057c3af8781b7ceb56f725d07789736b4181fde3bf66c6b426ec4ac8540d05509ce66feae9a0cb445528b8a9
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-buffer-from@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-buffer-from@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/is-array-buffer": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: f07c0c4e050ba19e6ee8b39c010aeb6bb0d6c2e6c8b3d4c88d1fb712552b4b12c569a09d3b9246b10e83cb3fc138ccc52b5d4aea9e62453be1218d735eae205e
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-hex-encoding@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-hex-encoding@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: bd049d1142f27e1936bdd79cc41a20f6f5048cb61c7dc1e10634788be1ca929022e0c84708f71ecc4c50478b4d3f65621d79e0ef972355069515dea691bb851b
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-locate-window@npm:^1.0.0-rc.1":
+  version: 1.0.0-rc.8
+  resolution: "@aws-sdk/util-locate-window@npm:1.0.0-rc.8"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: c1f3f0dc90a383756838418294241d1f5d85045444a0d55d6a15558314bf610bf957106c54d7c686835fc453cc8d38b408b488fac13f5df47fd8581d8352531f
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-uri-escape@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-uri-escape@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 3b99510dbf3acf32b9d2e6e09260316807afbe303a3dd2dfa38a6d419a54c2dbab2c81f0e46b6be9f53dfe747b00c791f0c67e4c0dc2eb87d917fdc29bb3a044
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-user-agent-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-user-agent-browser@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: ae798c0b51acd41a3ff0ecc4bed0226a8845dd12f28f84e5fda76f662c386c26067cfb3f3faec1c64f0c57be3a5444be9805129323f24f62cca55d88c1c6299b
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-user-agent-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-user-agent-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/types": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: a57cf7b046d2d89a1662373a723492d99024c28a97b88a1829cd14a55fa79b25184ed5920625a2836090f6c52ffa11bfd697d380b1dfbe689321a0c6902de25b
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-utf8-browser@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-utf8-browser@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: f6b2a81fb6874f8bfd68da5516594a2639f0edffa9a2461e680236e622080d2b4406ed4cfa15008c62500ba3b25bf9f29bf8f3187929e907a22263dbb22b0663
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-utf8-browser@npm:^1.0.0-rc.1":
+  version: 1.0.0-rc.8
+  resolution: "@aws-sdk/util-utf8-browser@npm:1.0.0-rc.8"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 3aa2b936d53826de7b3046978915702d6ad3d68dd6a3bda8bfba96aa92b9445e13abe2b5e21cf9e8cd7d07c64cb390f1ec257151def811b72dd82d0b8bdda13e
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/util-utf8-node@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/util-utf8-node@npm:1.0.0-rc.3"
+  dependencies:
+    "@aws-sdk/util-buffer-from": 1.0.0-rc.3
+    tslib: ^1.8.0
+  checksum: 598400df2d7bcfdb1ef0429fd12c0df61a7b910715832cdacb7e64f48db5fc771e299b04d0f06c52e943c4856bf73a880dac272afd876a5e32b0fd13496a4940
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/xml-builder@npm:1.0.0-rc.3":
+  version: 1.0.0-rc.3
+  resolution: "@aws-sdk/xml-builder@npm:1.0.0-rc.3"
+  dependencies:
+    tslib: ^1.8.0
+  checksum: 7986ecbe102f4cb2264e32f17cdf4e6a0595f8bbf157e188058f1c55cc0daf009bb618a09328abf70e0483d5cae1617168716e88b243f96d8fa52349057397bb
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:7.10.4, @babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4":
   version: 7.10.4
   resolution: "@babel/code-frame@npm:7.10.4"
@@ -1345,6 +2135,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sls-next/lambda-at-edge@npm:^1.5.2":
+  version: 1.7.0
+  resolution: "@sls-next/lambda-at-edge@npm:1.7.0"
+  dependencies:
+    "@aws-sdk/client-s3": 1.0.0-rc.3
+    "@zeit/node-file-trace": ^0.6.5
+    cookie: ^0.4.1
+    execa: ^4.0.2
+    fs-extra: ^9.0.1
+    get-stream: ^6.0.0
+    jsonwebtoken: ^8.5.1
+    path-to-regexp: ^6.1.0
+  bin:
+    build-lambda-at-edge: dist/command.js
+  checksum: 0ade323b27cc51c00ec993493506b0d136e5f5b2776ecbf8daecc523a7f3812a8df618d3689047a8cfa9c71e7e6f008cb18c82e579530005ec211b036d2054c9
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.3, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.6":
   version: 7.0.6
   resolution: "@types/json-schema@npm:7.0.6"
@@ -1671,6 +2479,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zeit/node-file-trace@npm:^0.6.5":
+  version: 0.6.5
+  resolution: "@zeit/node-file-trace@npm:0.6.5"
+  dependencies:
+    acorn: ^7.1.1
+    acorn-class-fields: ^0.3.2
+    acorn-export-ns-from: ^0.1.0
+    acorn-import-meta: ^1.1.0
+    acorn-numeric-separator: ^0.3.0
+    acorn-static-class-features: ^0.2.1
+    bindings: ^1.4.0
+    estree-walker: ^0.6.0
+    glob: ^7.1.3
+    graceful-fs: ^4.1.15
+    micromatch: ^4.0.2
+    mkdirp: ^0.5.1
+    node-gyp-build: ^4.2.2
+    node-pre-gyp: ^0.13.0
+    resolve-from: ^5.0.0
+    rollup-pluginutils: ^2.8.2
+  bin:
+    nft: src/cli.js
+  checksum: 3b4d1e5a150a8ce33bd9cc9639770eb4266fab950570c49030ef77db795c9b779b3995cfec0fae956a22aa3ec57e289ff2b62870fceb7c35f4a00da8d8995100
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:1":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -1697,6 +2531,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn-class-fields@npm:^0.3.2":
+  version: 0.3.7
+  resolution: "acorn-class-fields@npm:0.3.7"
+  dependencies:
+    acorn-private-class-elements: ^0.2.7
+  peerDependencies:
+    acorn: ^6 || ^7 || ^8
+  checksum: 293aafcb03cbc224e7c2c5352f9980f1bff0565681c47074c90b82171514f9d42b928f32c8010c19a6afe5af2881458ef67e1cbcdd6f4062dd38e1bf3a825b6d
+  languageName: node
+  linkType: hard
+
+"acorn-export-ns-from@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "acorn-export-ns-from@npm:0.1.0"
+  peerDependencies:
+    acorn: ^6.0.1
+  checksum: e38b49d9dc071ba46b52709f6870311fb8144c199d832bc5e73e794c55a2b13cfb13477502a970184f8d9df5de51fef28c3f75840634fa165d6a17dc251cdabf
+  languageName: node
+  linkType: hard
+
+"acorn-import-meta@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "acorn-import-meta@npm:1.1.0"
+  peerDependencies:
+    acorn: ^6.0.0 || ^7.0.0
+  checksum: 16facde86452de81c367bc31dcc90778b7b762cd6f666b1ddd7fec375e0261aa7a758a5f118cad0bc94b1acfbf5036c4bf657788693832b2db4ad3bc5b49732f
+  languageName: node
+  linkType: hard
+
 "acorn-jsx@npm:^5.2.0":
   version: 5.3.1
   resolution: "acorn-jsx@npm:5.3.1"
@@ -1717,6 +2580,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn-numeric-separator@npm:^0.3.0":
+  version: 0.3.6
+  resolution: "acorn-numeric-separator@npm:0.3.6"
+  peerDependencies:
+    acorn: ^6 || ^7 || ^8
+  checksum: cc6f801804aa9859b034790d0d46ccd58d96793d8f2a3b1454c303fcb16b634cb630da9b1ea121066bdcf6b50d207a0f5f63642eeeddf4deef2a85b613b5c5bd
+  languageName: node
+  linkType: hard
+
+"acorn-private-class-elements@npm:^0.2.7":
+  version: 0.2.7
+  resolution: "acorn-private-class-elements@npm:0.2.7"
+  peerDependencies:
+    acorn: ^6.1.0 || ^7 || ^8
+  checksum: fd6edc936a30c28622ce30dedaedc815ba64c845219bbf0b965b44466d4a0c8c3e8c02037085c9eecf4ffff5179441c8e0639689164735b24d30c61a70fbb351
+  languageName: node
+  linkType: hard
+
+"acorn-static-class-features@npm:^0.2.1":
+  version: 0.2.4
+  resolution: "acorn-static-class-features@npm:0.2.4"
+  dependencies:
+    acorn-private-class-elements: ^0.2.7
+  peerDependencies:
+    acorn: ^6.1.0 || ^7 || ^8
+  checksum: 432363817de3b8792e652f72f38230fe72d19fd34efa701b01b8f966622c97be3d64d2310f24468b76f11d4495b019b33e027d9618d9a941c94d5e7f91bd13bd
+  languageName: node
+  linkType: hard
+
 "acorn-walk@npm:^7.0.0":
   version: 7.2.0
   resolution: "acorn-walk@npm:7.2.0"
@@ -1733,7 +2625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^7.0.0, acorn@npm:^7.4.0":
+"acorn@npm:^7.0.0, acorn@npm:^7.1.1, acorn@npm:^7.4.0":
   version: 7.4.1
   resolution: "acorn@npm:7.4.1"
   bin:
@@ -2209,7 +3101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bindings@npm:^1.5.0":
+"bindings@npm:^1.4.0, bindings@npm:^1.5.0":
   version: 1.5.0
   resolution: "bindings@npm:1.5.0"
   dependencies:
@@ -2433,6 +3325,13 @@ __metadata:
   version: 1.0.0
   resolution: "btoa-lite@npm:1.0.0"
   checksum: d41fc7dc9f111a0082e1d67554ecdd3add151920bf5f3fbb9bdffd5c67b2e247a8c2a060607e8a2acd518eeb1b75d8a0828c36717f710ceebe0e88eb487a7394
+  languageName: node
+  linkType: hard
+
+"buffer-equal-constant-time@npm:1.0.1":
+  version: 1.0.1
+  resolution: "buffer-equal-constant-time@npm:1.0.1"
+  checksum: a38a6fead170594b97894658d0e62e3686ccaecea480051c0bf69ba29274eca87203452590c3b6a1b589a7da1baef89420da00a8f08c010675c1dbc25f58edf9
   languageName: node
   linkType: hard
 
@@ -3047,7 +3946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -3237,6 +4136,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:^3.2.6":
+  version: 3.2.7
+  resolution: "debug@npm:3.2.7"
+  dependencies:
+    ms: ^2.1.1
+  checksum: 9fc1277e666db3af31df89e9e41f5c83da6e9de56d4a95b37e095d47ba1958238b8c7b49d4327b516465d46b6340bee723a97a7b2f28c5c7563f8b0a8fc9458a
+  languageName: node
+  linkType: hard
+
 "decode-uri-component@npm:^0.2.0":
   version: 0.2.0
   resolution: "decode-uri-component@npm:0.2.0"
@@ -3365,7 +4273,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-libc@npm:^1.0.3":
+"detect-libc@npm:^1.0.2, detect-libc@npm:^1.0.3":
   version: 1.0.3
   resolution: "detect-libc@npm:1.0.3"
   bin:
@@ -3544,6 +4452,15 @@ __metadata:
     jsbn: ~0.1.0
     safer-buffer: ^2.1.0
   checksum: 5b4dd05f24b2b94c1bb882488dba2b878bb5b83182669aa71fbdf53c6941618180cb226c4eb9a3e2fa51ad11f87b5edb0a7d7289cdef468ba2e6024542f73f07
+  languageName: node
+  linkType: hard
+
+"ecdsa-sig-formatter@npm:1.0.11":
+  version: 1.0.11
+  resolution: "ecdsa-sig-formatter@npm:1.0.11"
+  dependencies:
+    safe-buffer: ^5.0.1
+  checksum: 9d07775ee274e0ca3978a562e9eba14ce77ecc804d977d0e94525c2aa4a70d909eda5703810955d22fd06fc6312e6aacf85e233eebdabc7b27a0a38fd62902a4
   languageName: node
   linkType: hard
 
@@ -3950,6 +4867,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"estree-walker@npm:^0.6.0, estree-walker@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "estree-walker@npm:0.6.1"
+  checksum: a63b94b841fcda2d79ff8e313b4ea8439b3364094ba66547289814bd7da4399a54cd33849b23504d239266430f219a142627071201a9fb6eb488bd025575f8fc
+  languageName: node
+  linkType: hard
+
 "esutils@npm:^2.0.2":
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
@@ -3986,6 +4910,23 @@ __metadata:
     node-gyp: latest
     safe-buffer: ^5.1.1
   checksum: 529ceee780657a04e2b19ecbb685473f12aae05d5f9f794e36044f5ea602e1a0ba42bff4e1b7544a8a4164fbd9c585e69398b114f9925448d02c31c52c95cf26
+  languageName: node
+  linkType: hard
+
+"execa@npm:^4.0.2":
+  version: 4.1.0
+  resolution: "execa@npm:4.1.0"
+  dependencies:
+    cross-spawn: ^7.0.0
+    get-stream: ^5.0.0
+    human-signals: ^1.1.1
+    is-stream: ^2.0.0
+    merge-stream: ^2.0.0
+    npm-run-path: ^4.0.0
+    onetime: ^5.1.0
+    signal-exit: ^3.0.2
+    strip-final-newline: ^2.0.0
+  checksum: 79bd736acd63aa7c0afb32cc99af21cfd70db696580686c7cd56c177857b93b78bc0b9bb2b4410f377f46c71c566c8e723987e71ef0bc9b23791bfbced02f75c
   languageName: node
   linkType: hard
 
@@ -4130,6 +5071,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-base64-decode@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "fast-base64-decode@npm:1.0.0"
+  checksum: 1c775e5214ee7f3cf027018983eb628b0000f3141cfbcfa2b40b714a45a35efa7a98c0cdf114d83df37e7abdeb1606c404139f7678ccc97895a9da8b6e86ec2c
+  languageName: node
+  linkType: hard
+
 "fast-deep-equal@npm:^3.1.1":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
@@ -4162,6 +5110,15 @@ __metadata:
   version: 2.0.6
   resolution: "fast-levenshtein@npm:2.0.6"
   checksum: a2d03af3088b0397633e007fb3010ecfa4f91cae2116d2385653c59396a1b31467641afa672a79e6f82218518670dc144128378124e711e35dbf90bc82846f22
+  languageName: node
+  linkType: hard
+
+"fast-xml-parser@npm:^3.16.0":
+  version: 3.17.5
+  resolution: "fast-xml-parser@npm:3.17.5"
+  bin:
+    xml2js: cli.js
+  checksum: 58c05bff31bf57eb8ec12df7ee4e1338a54c852220aceeaf60f183f3b98e058506b6eb42c8824a27eb0edf12b2c4296206cfa7537d52baf28e757771a0a049b1
   languageName: node
   linkType: hard
 
@@ -4414,6 +5371,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-minipass@npm:^1.2.5":
+  version: 1.2.7
+  resolution: "fs-minipass@npm:1.2.7"
+  dependencies:
+    minipass: ^2.6.0
+  checksum: eb59a93065f25457e5d1d10a064e22565e704b03140d5ef86a71a57155b13aa645811126fed2a5a282df8dc9c40df9c9d696f6b2d93c181071a971221d0a454b
+  languageName: node
+  linkType: hard
+
 "fs-minipass@npm:^2.0.0":
   version: 2.1.0
   resolution: "fs-minipass@npm:2.1.0"
@@ -4525,6 +5491,22 @@ fsevents@~2.1.2:
     has: ^1.0.3
     has-symbols: ^1.0.1
   checksum: c38bc558f1eca73bde2d9e22c7798b06c4b93650f39b2053a875a23a6c00fbafb0919ad20fe0d3a3e16916a8a59450502f91e75a918d264456c8ded070fe93c4
+  languageName: node
+  linkType: hard
+
+"get-stream@npm:^5.0.0":
+  version: 5.2.0
+  resolution: "get-stream@npm:5.2.0"
+  dependencies:
+    pump: ^3.0.0
+  checksum: c71c5625f4573a33823371da253b4183df6bdb28cb678d03bab9b5f91626d92d6f3f5ae2404c5efdc1248fbb82204e4dae4283c7ff3cc14e505754f9f748f217
+  languageName: node
+  linkType: hard
+
+"get-stream@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "get-stream@npm:6.0.0"
+  checksum: 4354a4de78ebfd4340db6c7a3956ad1db7e67dbf718bcc576481697188442156f88d0d79d94b8af2615dad9920d41df85227e0c6b0fe5764d26e0df25f4035f8
   languageName: node
   linkType: hard
 
@@ -4862,7 +5844,14 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:0.4.24":
+"human-signals@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "human-signals@npm:1.1.1"
+  checksum: cac115f635090055427bbd9d066781b17de3a2d8bbf839d920ae2fa52c3eab4efc63b4c8abc10e9a8b979233fa932c43a83a48864003a8c684ed9fb78135dd45
+  languageName: node
+  linkType: hard
+
+"iconv-lite@npm:0.4.24, iconv-lite@npm:^0.4.4":
   version: 0.4.24
   resolution: "iconv-lite@npm:0.4.24"
   dependencies:
@@ -4900,6 +5889,15 @@ fsevents@~2.1.2:
   version: 0.1.5
   resolution: "iferr@npm:0.1.5"
   checksum: 9d366dcc6356bfc0156ba7b86c7ef1a8ede7533fc7b100b4700de618774f1b48aa60185a2193f8260870b9168daa38aee5b11d38c92f5100af8ccdf22b5c2717
+  languageName: node
+  linkType: hard
+
+"ignore-walk@npm:^3.0.1":
+  version: 3.0.3
+  resolution: "ignore-walk@npm:3.0.3"
+  dependencies:
+    minimatch: ^3.0.4
+  checksum: 08394ce8c47dc086d44ef65a1e1d30352ff3d6605bdec90f59e985b710cc660aafa7975cb30312891d21d826d10b3a8b3210c5d68251678e2dcd366362865170
   languageName: node
   linkType: hard
 
@@ -5222,6 +6220,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"is-stream@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-stream@npm:2.0.0"
+  checksum: f92ba04a8b8fafbade79bdaada53a044025db2fbd3fc2be978434db9a097a4afa457c2e3222c70c2ffc38854bde3a352593d6315463a54394f08ca9e51e32b50
+  languageName: node
+  linkType: hard
+
 "is-string@npm:^1.0.5":
   version: 1.0.5
   resolution: "is-string@npm:1.0.5"
@@ -5430,6 +6435,24 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"jsonwebtoken@npm:^8.5.1":
+  version: 8.5.1
+  resolution: "jsonwebtoken@npm:8.5.1"
+  dependencies:
+    jws: ^3.2.2
+    lodash.includes: ^4.3.0
+    lodash.isboolean: ^3.0.3
+    lodash.isinteger: ^4.0.4
+    lodash.isnumber: ^3.0.3
+    lodash.isplainobject: ^4.0.6
+    lodash.isstring: ^4.0.1
+    lodash.once: ^4.0.0
+    ms: ^2.1.1
+    semver: ^5.6.0
+  checksum: ea44bbb7a7abab87eee57711a04093a2a04a5757faa3253f521327b840e07eff751986ed6c20985886c5aaa86245a833aa1eeda6eacb0c3fa9ea4e7074cdb0c3
+  languageName: node
+  linkType: hard
+
 "jsprim@npm:^1.2.2":
   version: 1.4.1
   resolution: "jsprim@npm:1.4.1"
@@ -5449,6 +6472,27 @@ fsevents@~2.1.2:
     array-includes: ^3.1.1
     object.assign: ^4.1.1
   checksum: 189ef9aed8dae620376a3f164c7aac9caaa906e6ecc460f175b3910dadc28f472f0e8c171c3355f9c6a1fc448282926f3f3e42da993880d5a9d57408c03ed85a
+  languageName: node
+  linkType: hard
+
+"jwa@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "jwa@npm:1.4.1"
+  dependencies:
+    buffer-equal-constant-time: 1.0.1
+    ecdsa-sig-formatter: 1.0.11
+    safe-buffer: ^5.0.1
+  checksum: e3a6234a3a33b0390c35cc7393890b1ca1bac22382755035ad252f6df9e1272dcf0ff0a717c7865657fc30e04b8d5ab07ea27e26f0763c60c557946963402752
+  languageName: node
+  linkType: hard
+
+"jws@npm:^3.2.2":
+  version: 3.2.2
+  resolution: "jws@npm:3.2.2"
+  dependencies:
+    jwa: ^1.4.1
+    safe-buffer: ^5.0.1
+  checksum: 3990b26ebb6f368bf6c53bf580cd327f207052adedeb7900dde665e143fff9ea5d96d0b4282e85a631a6e3af76ada281a1ccc450b1916d579d07e9d36b564a19
   languageName: node
   linkType: hard
 
@@ -5586,6 +6630,55 @@ fsevents@~2.1.2:
   dependencies:
     p-locate: ^4.1.0
   checksum: c58f49d45c8672d0a290dea0ce41fcb27205b3f2d61452ba335ef3b42ad36c10c31b1f061b46d96dd4b81e9a00e8a2897bc124d75623b80a9f6d36b1e754a6b5
+  languageName: node
+  linkType: hard
+
+"lodash.includes@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "lodash.includes@npm:4.3.0"
+  checksum: 20d6b1bf7841a4eb21bcb124641a1d5fb368e3c86fb8834d80149ec92caef67f3bf316405e4ec309591f0a83e461cebb7b43b2b57d00fd45d1eb3009fe13be97
+  languageName: node
+  linkType: hard
+
+"lodash.isboolean@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "lodash.isboolean@npm:3.0.3"
+  checksum: e5b7a921f47759773266e66664e4a54f2438cc213fe336c5b96321d4328ebb2785e939bbcd07b29d5a20cdc6140d471abae1e94cdfb25937dc91ddc5150f41a0
+  languageName: node
+  linkType: hard
+
+"lodash.isinteger@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "lodash.isinteger@npm:4.0.4"
+  checksum: a29551cc9aaaf24cc4fdd7ce1734c7a19c748c704f061ef079f6026dc9666ac10e8ae08e4f0cd3aeb6094e20be043a7402c72ce70cbae9ea6ecce67ad997332c
+  languageName: node
+  linkType: hard
+
+"lodash.isnumber@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "lodash.isnumber@npm:3.0.3"
+  checksum: a33b10bf57dd27b32aac0bb4159d3f40db6b294095f42d7ff9f966a004932cdcc12417bf0750a9d3ac0c62690dd020d7d227b05ef486a8c9061963acf2ea3fad
+  languageName: node
+  linkType: hard
+
+"lodash.isplainobject@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "lodash.isplainobject@npm:4.0.6"
+  checksum: 72a114b610ec32a42b8cb47680d1729398caea0ee0631c0b220b97b21e7df19312377cb077acb6593bf6c5abdbdb43c530aa66b440e30d53324986d386808cd0
+  languageName: node
+  linkType: hard
+
+"lodash.isstring@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "lodash.isstring@npm:4.0.1"
+  checksum: 20c46960b74fd63c27b534f1725cd4141ac19b35c7250affee37c8b7899b1a4c5e9820becfafe571a4d48cd4c86206ee03c2e93fe943dbeab82ddd5cab710540
+  languageName: node
+  linkType: hard
+
+"lodash.once@npm:^4.0.0":
+  version: 4.1.1
+  resolution: "lodash.once@npm:4.1.1"
+  checksum: 236e00ca5f20304fab5b38aa3aedb034959153dae6edf33d7f9b00406ced8f24ed232a74f1200505d9049165ceea2ce1256199e1683b0a25e9de89091d4b13c2
   languageName: node
   linkType: hard
 
@@ -5815,6 +6908,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"mimic-fn@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "mimic-fn@npm:2.1.0"
+  checksum: f7d2d7febe3d7dd71da0700b1d455ec6c951a96b463ffcc303c93771b9fe4e45318152ea677c241505b19b39e41d906e5052cfb382d59a44bdb6d3d57f8b467b
+  languageName: node
+  linkType: hard
+
 "mimic-response@npm:^2.0.0":
   version: 2.1.0
   resolution: "mimic-response@npm:2.1.0"
@@ -5859,12 +6959,31 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"minipass@npm:^2.6.0, minipass@npm:^2.8.6, minipass@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "minipass@npm:2.9.0"
+  dependencies:
+    safe-buffer: ^5.1.2
+    yallist: ^3.0.0
+  checksum: 57a49f9523fdc495625184f4ef5a101615d3ee0c06f0c37e2ed7140c12deeecbd404539bd605b985100836006409b11b627a3148941dcc4ade24f0f078557836
+  languageName: node
+  linkType: hard
+
 "minipass@npm:^3.0.0":
   version: 3.1.3
   resolution: "minipass@npm:3.1.3"
   dependencies:
     yallist: ^4.0.0
   checksum: d12b95a845f15950bce7a77730c89400cf0c4f55e7066338da1d201ac148ece4ea8efa79e45a2c07c868c61bcaf9e996c4c3d6bf6b85c038ffa454521fc6ecd5
+  languageName: node
+  linkType: hard
+
+"minizlib@npm:^1.2.1":
+  version: 1.3.3
+  resolution: "minizlib@npm:1.3.3"
+  dependencies:
+    minipass: ^2.9.0
+  checksum: 8d12782dd943ea92bb3e8e5dc4fe21201b56e77e5f12723c29159cf01dd0d50330dd071897dec270b3861994fb07a982b2473e5c2f42bf5f4b180ab18bf81c06
   languageName: node
   linkType: hard
 
@@ -5913,7 +7032,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:^0.5.1, mkdirp@npm:^0.5.3":
+"mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1, mkdirp@npm:^0.5.3":
   version: 0.5.5
   resolution: "mkdirp@npm:0.5.5"
   dependencies:
@@ -5968,7 +7087,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ms@npm:2.1.2":
+"ms@npm:2.1.2, ms@npm:^2.1.1":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
   checksum: 9b65fb709bc30c0c07289dcbdb61ca032acbb9ea5698b55fa62e2cebb04c5953f1876a1f3f7f4bc2e91d4bf4d86003f3e207c3bc6ee2f716f99827e62389cd0e
@@ -6035,6 +7154,19 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"needle@npm:^2.2.1":
+  version: 2.5.2
+  resolution: "needle@npm:2.5.2"
+  dependencies:
+    debug: ^3.2.6
+    iconv-lite: ^0.4.4
+    sax: ^1.2.4
+  bin:
+    needle: bin/needle
+  checksum: 42b3c8fc7cbb788285eb4e0077a1c0971c42332f846dbc3216ac7c8d8eebc6bb7678cc6823b1e8ffefa3415c53a2449aee25fd6c1ee3252f8c7088001ca95af3
+  languageName: node
+  linkType: hard
+
 "negotiator@npm:0.6.2":
   version: 0.6.2
   resolution: "negotiator@npm:0.6.2"
@@ -6071,6 +7203,21 @@ fsevents@~2.1.2:
   bin:
     netlify-lambda: bin/cmd.js
   checksum: 5f76cf73155a5cb7eb84bd395c68d5bfc7ed262290fccba0e39f5eb5301596e017a92a06c5e62797203bff5f7068566ee39f3478881c9f5463f9d661f5c40181
+  languageName: node
+  linkType: hard
+
+"next-on-netlify@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "next-on-netlify@npm:2.6.3"
+  dependencies:
+    "@sls-next/lambda-at-edge": ^1.5.2
+    commander: ^6.0.0
+    fs-extra: ^9.0.1
+  peerDependencies:
+    next: ">=9.5.3"
+  bin:
+    next-on-netlify: next-on-netlify.js
+  checksum: d3e13ad4449283f3c37d027b6be8d29ba959a9ec16c03b851e6584a38d912e57549d1206052e9d587c17e66ca303bd438b2053591df7ae456d953e55f15bc451
   languageName: node
   linkType: hard
 
@@ -6161,6 +7308,7 @@ fsevents@~2.1.2:
     isomorphic-unfetch: ^3.1.0
     netlify-lambda: ^2.0.1
     next: 10.0.3
+    next-on-netlify: ^2.6.3
     npm-run-all: ^4.1.5
     postcss: ^8.1.10
     react: 17.0.1
@@ -6217,6 +7365,17 @@ fsevents@~2.1.2:
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
   checksum: cbb171635e538162b977eac5dfe7a1e07a9a02e991924377a6435502291e2f823d306b95aabc455caebf4a118ccf836868462bc70ccc3095af02bb9da61fda37
+  languageName: node
+  linkType: hard
+
+"node-gyp-build@npm:^4.2.2":
+  version: 4.2.3
+  resolution: "node-gyp-build@npm:4.2.3"
+  bin:
+    node-gyp-build: bin.js
+    node-gyp-build-optional: optional.js
+    node-gyp-build-test: build-test.js
+  checksum: 8512c25498b1605dbe9d2605cac7f8996d18c35097b3079b232674b0f3b8f1559be6f531ec3a00a94f90a0a69ccc452edb62f8f6dfff8caa3abe4b729cc21b06
   languageName: node
   linkType: hard
 
@@ -6280,6 +7439,26 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"node-pre-gyp@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "node-pre-gyp@npm:0.13.0"
+  dependencies:
+    detect-libc: ^1.0.2
+    mkdirp: ^0.5.1
+    needle: ^2.2.1
+    nopt: ^4.0.1
+    npm-packlist: ^1.1.6
+    npmlog: ^4.0.2
+    rc: ^1.2.7
+    rimraf: ^2.6.1
+    semver: ^5.3.0
+    tar: ^4
+  bin:
+    node-pre-gyp: ./bin/node-pre-gyp
+  checksum: fa3c2fb55ae342409f8b9f50fe4aec388dffdbb0c93970ce1ec4c49d5c45011bbd6b3ee7713682f1399c44e80f3202b874bb0a0442cfd60edbfe60d22a5ed5c2
+  languageName: node
+  linkType: hard
+
 "node-releases@npm:^1.1.65, node-releases@npm:^1.1.66, node-releases@npm:^1.1.67":
   version: 1.1.67
   resolution: "node-releases@npm:1.1.67"
@@ -6291,6 +7470,18 @@ fsevents@~2.1.2:
   version: 0.1.1
   resolution: "noop-logger@npm:0.1.1"
   checksum: 353d31cd08698c797af21069df593772a081b694d0edbb3f1d9aca526ddc414bb0992e3deb9aaf69ad197ddee3a5e3be6dd09043023d3abe385d2872a863829c
+  languageName: node
+  linkType: hard
+
+"nopt@npm:^4.0.1":
+  version: 4.0.3
+  resolution: "nopt@npm:4.0.3"
+  dependencies:
+    abbrev: 1
+    osenv: ^0.1.4
+  bin:
+    nopt: bin/nopt.js
+  checksum: bf7b8c15fd035bf1faa897ec83c3fe5a459beb51a09dfad9413429382139784c3f05e11847d2e5de7160a813c5c8c6cf74c34f22b483c08fdaf465586f293f49
   languageName: node
   linkType: hard
 
@@ -6347,6 +7538,33 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"npm-bundled@npm:^1.0.1":
+  version: 1.1.1
+  resolution: "npm-bundled@npm:1.1.1"
+  dependencies:
+    npm-normalize-package-bin: ^1.0.1
+  checksum: f51ddba86970fc568a40449f51348de535ac71d93a2ce31195e978d0189899a0da696b3e51a5eb6e77a88890482ac873767c58c81763dda3dab410c9c1e99ca5
+  languageName: node
+  linkType: hard
+
+"npm-normalize-package-bin@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "npm-normalize-package-bin@npm:1.0.1"
+  checksum: 495fae761551a765064f6937ed578a1d749c110355b63f5bbf6df9f0237862639de184a5c13fb9982d2a7745b2bd983e427bf16893ad98f20e53a32ad0254fc9
+  languageName: node
+  linkType: hard
+
+"npm-packlist@npm:^1.1.6":
+  version: 1.4.8
+  resolution: "npm-packlist@npm:1.4.8"
+  dependencies:
+    ignore-walk: ^3.0.1
+    npm-bundled: ^1.0.1
+    npm-normalize-package-bin: ^1.0.1
+  checksum: 34c4bbd47daccd64e5e432b435ec37339bd472900dccd2a8f003d5004b4fff67b8561aadbbedaa5a5effd1dab9126b89fb28355fef1f3e85ff60ecf6b21433d9
+  languageName: node
+  linkType: hard
+
 "npm-run-all@npm:^4.1.5":
   version: 4.1.5
   resolution: "npm-run-all@npm:4.1.5"
@@ -6368,7 +7586,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"npmlog@npm:^4.0.1, npmlog@npm:^4.1.2":
+"npm-run-path@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "npm-run-path@npm:4.0.1"
+  dependencies:
+    path-key: ^3.0.0
+  checksum: 058fd068804f8c34fcef9393fc895d45400834c9f90bbafc57259f9fd47e8796712e4ad54524f0971b806260a118bf61ac37b0bf9f74e9e58c84bae780ae09e6
+  languageName: node
+  linkType: hard
+
+"npmlog@npm:^4.0.1, npmlog@npm:^4.0.2, npmlog@npm:^4.1.2":
   version: 4.1.2
   resolution: "npmlog@npm:4.1.2"
   dependencies:
@@ -6531,6 +7758,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"onetime@npm:^5.1.0":
+  version: 5.1.2
+  resolution: "onetime@npm:5.1.2"
+  dependencies:
+    mimic-fn: ^2.1.0
+  checksum: e425f6caeb20cf2598ffece94be5663932e34d074f1631b682b13d5f01cc1e0712a7dc711eff1706bb5a5aaab8a52e37bd5edcf560334e3222219d7e8b09c21c
+  languageName: node
+  linkType: hard
+
 "optionator@npm:^0.9.1":
   version: 0.9.1
   resolution: "optionator@npm:0.9.1"
@@ -6549,6 +7785,30 @@ fsevents@~2.1.2:
   version: 0.3.0
   resolution: "os-browserify@npm:0.3.0"
   checksum: f547c038810977579e11f35ff9aec4c6ac557369af7f4946d054da9e0dc180ffc1b5ef37c8c09b6004487c88c4a500c49ba9a109fbeab7dcb890fe1346b5f9b7
+  languageName: node
+  linkType: hard
+
+"os-homedir@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "os-homedir@npm:1.0.2"
+  checksum: 725256246b2cec353250ec46442e3cfa7bc96ef92285d448a90f12f4bbd78c1bf087051b2cef0382da572e1a9ebc8aa24bd0940a3bdc633c3e3012eef1dc6848
+  languageName: node
+  linkType: hard
+
+"os-tmpdir@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "os-tmpdir@npm:1.0.2"
+  checksum: ca158a3c2e48748adc7736cdbe4c593723f8ed8581d2aae2f2a30fdb9417d4ba14bed1cd487d47561898a7b1ece88bce69745e9ce0303e1dea9ea7d22d1f1082
+  languageName: node
+  linkType: hard
+
+"osenv@npm:^0.1.4":
+  version: 0.1.5
+  resolution: "osenv@npm:0.1.5"
+  dependencies:
+    os-homedir: ^1.0.0
+    os-tmpdir: ^1.0.0
+  checksum: 1c7462808c5ff0c2816b11f2f46265a98c395586058f98d73a6deac82955744484b277baedceeb962c419f3b75d0831a77ce7cf38b9e4f20729943ba79d72b08
   languageName: node
   linkType: hard
 
@@ -6699,7 +7959,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"path-key@npm:^3.1.0":
+"path-key@npm:^3.0.0, path-key@npm:^3.1.0":
   version: 3.1.1
   resolution: "path-key@npm:3.1.1"
   checksum: e44aa3ca9faed0440994883050143b1214fffb907bf3a7bbdba15dc84f60821617c0d84e4cc74e1d84e9274003da50427f54d739b0b47636bcbaff4ec71b9b86
@@ -6717,6 +7977,13 @@ fsevents@~2.1.2:
   version: 0.1.7
   resolution: "path-to-regexp@npm:0.1.7"
   checksum: 342fdb0ca48415d6eccdbe6d4180fd0fa4786ccc96ab3f74fcdf7acfc99e075af25e6077c8086c341dcfb4f5f84401ecd21e6cd7b24e0c3b556fb7ffb2570da7
+  languageName: node
+  linkType: hard
+
+"path-to-regexp@npm:^6.1.0":
+  version: 6.2.0
+  resolution: "path-to-regexp@npm:6.2.0"
+  checksum: 4116de71f5453163910347f199ab28fdd07f4053ed88093acb42dc044a2e5e7d9e18379e81e8d5d982d1b88291be3666e56be34a0741298673248fd21e3c1c16
   languageName: node
   linkType: hard
 
@@ -7314,6 +8581,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"react-native-get-random-values@npm:^1.4.0":
+  version: 1.5.0
+  resolution: "react-native-get-random-values@npm:1.5.0"
+  dependencies:
+    fast-base64-decode: ^1.0.0
+  peerDependencies:
+    react-native: ">=0.56"
+  checksum: d4ab152b5956e38a1e0de58cbab9e2b998a9419587ce37cc1bf88264f02829a933bfb12ba4dfffa22bf966e0e559c6c912eb1b1a2ea5d7b1a9ae6cd3ab4b23ca
+  languageName: node
+  linkType: hard
+
 "react-refresh@npm:0.8.3":
   version: 0.8.3
   resolution: "react-refresh@npm:0.8.3"
@@ -7559,6 +8837,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"resolve-from@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "resolve-from@npm:5.0.0"
+  checksum: 0d29fc7012eb21f34d2637fa0602694f60e64c14bf5fbd5395b72f6ea5540a6906cbeef062edefc34c22fd802bfe8ae46ef936e6c4a3f1b1047390f9738dd76f
+  languageName: node
+  linkType: hard
+
 "resolve-url-loader@npm:3.1.2":
   version: 3.1.2
   resolution: "resolve-url-loader@npm:3.1.2"
@@ -7646,7 +8931,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^2.5.4, rimraf@npm:^2.6.3":
+"rimraf@npm:^2.5.4, rimraf@npm:^2.6.1, rimraf@npm:^2.6.3":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
   dependencies:
@@ -7675,6 +8960,15 @@ fsevents@~2.1.2:
     hash-base: ^3.0.0
     inherits: ^2.0.1
   checksum: e0370fbe779b1f15d74c3e7dffc0ce40b57b845fc7e431fab8a571958d5fd9c91eb0038a252604600e20786d117badea0cc4cf8816b8a6be6b9166b565ad6797
+  languageName: node
+  linkType: hard
+
+"rollup-pluginutils@npm:^2.8.2":
+  version: 2.8.2
+  resolution: "rollup-pluginutils@npm:2.8.2"
+  dependencies:
+    estree-walker: ^0.6.1
+  checksum: 6922c1a26df033cc3da4650106244fb2211b5ddf72a93be5010cbe51a0817c9abcab08f61cbc3f5fc906b2701df123d8c9b0dae0a34e69dd07218e34e5d357b8
   languageName: node
   linkType: hard
 
@@ -7749,6 +9043,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"sax@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "sax@npm:1.2.4"
+  checksum: 9d7668d69105e89e2c1a4b2fdc12c72e1a2f78b825f7b4a8a2ea5cdfebf70920bd17715bed55264c3b3959616a0695f8ad2d098bf6944fbd0953ee9c695dceef
+  languageName: node
+  linkType: hard
+
 "scheduler@npm:^0.20.1":
   version: 0.20.1
   resolution: "scheduler@npm:0.20.1"
@@ -7792,7 +9093,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"semver@npm:2 || 3 || 4 || 5, semver@npm:^5.4.1, semver@npm:^5.5.0, semver@npm:^5.6.0":
+"semver@npm:2 || 3 || 4 || 5, semver@npm:^5.3.0, semver@npm:^5.4.1, semver@npm:^5.5.0, semver@npm:^5.6.0":
   version: 5.7.1
   resolution: "semver@npm:5.7.1"
   bin:
@@ -7982,7 +9283,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.0":
+"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2":
   version: 3.0.3
   resolution: "signal-exit@npm:3.0.3"
   checksum: f8f3fec95c8d1f9ad7e3cce07e1195f84e7a85cdcb4e825e8a2b76aa5406a039083d2bc9662b3cf40e6948262f41277047d20e6fbd58c77edced0b18fab647d8
@@ -8450,6 +9751,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"strip-final-newline@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "strip-final-newline@npm:2.0.0"
+  checksum: 74dbd8a602409706748db730200efab53ba739ed7888310e74e45697efbd760981df6d6f0fa34b23e973135fb07d3b22adae6e6d58898f692a094e49692c6c33
+  languageName: node
+  linkType: hard
+
 "strip-json-comments@npm:^3.1.0, strip-json-comments@npm:^3.1.1":
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
@@ -8623,6 +9931,21 @@ fsevents@~2.1.2:
     inherits: ^2.0.3
     readable-stream: ^3.1.1
   checksum: d0414b07c267d6734bc2c7b689ae13de0216668c8202b883109b5d54e02811f6536bab80c9329f758d098207e1c24375443a89c3bf70199bd3ba5c4692cac193
+  languageName: node
+  linkType: hard
+
+"tar@npm:^4":
+  version: 4.4.13
+  resolution: "tar@npm:4.4.13"
+  dependencies:
+    chownr: ^1.1.1
+    fs-minipass: ^1.2.5
+    minipass: ^2.8.6
+    minizlib: ^1.2.1
+    mkdirp: ^0.5.0
+    safe-buffer: ^5.1.2
+    yallist: ^3.0.3
+  checksum: d325c316ac329ecb18f2b8cd3f85a80ab4a4105ada601b9253aaafae3fc14268e3cd874ccc265b6a08e60ebd17fbc31bd3dbc0d1018f874b536eb2a6e8ef6d9c
   languageName: node
   linkType: hard
 
@@ -8815,10 +10138,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1, tslib@npm:^1.9.0":
+"tslib@npm:^1.11.1, tslib@npm:^1.8.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: f44fe7f216946b17d3e3074df3746372703cf24e9127b4c045511456e8e4bf25515fb0a1bb3937676cc305651c5d4fcb6377b0588a4c6a957e748c4c28905d17
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.0.0":
+  version: 2.0.3
+  resolution: "tslib@npm:2.0.3"
+  checksum: 447bfca5deaa157806c3f77eaba74d05dd0b38b014e47ce79d98b5c77ce7d91b00a687ba13ca1b5a74d35ca1098ac7a072c0a97fad06f0266612f2a03a6c8e8f
   languageName: node
   linkType: hard
 
@@ -9129,7 +10459,7 @@ typescript@^4.1.2:
   languageName: node
   linkType: hard
 
-"uuid@npm:^3.3.2":
+"uuid@npm:^3.0.0, uuid@npm:^3.3.2":
   version: 3.4.0
   resolution: "uuid@npm:3.4.0"
   bin:
@@ -9420,7 +10750,7 @@ typescript@^4.1.2:
   languageName: node
   linkType: hard
 
-"yallist@npm:^3.0.2":
+"yallist@npm:^3.0.0, yallist@npm:^3.0.2, yallist@npm:^3.0.3":
   version: 3.1.1
   resolution: "yallist@npm:3.1.1"
   checksum: f352c93b92f601bb0399210bca37272e669c961e9bd886bac545380598765cbfdfb4f166e7b6c57ca4ec8a5af4ab3fa0fd78a47f9a7d655a3d580ff0fc9e7d79
