@@ -34,26 +34,31 @@ enum LeagueType {
 }
 
 type Event {
-	homeTeam: TeamType
-	awayTeam: TeamType
+	homeTeamName: String
+	awayTeamName: String
+	homeTeamId: String
+	awayTeamId: String
 	dateTime: String
 	venue: String
-	division: DivisionType
+	divisionId: DivisionType
+	divisionName: String
 }
 
 type TeamType {
 	teamName: String
 	teamId: String
-	division: [DivisionType]
+	division: [DivisionType] @relation
 	badge: String
 	country: String
+	events: [String]
 }
 
 type DivisionType {
 	divisionId: String
+	divisionName: String
 	country: String
-	teams: [TeamType]
-	events: [Event]
+	teams: [TeamType] @relation
+	events: [Event] @relation
 }
 
 type LeagueOptions {
@@ -66,4 +71,5 @@ type LeagueOptions {
 type Query {
 	allUsers: [User!]
 	allLeagues: [League!]
+	allEvents: [Event!]
 }
