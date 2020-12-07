@@ -1,9 +1,3 @@
-type Todo {
-  task: String!
-  completed: Boolean!
-  owner: User!
-}
-
 enum UserRole {
 	ADMIN
 	GUEST
@@ -13,7 +7,6 @@ enum UserRole {
 type User {
 	username: String! @unique
   email: String! @unique
-  todos: [Todo] @relation
 	favTeam: String
 	leagues: [League] @relation
 	role: UserRole
@@ -40,6 +33,29 @@ enum LeagueType {
 	ANY
 }
 
+type Event {
+	homeTeam: TeamType
+	awayTeam: TeamType
+	dateTime: String
+	venue: String
+	division: DivisionType
+}
+
+type TeamType {
+	teamName: String
+	teamId: String
+	division: [DivisionType]
+	badge: String
+	country: String
+}
+
+type DivisionType {
+	divisionId: String
+	country: String
+	teams: [TeamType]
+	events: [Event]
+}
+
 type LeagueOptions {
 	class: LeagueType
 	divisions: [String]
@@ -48,7 +64,6 @@ type LeagueOptions {
 }
 
 type Query {
-  allTodos: [Todo!]
 	allUsers: [User!]
 	allLeagues: [League!]
 }
