@@ -13,14 +13,14 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 	const [options, setOptions] = useState(data.options ? data.options : {})
 	const [upcomingEvents, setUpcomingEvents] = useState(null)
 
-	const getEvents = async (teamId) => {
-		const events = await fetch(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${teamId}`).then((res) => res.json())
-		const eventDetails = {
-			eventString: events.map((event) => ())
-		}
-		setUpcomingEvents((prev) => ({...prev, [teamId]: events}))
-		console.log(upcomingEvents)
-	}
+	// const getEvents = async (teamId) => {
+	// 	const events = await fetch(`https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=${teamId}`).then((res) => res.json())
+	// 	const eventDetails = {
+	// 		eventString: events.map((event) => ())
+	// 	}
+	// 	setUpcomingEvents((prev) => ({...prev, [teamId]: events}))
+	// 	console.log(upcomingEvents)
+	// }
 
 	const [errorMessage, setErrorMessage] = useState('')
 	const [updateMessage, setUpdateMessage] = useState('')
@@ -54,16 +54,16 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 		}
 	}
 
-	useEffect(() => {
-		pickedTeam.map((team) => {
-			getEvents(team)
-			console.log({team})
-			// return (
-			// 	JSON.stringify(upcomingEvents[team])
-			// )
-		}
-		)
-	}, [pickedTeam])
+	// useEffect(() => {
+	// 	pickedTeam.map((team) => {
+	// 		getEvents(team)
+	// 		console.log({team})
+	// 		// return (
+	// 		// 	JSON.stringify(upcomingEvents[team])
+	// 		// )
+	// 	}
+	// 	)
+	// }, [pickedTeam])
 
 	return (
 		<Layout>
