@@ -1,7 +1,8 @@
 [build]
+	base = "./"
 	functions = "functions"
-	command = "yarn build"
 	publish = "out"
+	command = "yarn build"
 
 [dev]
   functions = "functions"
