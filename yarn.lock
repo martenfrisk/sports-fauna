@@ -4814,6 +4814,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esm@npm:^3.2.25":
+  version: 3.2.25
+  resolution: "esm@npm:3.2.25"
+  checksum: 12a0272aaa15ce4bc07e52cbb66d471cf56ad81ad1a3c1d9f6fa1e29e8c2712716333825e2572f9dbdfdc787e5717a75cb00ce2846e2a50e2bba6971c24402f3
+  languageName: node
+  linkType: hard
+
 "espree@npm:^7.3.0":
   version: 7.3.0
   resolution: "espree@npm:7.3.0"
@@ -7299,9 +7306,11 @@ fsevents@~2.1.2:
     "@typescript-eslint/parser": ^4.9.0
     autoprefixer: ^10.0.4
     cookie: ^0.4.1
+    dotenv: ^8.2.0
     encoding: ^0.1.13
     eslint: ^7.14.0
     eslint-plugin-react: ^7.21.5
+    esm: ^3.2.25
     faunadb: ^4.0.0
     graphql: ^15.4.0
     graphql-request: ^3.3.0
@@ -7314,6 +7323,7 @@ fsevents@~2.1.2:
     react: 17.0.1
     react-dom: 17.0.1
     react-hook-form: ^6.12.1
+    slugify: ^1.4.6
     swr: ^0.3.9
     tailwindcss: ^2.0.1
     typescript: ^4.1.2
@@ -9343,6 +9353,13 @@ fsevents@~2.1.2:
     astral-regex: ^1.0.0
     is-fullwidth-code-point: ^2.0.0
   checksum: 7578393cac91c28f8cb5fa5df36b826ad62c9e66313d2547770db8401570fa8f4aa20cd84ef9244fa054d8e9cc6bfc02578784bb89b238d384b99f2728a35a6d
+  languageName: node
+  linkType: hard
+
+"slugify@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "slugify@npm:1.4.6"
+  checksum: f78c7adceb3c0256edd50b6dc8b9c914c38df54b11f8fdeac431626e39f3ce08b6cb80df229013928fa90258aeef1c0e4650140b29739bef1a92caf45741cb2d
   languageName: node
   linkType: hard
 

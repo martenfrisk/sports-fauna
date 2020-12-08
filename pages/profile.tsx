@@ -14,6 +14,7 @@ const Profile = ({ token }: {token: any}) => {
 		const query = gql`
 			query FindUser($id: ID!) {
 				findUserByID(id: $id) {
+					username
 					leagues {
 						data {
 							name
@@ -25,10 +26,12 @@ const Profile = ({ token }: {token: any}) => {
 		// const variables = {
 		// 	id: userID && userID.id
 		// }
-		userID !== undefined && await graphQLClient(token).request(query, { id: userID.id }).then((res) => {
-			setLeagues(() => res.findUserByID)
-			console.log(res)
-		})
+		userID !== undefined && await graphQLClient(token).request(query, { id: userID.id })
+			.then((res) => {
+				setLeagues(() => res.findUserByID)
+				console.log(res)
+			})
+			.catch((error) => console.error(error))
 	}
 
 	useEffect(() => {

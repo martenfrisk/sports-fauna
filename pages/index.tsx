@@ -6,50 +6,37 @@ import { graphQLClient } from '@/utils/graphql-client'
 import { getAuthCookie } from '@/utils/auth-cookies'
 // import { useState } from 'react'
 
-const Home = ({token, upcomingGames, data}: { token: any, upcomingGames: any, data: any }) => {
-
-
-	// const [errorMessage, setErrorMessage] = useState('')
-
-	// if (errorMessage) return (
-	// 	<Layout>
-	// 		<div>Error...</div>
-	// 	</Layout>
-	// )
+const Home = ({token, data}: { token: any, data: any }) => {
 
 	return (
 		<Layout>
 			<div className="flex flex-col items-center w-full mx-auto">
-				{data && (
+				{data ? (
 					<>
-						<Link href="/new">
-							Create new league
-						</Link>
+						<div className="my-6 space-x-2">
+							<Link href="/league/new">
+								<a className="btn-blue">
+									Create League
+								</a>
+							</Link>
+							<Link href="/guess">
+								<a className="btn-blue">
+									Start guessing
+								</a>
+							</Link>
+						</div>
 						<Leagues leagueData={data} token={token} />
 					</>
-				)	
-				}
-				{upcomingGames ? (
-					<div className="w-full sm:w-1/2">
-						<p className="mb-2 font-light">Next 5 PL Games</p>
-						{upcomingGames.events.slice(0, 5).map((event) => (
-							<div key={event.idEvent} className="flex items-center justify-between w-full mb-1">
-								<div className="w-1/3">
-									{event.strHomeTeam}
-								</div>
-								<div className="w-1/3">
-									{event.strAwayTeam}
-								</div>
-								<div className="w-1/3 text-sm">
-									{event.dateEvent}
-								</div>
-							</div>
-						))}
-					</div>
-				): (
-					<div>Loading...</div>
+				)	 : (
+					<>
+						<p>You are not logged in.</p>
+						<Link href="/login">
+							<a className="btn-blue">
+								Login
+							</a>
+						</Link>
+					</>
 				)}
-
 			</div>
 		</Layout>
 	)
@@ -57,31 +44,29 @@ const Home = ({token, upcomingGames, data}: { token: any, upcomingGames: any, da
 
 export async function getServerSideProps(ctx: any) {
 	const token = getAuthCookie(ctx.req)
+	
+	let data
 	const query = gql`
-		{
-			allLeagues {
-				data {
-					_id
-					name
-					members {
-						data {
-							_id
-							username
-						}
-					}
+	{
+		allLeagues {
+			data {
+				name
+				slug
+				members {
+					data {
+						username
+						_id
 					}
 				}
-		}`
-	let res
-	
-	if (token) res = await graphQLClient(token).request(query)
- 
-	const upcomingGames = await fetch('https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328').then(res => res.json())
+				}
+			}
+	}`
+
+	if (token) data = await graphQLClient(token).request(query)
 	return { 
 		props: { 
 			token: token || null,
-			upcomingGames,
-			data: res?.allLeagues || null
+			data: data.allLeagues || null
 		} 
 	}
 }

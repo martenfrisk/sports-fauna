@@ -13,9 +13,10 @@ type User {
 }
 
 type League {
-	name: String! @unique
-	members: [User!] @relation
-	options: LeagueOptions
+	name: String! 
+	slug: String! @unique
+	members: [User] @relation
+	options: LeagueOptions!
 	standings: [Standings] @relation
 }
 
@@ -53,6 +54,7 @@ type TeamType {
 	badge: String
 	country: String
 	events: [String]
+	inLeagues: [LeagueOptions]
 }
 
 type DivisionType {
@@ -66,12 +68,14 @@ type DivisionType {
 type LeagueOptions {
 	class: LeagueType
 	divisions: [String]
-	teams: [String]
+	teams: [TeamType]
 	public: Boolean
 }
 
 type Query {
 	allUsers: [User!]
-	allLeagues: [League!]
+	allLeagues: [League]
 	allEvents: [Event!]
+	allTeams: [TeamType!]
+	findLeague(slug: String!): League! @resolver(name: "findLeague", paginated: true)
 }

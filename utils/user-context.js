@@ -4,7 +4,7 @@ const UserContext = createContext()
 
 // eslint-disable-next-line react/prop-types
 const UserContextProvider = ({ children }) => {
-	const [userID, setUserID] = useState('testid')
+	const [userID, setUserID] = useState()
 	return (
 		<UserContext.Provider value={{userID, setUserID}}>
 			{children}

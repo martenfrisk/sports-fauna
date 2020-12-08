@@ -4,7 +4,6 @@ import { setAuthCookie } from '@/utils/auth-cookies'
 
 export default async function signup(req, res) {
 	const { email, username, favTeam, password } = req.body
-	const leagues = ''
 	if (!email || !password) {
 		return res.status(400).send('Email and password not provided')
 	}
@@ -21,7 +20,7 @@ export default async function signup(req, res) {
 		const user = await guestClient.query(
 			q.Create(q.Collection('User'), {
 				credentials: { password },
-				data: { email, username, favTeam, leagues },
+				data: { email, username, favTeam },
 			})
 		)
 
