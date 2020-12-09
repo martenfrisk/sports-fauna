@@ -21,7 +21,7 @@ const Header = () => {
 		const res = await fetch('/api/logout')
 		if (res.ok) {
 			mutateUser(null)
-			router.push('/login')
+			router.push('/')
 		}
 	}
 

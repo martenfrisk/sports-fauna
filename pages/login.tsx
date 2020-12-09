@@ -1,7 +1,7 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-import Layout from '@/components/layout'
 
 const Login = () => {
 	const router = useRouter()
@@ -32,57 +32,65 @@ const Login = () => {
 	})
 
 	return (
-		<Layout>
-			<div className="flex justify-center w-full">
-				<div className="flex flex-col items-center max-w-2xl">
+		<>
+			<div className="flex justify-center mb-4 bg-blue-200 shadow-md">
+				<header className="flex justify-between w-full max-w-3xl py-4 text-gray-700">
+					<a className="text-xl">Home</a>
+				
+				</header>
+			</div>
+			<div className="w-full max-w-6xl px-6 mx-auto">
+				<div className="flex justify-center w-full">
+					<div className="flex flex-col items-center max-w-2xl">
 
-			
-					<h1 className="mb-6 text-xl">Log in</h1>
+				
+						<h1 className="mb-6 text-xl">Log in</h1>
 
-					<form onSubmit={onSubmit}>
-						<div className="flex items-end mt-2">
-							<label className="w-1/3 mr-2">Email</label>
-							<input
-								type="email"
-								name="email"
-								className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
-								ref={register({ required: 'Email is required' })}
-							/>
-							{errors.email && (
-								<span role="alert" className="text-red-700">
-									{errors.email.message}
-								</span>
-							)}
-						</div>
+						<form onSubmit={onSubmit}>
+							<div className="flex items-end mt-2">
+								<label className="w-1/3 mr-2">Email</label>
+								<input
+									type="email"
+									name="email"
+									className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
+									ref={register({ required: 'Email is required' })}
+								/>
+								{errors.email && (
+									<span role="alert" className="text-red-700">
+										{errors.email.message}
+									</span>
+								)}
+							</div>
 
-						<div className="flex items-end mt-2">
-							<label className="w-1/3 mr-2">Password</label>
-							<input
-								type="password"
-								name="password"
-								className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
-								ref={register({ required: 'Password is required' })}
-							/>
-							{errors.password && (
-								<span role="alert" className="text-red-700">
-									{errors.password.message}
-								</span>
-							)}
-						</div>
+							<div className="flex items-end mt-2">
+								<label className="w-1/3 mr-2">Password</label>
+								<input
+									type="password"
+									name="password"
+									className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
+									ref={register({ required: 'Password is required' })}
+								/>
+								{errors.password && (
+									<span role="alert" className="text-red-700">
+										{errors.password.message}
+									</span>
+								)}
+							</div>
 
-						<div className="flex justify-center w-full mt-4">
-							<button type="submit" className="btn-blue">Log in</button>
-						</div>
-					</form>
+							<div className="flex justify-center w-full mt-4">
+								<button type="submit" className="btn-blue">Log in</button>
+							</div>
+						</form>
 
-					{errorMessage && (
-						<p role="alert" className="text-red-700">
-							{errorMessage}
-						</p>
-					)}
+						{errorMessage && (
+							<p role="alert" className="text-red-700">
+								{errorMessage}
+							</p>
+						)}
+					</div>
 				</div>
 			</div>
-		</Layout>
+		</>
 	)
 }
 

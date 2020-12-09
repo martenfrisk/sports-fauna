@@ -10,6 +10,7 @@ type User {
 	favTeam: String
 	leagues: [League] @relation
 	role: UserRole
+	guesses: [UserGuess]
 }
 
 type League {
@@ -39,12 +40,27 @@ type Event {
 	lastUpdate: String
 	homeTeamName: String
 	awayTeamName: String
-	homeTeamId: String
-	awayTeamId: String
+	homeTeamId: TeamType @relation(name: "home")
+	awayTeamId: TeamType @relation(name: "away")
 	dateTime: String
 	venue: String
 	divisionId: DivisionType
 	divisionName: String
+	submittedGuesses: [UserGuess] @relation
+}
+
+enum WinnerEnum {
+	HOMEWIN
+	DRAW
+	AWAYWIN
+}
+
+type UserGuess {
+	eventId: Event @relation
+	apiEventId: String
+	user: User @relation
+	score: [String]
+	winner: WinnerEnum
 }
 
 type TeamType {
@@ -53,7 +69,8 @@ type TeamType {
 	division: [DivisionType] @relation
 	badge: String
 	country: String
-	events: [String]
+	homeEvents: [Event] @relation(name: "home")
+	awayEvents: [Event] @relation(name: "away")
 	inLeagues: [LeagueOptions]
 }
 
@@ -77,5 +94,7 @@ type Query {
 	allLeagues: [League]
 	allEvents: [Event!]
 	allTeams: [TeamType!]
+	allGuesses: [UserGuess!]
 	findLeague(slug: String!): League! @resolver(name: "findLeague", paginated: true)
+	findGuessByUserId(user: ID!): [UserGuess!]! @resolver(name: "findGuessByUserId", paginated: true)
 }

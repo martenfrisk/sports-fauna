@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { UserContext } from '@/utils/user-context'
 import { useContext, useState } from 'react'
-import { leaveLeague, joinLeague, getNewLeagueData } from '@/utils/graphql-requests'
+import { leaveLeague, joinLeague } from '@/utils/graphql-requests'
 
 const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
 	const { userID } = useContext(UserContext)
@@ -22,7 +22,7 @@ const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
 				{leagueInfo.data.map((league) => (
 					<div className="flex flex-wrap justify-between mb-4" key={league._id}>
 						<div className="w-1/2">
-							<Link href="/league/[slug]" as={`/league/${league.slug}`}>
+							<Link href={`/league/${league._id}`}>
 								{league.name}
 							</Link>
 						</div>

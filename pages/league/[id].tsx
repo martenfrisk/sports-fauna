@@ -1,4 +1,3 @@
-// import { useRouter } from 'next/router'
 import Layout from '@/components/layout'
 import { getAuthCookie } from '@/utils/auth-cookies'
 import TeamPicker from '@/components/teampicker'
@@ -138,15 +137,14 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 
 
 export async function getServerSideProps(ctx: any) {
-	const { slug } = ctx.params
+	const { id } = ctx.params
 	const token = getAuthCookie(ctx.req)
-
 	const teams = await getAllTeamTypes(token)
-	const data = await FindLeague(token, slug)
+	const data = await FindLeague(token, id)
 	
 	return { props: { 
 		token: token || null,
-		data: data?.findLeague.data[0],
+		data: data?.findLeagueByID,
 		teams: teams?.allTeams.data
 	} }
 }

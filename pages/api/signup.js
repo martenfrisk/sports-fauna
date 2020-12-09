@@ -4,6 +4,7 @@ import { setAuthCookie } from '@/utils/auth-cookies'
 
 export default async function signup(req, res) {
 	const { email, username, favTeam, password } = req.body
+	const admin = false
 	if (!email || !password) {
 		return res.status(400).send('Email and password not provided')
 	}
@@ -20,7 +21,7 @@ export default async function signup(req, res) {
 		const user = await guestClient.query(
 			q.Create(q.Collection('User'), {
 				credentials: { password },
-				data: { email, username, favTeam },
+				data: { email, username, favTeam, admin },
 			})
 		)
 
@@ -37,8 +38,10 @@ export default async function signup(req, res) {
 		if (!auth.secret) {
 			return res.status(404).send('Auth secret is missing')
 		}
+		const userRef = auth.instance.toString()
+		const userID = userRef.split(',')[1].split('"')[1]
 
-		setAuthCookie(res, auth.secret)
+		setAuthCookie(res, auth.secret, userID)
 
 		res.status(200).end()
 	} catch (error) {

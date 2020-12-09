@@ -40,6 +40,89 @@ export const getEvents = async (team, setEvents) => {
 	}
 }
 
+export const getLeaguesWithTeams = async (token, id, setLeagues) => {
+	const query = gql`
+		query FindUser($id: ID!) {
+			findUserByID(id: $id) {
+				username
+				leagues {
+					data {
+						name
+						slug
+					}
+				}
+			}
+		}`
+	
+	await graphQLClient(token).request(query, { id })
+		.then((res) => {
+			setLeagues(() => res.findUserByID)
+			console.log(res)
+		})
+		.catch((error) => console.error(error))
+}
+
+export const getLeagues = async (token, id) => {
+	const query = gql`
+		query FindUser($id: ID!) {
+			findUserByID(id: $id) {
+				username
+				leagues {
+					data {
+						name
+						slug
+						options {
+							teams {
+								teamId
+								teamName
+								badge
+								homeEvents {
+									data {
+										dateTime
+										homeTeamName
+										awayTeamName
+										_id
+										submittedGuesses {
+											data {
+												user {
+													username
+													_id
+												}
+												score
+												winner
+											}
+										}
+									}
+								}
+								awayEvents {
+									data {
+										dateTime
+										homeTeamName
+										awayTeamName
+										_id
+										submittedGuesses {
+											data {
+												user {
+													username
+													_id
+												}
+												score
+												winner
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}`
+	
+	const res = await graphQLClient(token).request(query, { id })
+	return res
+}
+
 export const getAllTeams = async (leagueId) => {
 	const query = gql`
 		query SearchAllTeams($leagueId: ID) {
@@ -58,46 +141,48 @@ export const getAllTeams = async (leagueId) => {
 	return data
 }
 
-export const FindLeague = async (token, slug) => {
+export const FindLeague = async (token, id) => {
 	const query = gql`
-		query FindLeague($slug: String!) {
-			findLeague(slug: $slug) {
-				data {
-					name
-					slug
+		query FindLeague($id: ID!) {
+			findLeagueByID(id: $id) {
+				name
+				slug
+				_id
+				options {
 					_id
-					options {
+					class
+					public
+					teams {
 						_id
-						class
-						public
-						teams {
-							_id
-							teamName
-							teamId
-							badge
-						}
-						divisions
+						teamName
+						teamId
+						badge
 					}
-					standings {
-						data {
-							_id
-							member {
-								username
-							}
-							points
-						}
-					}
-					members {
-						data {
-							_id
+					divisions
+				}
+				standings {
+					data {
+						_id
+						member {
 							username
-							email
 						}
+						points
+					}
+				}
+				members {
+					data {
+						_id
+						username
+						email
 					}
 				}
 			}
 	}`
-	const res = await graphQLClient(token).request(query, { slug })
+
+	const variables = {
+		id: id
+	}
+	const res = await graphQLClient(token).request(query, variables)
 	return res
 }
 

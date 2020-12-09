@@ -35,6 +35,12 @@ const Home = ({token, data}: { token: any, data: any }) => {
 								Login
 							</a>
 						</Link>
+						<p className="mt-4">or</p>
+						<Link href="/signup">
+							<a className="btn-blue">
+								Sign up
+							</a>
+						</Link>
 					</>
 				)}
 			</div>
@@ -50,6 +56,7 @@ export async function getServerSideProps(ctx: any) {
 	{
 		allLeagues {
 			data {
+				_id
 				name
 				slug
 				members {
@@ -63,10 +70,11 @@ export async function getServerSideProps(ctx: any) {
 	}`
 
 	if (token) data = await graphQLClient(token).request(query)
+	
 	return { 
 		props: { 
 			token: token || null,
-			data: data.allLeagues || null
+			data: data?.allLeagues || null
 		} 
 	}
 }

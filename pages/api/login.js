@@ -19,8 +19,9 @@ export default async function login(req, res) {
 		if (!auth.secret) {
 			return res.status(404).send('Auth secret is missing')
 		}
-
-		setAuthCookie(res, auth.secret)
+		const userRef = auth.instance.toString()
+		const user = userRef.split(',')[1].split('"')[1]
+		setAuthCookie(res, auth.secret, user)
 
 		res.status(200).end()
 	} catch (error) {
