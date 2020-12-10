@@ -36,6 +36,11 @@ const Header = () => {
 					{user ? (
 						<>
 							<div>
+								<Link href="/guess">
+									<a>Guess</a>
+								</Link>
+							</div>
+							<div>
 								<Link href="/profile">
 									<a>Profile</a>
 								</Link>
