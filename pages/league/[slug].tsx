@@ -52,7 +52,7 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 									{team.name}
 								</div>
 								<div className="w-full">
-									{team.events.slice(0, 1).map((event) => (
+									{team.events.slice(0, 2).map((event) => (
 										<>
 											<p>
 												<span className={`${event.home.name === team.name && 'font-semibold'} mr-1`}>
@@ -137,14 +137,14 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 
 
 export async function getServerSideProps(ctx: any) {
-	const { id } = ctx.params
+	const { slug } = ctx.params
 	const token = getAuthCookie(ctx.req)
 	const teams = await getAllTeamTypes(token)
-	const data = await FindLeague(token, id)
-	
+	const data = await FindLeague(token, slug)
+
 	return { props: { 
 		token: token || null,
-		data: data?.findLeagueByID,
+		data: data?.findLeague.data[0],
 		teams: teams?.allTeams.data
 	} }
 }
