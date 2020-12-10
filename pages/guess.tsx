@@ -5,7 +5,6 @@ import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import { getLeagues } from '@/utils/graphql-requests'
 import { useContext, useState } from 'react'
 import { UserContext } from '@/utils/user-context'
-import { useForm } from 'react-hook-form'
 import { graphQLClient } from '@/utils/graphql-client'
 import { gql } from 'graphql-request'
 
