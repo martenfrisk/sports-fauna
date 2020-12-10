@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { UserContext } from '@/utils/user-context'
 import { useContext, useState } from 'react'
-import { leaveLeague, joinLeague } from '@/utils/graphql-requests'
+import { leaveLeague, joinLeague, getNewLeagueData } from '@/utils/graphql-requests'
 
 const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
 	const { userID } = useContext(UserContext)
@@ -9,9 +9,11 @@ const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
 
 	const toggleMembership = (action: string, leagueId: string) => {
 		if (action === 'join') {
-			joinLeague(token, userID.id, leagueId, setLeagueInfo)
+			joinLeague(token, userID.id, leagueId)
+			getNewLeagueData(token, setLeagueInfo)
 		} else if (action === 'leave') {
-			leaveLeague(token, userID.id, leagueId, setLeagueInfo)
+			leaveLeague(token, userID.id, leagueId)
+			getNewLeagueData(token, setLeagueInfo)
 		}
 	}
 
