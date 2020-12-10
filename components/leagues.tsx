@@ -24,7 +24,7 @@ const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
 				{leagueInfo.data.map((league) => (
 					<div className="flex flex-wrap justify-between mb-4" key={league._id}>
 						<div className="w-1/2">
-							<Link href={`/league/${league._id}`}>
+							<Link href={`/league/${league.slug}`}>
 								{league.name}
 							</Link>
 						</div>
