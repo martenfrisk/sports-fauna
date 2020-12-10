@@ -262,47 +262,49 @@ export const FindUserGuessByID = async (token: string, userID: string) => {
 	return res
 }
 
-export const FindLeague = async (token: string, id: League['_id']) => {
+export const FindLeague = async (token: string, slug: League['slug']) => {
 	const query = gql`
-    query FindLeague($id: ID!) {
-      findLeagueByID(id: $id) {
-        name
-        slug
-        _id
-        options {
-          _id
-          class
-          public
-          teams {
-            _id
-            teamName
-            teamId
-            badge
-          }
-          divisions
-        }
-        standings {
-          data {
-            _id
-            member {
-              username
-            }
-            points
-          }
-        }
-        members {
-          data {
-            _id
-            username
-            email
-          }
-        }
+    query FindLeague($slug: String!) {
+      findLeague(slug: $slug) {
+				data {
+					name
+					slug
+					_id
+					options {
+						_id
+						class
+						public
+						teams {
+							_id
+							teamName
+							teamId
+							badge
+						}
+						divisions
+					}
+					standings {
+						data {
+							_id
+							member {
+								username
+							}
+							points
+						}
+					}
+					members {
+						data {
+							_id
+							username
+							email
+						}
+					}
+				}
       }
     }
   `
 
 	const variables = {
-		id: id,
+		slug: slug,
 	}
 	const res = await graphQLClient(token).request(query, variables)
 	return res
