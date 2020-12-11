@@ -1,17 +1,15 @@
 import Link from 'next/link'
-import { gql } from 'graphql-request'
 import Layout from '@/components/layout'
 import Leagues from '@/components/leagues'
-import { graphQLClient } from '@/utils/graphql-client'
 import { getAuthCookie } from '@/utils/auth-cookies'
 // import { useState } from 'react'
 
-const Home = ({token, data}: { token: any, data: any }) => {
+const Home = ({token}: { token: any}) => {
 
 	return (
 		<Layout>
 			<div className="flex flex-col items-center w-full mx-auto">
-				{data ? (
+				{token ? (
 					<>
 						<div className="my-6 space-x-2">
 							<Link href="/league/new">
@@ -25,7 +23,7 @@ const Home = ({token, data}: { token: any, data: any }) => {
 								</a>
 							</Link>
 						</div>
-						<Leagues leagueData={data} token={token} />
+						<Leagues token={token} />
 					</>
 				)	 : (
 					<>
@@ -51,30 +49,9 @@ const Home = ({token, data}: { token: any, data: any }) => {
 export async function getServerSideProps(ctx: any) {
 	const token = getAuthCookie(ctx.req)
 	
-	let data
-	const query = gql`
-	{
-		allLeagues {
-			data {
-				_id
-				name
-				slug
-				members {
-					data {
-						username
-						_id
-					}
-				}
-				}
-			}
-	}`
-
-	if (token) data = await graphQLClient(token).request(query)
-	
 	return { 
 		props: { 
 			token: token || null,
-			data: data?.allLeagues || null
 		} 
 	}
 }

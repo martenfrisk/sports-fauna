@@ -26,10 +26,10 @@ const Header = () => {
 	}
 
 	return (
-		<div className="flex justify-center mb-4 bg-blue-200 shadow-md">
-			<header className="flex justify-between w-full max-w-3xl py-4 text-gray-700">
+		<div className="flex justify-center mb-4 border-b-2 border-blue-500 shadow-sm">
+			<header className="flex items-center justify-between w-full max-w-3xl py-4 text-gray-700">
 				<Link href="/">
-					<a className="text-xl">Home</a>
+					<a className="text-2xl text-blue-800">Home</a>
 				</Link>
 
 				<div className="flex space-x-4">
@@ -37,28 +37,28 @@ const Header = () => {
 						<>
 							<div>
 								<Link href="/guess">
-									<a>Guess</a>
+									<a className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none rounded-2xl hover:shadow-lg">Guess</a>
 								</Link>
 							</div>
 							<div>
 								<Link href="/profile">
-									<a>Profile</a>
+									<a className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none rounded-2xl hover:shadow-lg">Profile</a>
 								</Link>
 							</div>
 							<div>
-								<button onClick={logout}>Logout</button>
+								<span onClick={logout} className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none rounded-2xl hover:shadow-lg">Logout</span>
 							</div>
 						</>
 					) : (
 						<>
 							<div>
 								<Link href="/login">
-									<a>Login</a>
+									<a className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none rounded-2xl hover:shadow-lg">Login</a>
 								</Link>
 							</div>
 							<div>
 								<Link href="/signup">
-									<a>Signup</a>
+									<a className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none rounded-2xl hover:shadow-lg">Signup</a>
 								</Link>
 							</div>
 						</>

@@ -1,27 +1,34 @@
 import Link from 'next/link'
 import { UserContext } from '@/utils/user-context'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { leaveLeague, joinLeague, getNewLeagueData } from '@/utils/graphql-requests'
+import { League, User } from '@/utils/types'
 
-const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
+const Leagues = ({ token }: { token: any }) => {
 	const { userID } = useContext(UserContext)
-	const [leagueInfo, setLeagueInfo] = useState(leagueData)
+	const [leagueInfo, setLeagueInfo] = useState([])
 
-	const toggleMembership = (action: string, leagueId: string) => {
-		if (action === 'join') {
-			joinLeague(token, userID.id, leagueId)
-			getNewLeagueData(token, setLeagueInfo)
-		} else if (action === 'leave') {
-			leaveLeague(token, userID.id, leagueId)
-			getNewLeagueData(token, setLeagueInfo)
-		}
+	const getData = async () => {
+		const data = await getNewLeagueData(token)
+		data && setLeagueInfo(() => data.allLeagues.data)
 	}
 
+	const toggleMembership = async (action: string, leagueId: string) => {
+		if (action === 'join') {
+			await joinLeague(token, userID.id, leagueId).then(() => getData())
+		} else if (action === 'leave') {
+			await leaveLeague(token, userID.id, leagueId).then(() => getData())
+		}
+	}
+	useEffect(() => {
+		getData()
+	}, [])
+
 	return userID
-		? leagueInfo.data.length > 0 && (
+		? leagueInfo.length > 0 && (
 			<div>
 				<p className="text-lg">Leagues</p>
-				{leagueInfo.data.map((league) => (
+				{leagueInfo.map((league: League) => (
 					<div className="flex flex-wrap justify-between mb-4" key={league._id}>
 						<div className="w-1/2">
 							<Link href={`/league/${league.slug}`}>
@@ -47,7 +54,7 @@ const Leagues = ({ token, leagueData }: { token: any; leagueData: any }) => {
 									<p>
 									League members
 									</p>
-									{league.members.data.map((member) => (
+									{league.members.data.map((member: User) => (
 										<span className="text-sm" key={member._id}>
 											{member.username}
 										</span>

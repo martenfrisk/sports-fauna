@@ -4,14 +4,17 @@ import TeamPicker from '@/components/teampicker'
 import { useEffect, useState } from 'react'
 import LeagueOptions from '@/components/league-options'
 import LeagueStandings from '@/components/league-standings'
-import { FindLeague, getAllTeamTypes, getEvents, updateTeam } from '@/utils/graphql-requests'
+import { FindLeague, getAllTeamTypes, getEventsFromDb, updateTeam } from '@/utils/graphql-requests'
+import { League as LeagueType, TeamType } from '@/utils/types'
+import Image from 'next/image'
+import Link from 'next/link'
 
-const League = ({ data, teams, token }: { data: any, teams: any, token: any }) => {
+const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], token: any }) => {
 	const [pickedTeam, setPickedTeam] = useState(
-		data.options ? data.options.teams : []
+		data.options.teams
 	)
 	const [options, setOptions] = useState(
-		data.options ? data.options : {}
+		data.options
 	)
 	const [unsavedChanges, setUnsavedChanges] = useState(false)
 	const [upcomingEvents, setUpcomingEvents] = useState([])
@@ -32,7 +35,7 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 	useEffect(() => {
 		setUpcomingEvents([])
 		pickedTeam.map((team) => {
-			getEvents(team, setUpcomingEvents)
+			getEventsFromDb(token, team, setUpcomingEvents)
 		}
 		)
 	}, [pickedTeam])
@@ -40,39 +43,59 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 	return (
 		<Layout>
 			<h1 className="text-2xl text-center">League info</h1>
+			{data && (
+				<div className="flex justify-center w-full">
+					<Link href={`/guess/${data.slug}`}>
+						<a className="btn-blue">
+							Start guessing
+						</a>
+					</Link>
+				</div>
+			)}
 			<div className="flex w-full mt-4 ">
 				<div className="flex flex-wrap items-start w-1/2 p-4 mx-4 bg-blue-100 rounded-md">
 					<div className="w-full">
 						Upcoming games
 					</div>
 					{upcomingEvents !== [] ? (
-						upcomingEvents.map((team) => (
-							<div key={team.name} className="flex flex-wrap items-center w-1/2 mt-4">
-								<div className="text-sm text-gray-800">
-									{team.name}
+						upcomingEvents.map((team) => {
+							JSON.stringify(team)
+							const mergedGames = [...team.events.homeEvents.data, ...team.events.awayEvents.data]
+							mergedGames.sort((a, b) => {
+								const varA = a.dateTime.toUpperCase()
+								const varB = b.dateTime.toUpperCase()
+								if (varA > varB) return 1
+								if (varA < varB) return -1
+								return 0
+							})
+							return (
+								<div key={team.name} className="flex flex-wrap items-start w-full mt-4">
+									<div className="w-1/5 text-lg text-gray-800">
+										<Image src={team.events.badge} alt={`${team.name} badge`} height={30} width={30} />
+									</div>
+									<div className="w-4/5">
+										{mergedGames.slice(0, 2).map((event) => (
+											<>
+												<p>
+													<span className={`${event.homeTeamName === team.name && 'font-semibold'} mr-1`}>
+														{event.homeTeamName}	
+													</span>
+													<span className="text-sm">
+															vs
+													</span>
+													<span className={`${event.awayTeamName === team.name && 'font-semibold'} ml-1`}>
+														{event.awayTeamName}	
+													</span>
+												</p>
+												<p className="text-xs text-gray-800">{new Date(
+													event.dateTime)
+													.toLocaleDateString()}</p>
+											</>
+										))}
+									</div>
 								</div>
-								<div className="w-full">
-									{team.events.slice(0, 2).map((event) => (
-										<>
-											<p>
-												<span className={`${event.home.name === team.name && 'font-semibold'} mr-1`}>
-													{event.home.name}	
-												</span>
-												<span className="text-sm">
-														vs
-												</span>
-												<span className={`${event.away.name === team.name && 'font-semibold'} ml-1`}>
-													{event.away.name}	
-												</span>
-											</p>
-											<p className="text-xs text-gray-800">{new Date(
-												event.dateTime)
-												.toLocaleString()}</p>
-										</>
-									))}
-								</div>
-							</div>
-						))
+							)
+						})
 					) : (
 						<div>Loading...</div>
 					)
@@ -129,7 +152,9 @@ const League = ({ data, teams, token }: { data: any, teams: any, token: any }) =
 			{errorMessage && (
 				<p>{errorMessage}</p>
 			)}
-			<TeamPicker teams={teams} picker={[pickedTeam, setPickedTeam]} />
+			<div className="flex justify-center w-full">
+				<TeamPicker teams={teams} picker={[pickedTeam, setPickedTeam]} />
+			</div>
 
 		</Layout>
 	)

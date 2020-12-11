@@ -124,7 +124,6 @@ export const getServerSideProps = async (ctx: any) => {
 	const token = getAuthCookie(ctx.req)
 
 	const teams = await getAllTeamTypes(token)
-
 	return { props: { 
 		token: token || null,
 		teams: teams?.allTeams.data

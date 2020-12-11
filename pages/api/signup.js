@@ -3,15 +3,17 @@ import { guestClient } from '@/utils/fauna-client'
 import { setAuthCookie } from '@/utils/auth-cookies'
 
 export default async function signup(req, res) {
-	const { email, username, favTeam, password } = req.body
+	const { email, username, favTeam, password } = await req.body
+
 	const admin = false
+
 	if (!email || !password) {
 		return res.status(400).send('Email and password not provided')
 	}
 
 	try {
 		const existingEmail = await guestClient.query(
-			q.Exists(q.Match(q.Index('unique_User_email'), q.Casefold(email)))
+			q.Exists(q.Match(q.Index('user_by_email'), q.Casefold(email)))
 		)
 
 		if (existingEmail) {
