@@ -1,6 +1,44 @@
 import { gql, request } from 'graphql-request'
 import { graphQLClient } from '@/utils/graphql-client'
-import { League, LeagueOptions, TeamType } from './types'
+import { Event, League, LeagueOptions, TeamType, User, UserGuess, WinnerEnum } from './types'
+
+export const createNewUserGuess = async (token: string, userId: User['_id'], eventId: Event['_id'], apiEventId: string, winner: WinnerEnum) => {
+
+	const query = gql`
+	mutation CreateNewUserGuess(
+		$userId: ID
+		$eventId: ID
+		$apiEventId: String
+		$winner: WinnerEnum
+	) {
+		createUserGuess(
+			data: {
+				user: { 
+					connect : $userId 
+				} 
+				eventId: {
+					connect: $eventId
+				}
+				apiEventId: $apiEventId
+				winner: $winner
+			}) {
+			apiEventId
+		}
+	}`
+
+	const variables = {
+		userId,
+		eventId,
+		apiEventId,
+		winner,
+	}
+
+	try {
+		await graphQLClient(token).request(query, variables).then(data => console.log(data))
+	} catch (error) {
+		console.error(error)
+	}
+}
 
 export const getEvents = async (team: TeamType, setEvents: any) => {
 	const query = gql`
@@ -40,6 +78,47 @@ export const getEvents = async (team: TeamType, setEvents: any) => {
 	} catch (err) {
 		console.error(err)
 	}
+}
+
+export const getEventsFromDb = async (token: string, team: TeamType, setEvents: any) => {
+	const query = gql`
+    query GetEventsFromFauna($id: ID!) {
+		findTeamTypeByID(id: $id) {
+			badge
+			awayEvents {
+				data {
+					awayTeamName
+					homeTeamName
+					eventId
+					dateTime
+					divisionName
+				}
+			}
+			homeEvents {
+				data {
+					awayTeamName
+					homeTeamName
+					eventId
+					dateTime
+					divisionName
+				}
+			}
+		}
+	}
+  `
+	const variables = {
+		id: team._id,
+	}
+	await graphQLClient(token).request(query, variables)
+		.then(({ findTeamTypeByID }) => {
+			setEvents((prev: any) => [
+				...prev,
+				{
+					name: team.teamName,
+					events: findTeamTypeByID,
+				},
+			])
+		})
 }
 
 export const findUserByID = async (
@@ -114,6 +193,7 @@ export const getLeagues = async (token: string, id: string) => {
                     _id
                     submittedGuesses {
                       data {
+												_id
                         user {
                           username
                           _id
@@ -132,6 +212,7 @@ export const getLeagues = async (token: string, id: string) => {
                     _id
                     submittedGuesses {
                       data {
+												_id
                         user {
                           username
                           _id
@@ -185,12 +266,14 @@ export const FindLeagueBySlug = async (token: string, slug: League['slug']) => {
               badge
               homeEvents {
                 data {
+									eventId
                   dateTime
                   homeTeamName
                   awayTeamName
                   _id
                   submittedGuesses {
                     data {
+											_id
                       user {
                         username
                         _id
@@ -202,12 +285,14 @@ export const FindLeagueBySlug = async (token: string, slug: League['slug']) => {
               }
               awayEvents {
                 data {
+									eventId
                   dateTime
                   homeTeamName
                   awayTeamName
                   _id
                   submittedGuesses {
                     data {
+											_id
                       user {
                         username
                         _id
@@ -231,15 +316,36 @@ export const FindLeagueBySlug = async (token: string, slug: League['slug']) => {
 	return res
 }
 
-export const FindUserGuessByID = async (token: string, userID: string) => {
+export const RemoveGuess = async (token: string, id: UserGuess['_id']) => {
 	const query = gql`
-		query FindGuess($user: ID!)
+		mutation RemoveUserGuess($id: ID!)
 		{
-			findGuessByUserId(user: $user) {
+			deleteUserGuess(id: $id) {
+				user {
+					username
+				}
+			}
+		}
+	`
+	try {
+		await graphQLClient(token).request(query, { id: id })
+	}	catch (err) {
+		console.error(err)
+	}
+}
+
+export const FindUserGuessByID = async (token: string) => {
+	const query = gql`
+		query FindGuess
+		{
+			allGuesses {
 				data {
 					winner
 					score
 					_id
+					user {
+						_id
+					}
 					apiEventId
 					eventId {
 						awayTeamName
@@ -255,10 +361,7 @@ export const FindUserGuessByID = async (token: string, userID: string) => {
 			}
 		}`
 		
-	const variables = {
-		user: userID,
-	}
-	const res = await graphQLClient(token).request(query, variables)
+	const res = await graphQLClient(token).request(query)
 	return res
 }
 
@@ -330,7 +433,7 @@ export const getAllTeamTypes = async (token: string) => {
 export const updateTeam = async (
 	token: string,
 	options: LeagueOptions,
-	pickedTeam: [TeamType],
+	pickedTeam: TeamType[],
 	setUpdateMessage: any,
 	setErrorMessage: any
 ) => {
@@ -371,27 +474,24 @@ export const updateTeam = async (
 	}
 }
 
-export const getNewLeagueData = async (token: string, setLeagueInfo: any) => {
+export const getNewLeagueData = async (token: string) => {
 	const query = gql`
     {
       allLeagues {
-        data {
-          _id
-          name
-          members {
-            data {
-              username
-              _id
-            }
-          }
-        }
-      }
-    }
-  `
-
-	await graphQLClient(token)
-		.request(query)
-		.then((res) => setLeagueInfo(res.allLeagues))
+				data {
+					name
+					slug
+					members {
+						data {
+							username
+						}
+					}
+				}
+			}
+		}
+	`
+	const res = await graphQLClient(token).request(query)
+	return res
 }
 
 export const joinLeague = async (
@@ -415,7 +515,7 @@ export const joinLeague = async (
         id: $userID
         data: { leagues: { connect: $leagueID } }
       ) {
-        username
+        _id
       }
     }
   `
@@ -429,12 +529,19 @@ export const joinLeague = async (
 		await graphQLClient(token)
 			.setHeader('X-Schema-Preview', 'partial-update-mutation')
 			.request(mutationLeague, variables)
+			.catch(err => console.error('leagueError: ', err))
+		// mutate()
+	} catch (error) {
+		console.error('league: ', error)
+	}
+	try {
 		await graphQLClient(token)
 			.setHeader('X-Schema-Preview', 'partial-update-mutation')
 			.request(mutationUser, variables)
+			.catch(err => console.error('userError: ', err))
 		// mutate()
 	} catch (error) {
-		console.error(error)
+		console.error('user: ', error)
 	}
 }
 export const leaveLeague = async (
