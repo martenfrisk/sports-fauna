@@ -6,8 +6,22 @@ import { UserContext } from '@/utils/user-context'
 // import { getEventsAndPopulateDB } from '@/utils/admin-tools'
 import { getAuthCookie } from '@/utils/auth-cookies'
 
-import { gql, request } from 'graphql-request'
+import { gql, GraphQLClient, request } from 'graphql-request'
+import { TeamType } from '@/utils/types'
 import { graphQLClient } from '@/utils/graphql-client'
+
+
+const adminGraphQLClient = () => {
+	const endpoint = 'https://graphql.fauna.com/graphql'
+
+	const secret = process.env.NEXT_PUBLIC_FAUNA_ADMIN_SECRET
+
+	return new GraphQLClient(endpoint, {
+		headers: {
+			authorization: `Bearer ${secret}`,
+		},
+	})
+}
 
 const getEventsAndPopulateDB = async (token: any, teamId: any, id: any, allTeams: any) => {
 
@@ -79,9 +93,9 @@ const getEventsAndPopulateDB = async (token: any, teamId: any, id: any, allTeams
 						awayTeamId: awayTeam._id,
 						dateTime: event.dateTime,
 						venue: event.venue,
-						divisionId: '284421789303439877',
+						divisionId: '284619406832566789',
 					}
-					graphQLClient(token).request(queryPut, variables)
+					adminGraphQLClient().request(queryPut, variables)
 						.then((res) => console.log(res))
 						.catch(error => console.error(error))
 				})
@@ -105,17 +119,26 @@ const Admin = ({ token, data }: { token: any, data: any }) => {
 							Populate database with events
 						</button>
 						{data && (
-							data.allTeams.data.map((team) => (
+							data.allTeams.data.map((team: TeamType) => (
 								<div key={team._id} className="flex justify-between w-full sm:w-1/2">
 									<span>
 										{team.teamName}
 									</span>
 									<span className="text-xs">
-										Last updated: {new Date(team._ts / 1000 ).toUTCString()} 
+										{/* Last updated: {new Date(team._ts / 1000 ).toUTCString()}  */}
 									</span>
 									<button onClick={() => getEventsAndPopulateDB(token, team.teamId, team._id, data.allTeams.data)}>
 										Get events
 									</button>
+									<span>{team.awayEvents.data.length === 0 && team.awayEvents.data.length === 0 ? (
+										<span className="bg-red-100">
+											No events
+										</span>
+									) : (
+										<span className="bg-green-100">
+												Has events
+										</span>
+									)}</span>
 								</div>
 							))
 						)}
@@ -144,13 +167,23 @@ export const getServerSideProps = async (ctx: any) => {
 	const queryGetAll = gql`
 	{
 		allTeams {
-    data {
-      teamId
-			teamName
-      _id
-			_ts
-    }
-  }
+			data {
+				teamId
+				teamName
+				_id
+				_ts
+				awayEvents {
+					data {
+						_ts
+					}
+				}
+				homeEvents {
+					data {
+						_ts
+					}
+				}
+			}
+  	}
 	}
 	`
 	const data = await graphQLClient(token).request(queryGetAll)
