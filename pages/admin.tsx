@@ -110,7 +110,7 @@ const getEventsAndPopulateDB = async (token: any, teamId: TeamType['_id'], id: a
 
 }
 
-const Admin = ({ token, data, standings, events }: { token: any, data: any, standings: [Standings], events: [Event] }) => {
+const Admin = ({ token, data, events }: { token: any, data: any, standings: [Standings], events: [Event] }) => {
 
 	const {userID} = useContext(UserContext)
 	const [results, setResults] = useState([])
