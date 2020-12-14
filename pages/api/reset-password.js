@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import { query as q } from 'faunadb'
 import { guestClient } from '@/utils/fauna-client'
 // import { getAuthCookie } from '@/utils/auth-cookies'
@@ -31,13 +32,13 @@ export default async function reset(req, res) {
 				from: 'frisk@hey.com',
 				subject: 'Reset your password for Sport Guesser',
 				html: [
-					'Hello,',
-					'',
-					'somebody requested a reset of your password.',
-					'Click the link below to reset it:',
+					`Hello,`,
+					``,
+					`somebody requested a reset of your password.`,
+					`Click the link below to reset it:`,
 					`<a href="${link}">${link}</a>`,
-					'',
-					'Cheers',
+					``,
+					`Have a nice day`,
 				].join('\n'),
 			}
 			sgMail
