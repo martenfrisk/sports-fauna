@@ -47,6 +47,7 @@ type Event {
 	divisionId: DivisionType
 	divisionName: String
 	submittedGuesses: [UserGuess] @relation
+	finished: Boolean
 }
 
 enum WinnerEnum {
@@ -61,6 +62,8 @@ type UserGuess {
 	user: User @relation
 	score: [String]
 	winner: WinnerEnum
+	league: League @relation
+	corrected: Boolean
 }
 
 type TeamType {
@@ -87,6 +90,11 @@ type LeagueOptions {
 	divisions: [String]
 	teams: [TeamType]
 	public: Boolean
+}
+
+type ResetRequest {
+	email: String
+	token: String
 }
 
 type Query {

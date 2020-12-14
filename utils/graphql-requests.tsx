@@ -2,12 +2,20 @@ import { gql, request } from 'graphql-request'
 import { graphQLClient } from '@/utils/graphql-client'
 import { Event, League, LeagueOptions, TeamType, User, UserGuess, WinnerEnum } from './types'
 
-export const createNewUserGuess = async (token: string, userId: User['_id'], eventId: Event['_id'], apiEventId: string, winner: WinnerEnum) => {
+export const createNewUserGuess = async (
+	token: string,
+	userId: User['_id'],
+	eventId: Event['_id'],
+	leagueId: League['_id'],
+	apiEventId: string,
+	winner: WinnerEnum
+) => {
 
 	const query = gql`
 	mutation CreateNewUserGuess(
 		$userId: ID
 		$eventId: ID
+		$leagueId: ID
 		$apiEventId: String
 		$winner: WinnerEnum
 	) {
@@ -19,6 +27,9 @@ export const createNewUserGuess = async (token: string, userId: User['_id'], eve
 				eventId: {
 					connect: $eventId
 				}
+				league: {
+					connect: $leagueId
+				}
 				apiEventId: $apiEventId
 				winner: $winner
 			}) {
@@ -29,6 +40,7 @@ export const createNewUserGuess = async (token: string, userId: User['_id'], eve
 	const variables = {
 		userId,
 		eventId,
+		leagueId,
 		apiEventId,
 		winner,
 	}
@@ -259,6 +271,7 @@ export const FindLeagueBySlug = async (token: string, slug: League['slug']) => {
       findLeague(slug: $slug) {
         data {
           name
+					_id
           options {
             teams {
               teamId
@@ -479,6 +492,7 @@ export const getNewLeagueData = async (token: string) => {
     {
       allLeagues {
 				data {
+					_id
 					name
 					slug
 					members {
@@ -518,7 +532,21 @@ export const joinLeague = async (
         _id
       }
     }
-  `
+	`
+	
+	const newStandings = gql`
+		mutation NewStandings($userID: ID, $leagueID: ID) {
+			createStandings(
+				data: {
+					points: 0
+					member: { connect: $userID }
+					league: { connect: $leagueID }
+				}
+			) {
+				_id
+			}
+		}
+	`
 
 	const variables = {
 		userID,
@@ -539,6 +567,14 @@ export const joinLeague = async (
 			.setHeader('X-Schema-Preview', 'partial-update-mutation')
 			.request(mutationUser, variables)
 			.catch(err => console.error('userError: ', err))
+		// mutate()
+	} catch (error) {
+		console.error('user: ', error)
+	}
+	try {
+		await graphQLClient(token)
+			.request(newStandings, variables)
+			.catch(err => console.error('standingsError: ', err))
 		// mutate()
 	} catch (error) {
 		console.error('user: ', error)

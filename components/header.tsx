@@ -46,7 +46,7 @@ const Header = () => {
 								</Link>
 							</div>
 							<div>
-								<span onClick={logout} className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none rounded-2xl hover:shadow-lg">Logout</span>
+								<span onClick={logout} className="px-2 py-1 transition-all duration-300 transform border-2 border-blue-500 shadow-none cursor-pointer rounded-2xl hover:shadow-lg">Logout</span>
 							</div>
 						</>
 					) : (

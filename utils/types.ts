@@ -77,6 +77,7 @@ export type Event = {
   awayTeamName?: Maybe<Scalars['String']>;
   lastUpdate?: Maybe<Scalars['String']>;
   _id: Scalars['ID'];
+  finished?: Maybe<Scalars['Boolean']>;
   homeTeamId?: Maybe<TeamType>;
   dateTime?: Maybe<Scalars['String']>;
   eventId?: Maybe<Scalars['String']>;
@@ -124,6 +125,7 @@ export type EventInput = {
   divisionId?: Maybe<EventDivisionIdRelation>;
   divisionName?: Maybe<Scalars['String']>;
   submittedGuesses?: Maybe<EventSubmittedGuessesRelation>;
+  finished?: Maybe<Scalars['Boolean']>;
 };
 
 export type EventPage = {
@@ -226,8 +228,10 @@ export type Mutation = {
   createUser: User;
   deleteUserGuess?: Maybe<UserGuess>;
   createDivisionType: DivisionType;
+  deleteResetRequest?: Maybe<ResetRequest>;
   deleteLeague?: Maybe<League>;
   deleteTeamType?: Maybe<TeamType>;
+  updateResetRequest?: Maybe<ResetRequest>;
   updateEvent?: Maybe<Event>;
   createUserGuess: UserGuess;
   updateDivisionType?: Maybe<DivisionType>;
@@ -243,6 +247,7 @@ export type Mutation = {
   createEvent: Event;
   createStandings: Standings;
   createTeamType: TeamType;
+  createResetRequest: ResetRequest;
   updateLeagueOptions?: Maybe<LeagueOptions>;
   deleteEvent?: Maybe<Event>;
   updateStandings?: Maybe<Standings>;
@@ -270,6 +275,11 @@ export type MutationCreateDivisionTypeArgs = {
 };
 
 
+export type MutationDeleteResetRequestArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type MutationDeleteLeagueArgs = {
   id: Scalars['ID'];
 };
@@ -277,6 +287,12 @@ export type MutationDeleteLeagueArgs = {
 
 export type MutationDeleteTeamTypeArgs = {
   id: Scalars['ID'];
+};
+
+
+export type MutationUpdateResetRequestArgs = {
+  id: Scalars['ID'];
+  data: ResetRequestInput;
 };
 
 
@@ -360,6 +376,11 @@ export type MutationCreateTeamTypeArgs = {
 };
 
 
+export type MutationCreateResetRequestArgs = {
+  data: ResetRequestInput;
+};
+
+
 export type MutationUpdateLeagueOptionsArgs = {
   id: Scalars['ID'];
   data: LeagueOptionsInput;
@@ -379,6 +400,7 @@ export type MutationUpdateStandingsArgs = {
 export type Query = {
   __typename?: 'Query';
   allEvents: EventPage;
+  findResetRequestByID?: Maybe<ResetRequest>;
   findEventByID?: Maybe<Event>;
   findStandingsByID?: Maybe<Standings>;
   allGuesses: UserGuessPage;
@@ -399,6 +421,11 @@ export type Query = {
 export type QueryAllEventsArgs = {
   _size?: Maybe<Scalars['Int']>;
   _cursor?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryFindResetRequestByIdArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -491,6 +518,19 @@ export type QueryFindLeaguePage = {
   data: Array<Maybe<League>>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
+};
+
+export type ResetRequest = {
+  __typename?: 'ResetRequest';
+  _id: Scalars['ID'];
+  _ts: Scalars['Long'];
+  email?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type ResetRequestInput = {
+  email?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
 };
 
 export type Standings = {
@@ -618,9 +658,11 @@ export type UserGuess = {
   __typename?: 'UserGuess';
   winner?: Maybe<WinnerEnum>;
   _id: Scalars['ID'];
+  league?: Maybe<League>;
   score?: Maybe<Array<Maybe<Scalars['String']>>>;
   eventId?: Maybe<Event>;
   apiEventId?: Maybe<Scalars['String']>;
+	corrected?: Maybe<Scalars['Boolean']>;
   user?: Maybe<User>;
   _ts: Scalars['Long'];
 };
@@ -637,6 +679,13 @@ export type UserGuessInput = {
   user?: Maybe<UserGuessUserRelation>;
   score?: Maybe<Array<Maybe<Scalars['String']>>>;
   winner?: Maybe<WinnerEnum>;
+  league?: Maybe<UserGuessLeagueRelation>;
+};
+
+export type UserGuessLeagueRelation = {
+  create?: Maybe<LeagueInput>;
+  connect?: Maybe<Scalars['ID']>;
+  disconnect?: Maybe<Scalars['Boolean']>;
 };
 
 export type UserGuessPage = {

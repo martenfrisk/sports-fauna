@@ -1,4 +1,4 @@
-const findLeague = `Query(
+export const findLeague = `Query(
   Lambda(
     ["slug", "size", "after", "before"],
     Let(

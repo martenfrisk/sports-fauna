@@ -31,6 +31,7 @@ const New = ({token, teams}: {token: any, teams: any, teamsWithId: any}) => {
 				$name: String!, 
 				$slug: String!,
 				$members: [ID], 
+				$standingsMembers: ID, 
 				$class: LeagueType, 
 				$public: Boolean, 
 				$teams: [ID], 
@@ -49,6 +50,14 @@ const New = ({token, teams}: {token: any, teams: any, teamsWithId: any}) => {
 								teams: $teams
 							}
 						}
+						standings: {
+              create: {
+                member: {
+                  connect: $standingsMembers
+                }
+                points: 0
+              }
+            }
 					}
 				) {
 					name
@@ -60,6 +69,7 @@ const New = ({token, teams}: {token: any, teams: any, teamsWithId: any}) => {
 			name: options.name,
 			slug,
 			members: userID && userID.id,
+			standingsMembers: userID && userID.id,
 			class: options.class,
 			public: options.public,
 			teams: filterTeams,
