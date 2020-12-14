@@ -89,6 +89,11 @@ type LeagueOptions {
 	public: Boolean
 }
 
+type ResetRequest {
+	email: String
+	token: String
+}
+
 type Query {
 	allUsers: [User!]
 	allLeagues: [League]
