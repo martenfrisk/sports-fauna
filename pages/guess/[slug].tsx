@@ -4,7 +4,7 @@ import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import { createNewUserGuess, FindLeagueBySlug, FindUserGuessByID, RemoveGuess } from '@/utils/graphql-requests'
 import { League, UserGuess, TeamType, Event } from '@/utils/types'
 import Layout from '@/components/layout'
-import MyGuesses from '@/components/guesses/my-guesses'
+// import MyGuesses from '@/components/guesses/my-guesses'
 import { convertEnum, convertToEnum } from '@/utils/converters'
 import { useRouter } from 'next/router'
 
@@ -23,13 +23,15 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 	const handleInputChange = ({target}, event: any, guessType: string) => {
 		const { value } = target
 		setUnsaved(true)
-		const inputGuess = { 
+		const inputGuess: UserGuess = { 
 			eventId: event._id,
 			apiEventId: event.eventId,
 			homeTeam: event.homeTeamName,
 			awayTeam: event.awayTeamName,
 			guess: value,
 			withEnum: convertToEnum(value),
+			leagueId: league._id,
+			corrected: false,
 			type: guessType,
 			...event
 		}
@@ -59,7 +61,7 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 
 	const handleSave = async () => {
 		newWinnerGuess.map(guess => {
-			createNewUserGuess(token, userID, guess.eventId, guess.apiEventId, guess.withEnum)
+			createNewUserGuess(token, userID, guess._id, league._id, guess.apiEventId, guess.withEnum)
 			console.log('guess created')
 		})
 		setNewWinnerGuess(() => [])
