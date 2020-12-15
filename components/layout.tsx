@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: any }) {
 			<div className="bg-white border-4 border-blue-400 bg-opacity-85 rounded-3xl shadow-blue-lg border-opacity-30">
 
 				<Head>
-					<title>Next FaunaDB test</title>
+					<title>Sport Guess - guess football results with friends</title>
 				</Head>
 				<Header />
 				<div className="w-full max-w-6xl px-6 mx-auto">

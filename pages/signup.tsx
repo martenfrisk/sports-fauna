@@ -75,7 +75,7 @@ const Signup = () => {
 								className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
 								type="text"
 								name="favTeam"
-								placeholder="DIF"
+								placeholder="Team name"
 								ref={register}
 							/>
 						</div>
