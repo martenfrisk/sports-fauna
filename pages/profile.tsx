@@ -5,6 +5,7 @@ import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import EditUser from '@/components/edit-user'
 import { UserContext } from '@/utils/user-context'
 import { getLeagues } from '@/utils/graphql-requests'
+import { League, User } from '@/utils/types'
 
 const Profile = ({ token, leagues }: {token: any, leagues: any}) => {
 	const { userID, setUserID } = useContext(UserContext)
@@ -23,16 +24,6 @@ const Profile = ({ token, leagues }: {token: any, leagues: any}) => {
 									</Link>
 								</p>
 							}
-							<p className="w-1/2">Username:</p>
-							<p className="w-1/2">{userID.username}</p>
-							<p className="w-1/2">Email:</p>
-							<p className="w-1/2">{userID.email}</p>
-							{userID.favTeam && (
-								<>
-									<p className="w-1/2">Team:</p>
-									<p className="w-1/2">{userID.favTeam}</p>
-								</>
-							)} 
 						</div>
 						<EditUser defaultValues={userID} setData={setUserID} id={userID.id} token={token} />
 					</div>
@@ -41,14 +32,34 @@ const Profile = ({ token, leagues }: {token: any, leagues: any}) => {
 				)}
 				{ leagues && (
 					<div>
-						<div className="mb-4 text-lg">Your leagues</div>
-						{leagues && leagues.map((league) => (
-							<div key={league.name}>
-								<Link href="/league/[slug]" as={`/league/${league.slug}`}>
-									{league.name}
-								</Link>
-							</div>
-						))}
+						<div className="flex flex-col items-center my-4">
+							<div className="my-4 text-xl font-light text-blue-700">Your leagues</div>
+							{leagues.map((league: League) => (
+								<div className="flex flex-wrap justify-between max-w-sm px-6 py-4 mb-4 bg-white rounded-md shadow-blue-lg" key={league._id}>
+									<div >
+										<Link href={`/league/${league.slug}`}>
+											<a className="text-lg font-light text-blue-800 border-b-2 border-white border-dashed hover:border-blue-400">
+												{league.name}
+
+											</a>
+										</Link>
+									</div>
+									<div className="flex flex-col w-full p-2 ">
+										{league.members.data.length > 0 ? (
+											<>
+												{league.members.data.map((member: User) => (
+													<span className="text-base font-light" key={member._id}>
+														{member.username}
+													</span>
+												))}
+											</>
+										) : (
+											<p className="text-sm">No members</p>
+										)}
+									</div>
+								</div>
+							))}
+						</div>
 					</div>
 				)}
 			</div>
