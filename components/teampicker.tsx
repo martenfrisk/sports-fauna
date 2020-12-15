@@ -42,15 +42,15 @@ const TeamPicker = ({
 				<div
 					key={team.teamId}
 					onClick={() => toggleTeam(team.teamId, team.teamName, team._id)}
-					className="w-1/4 px-2 cursor-pointer"
+					className="w-1/2 px-2 cursor-pointer sm:w-1/4"
 				>
 					<div
-						className={`flex items-center shadow-sm w-full py-2 px-4 mx-2 my-2 rounded-md bg-blue-50 ${
+						className={`flex items-center flex-col sm:flex-row shadow-sm w-full py-2 px-1 sm:px-4 mx-2 my-2 rounded-md bg-blue-50 ${
 							pickedTeam.some((x) => x.teamId === team.teamId) && 'bg-gradient-to-b from-blue-200 to-blue-100'
 						}`}
 					>
 						<Image src={team.badge} width={30} height={30} />
-						<span className="ml-4 text-base">{team.teamName}</span>
+						<span className="mt-2 text-sm sm:mt-0 sm:text-base sm:ml-4">{team.teamName}</span>
 					</div>
 				</div>
 			))}

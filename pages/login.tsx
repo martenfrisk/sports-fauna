@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import Layout from '@/components/layout'
 
 const Login = () => {
 	const router = useRouter()
@@ -57,15 +57,7 @@ const Login = () => {
 	})
 
 	return (
-		<>
-			<div className="flex justify-center mb-4 bg-blue-200 shadow-md">
-				<header className="flex justify-between w-full max-w-3xl py-4 text-gray-700">
-					<Link href="/">
-						<a className="text-xl">Home</a>
-					</Link>
-				
-				</header>
-			</div>
+		<Layout>
 			<div className="w-full max-w-6xl px-6 mx-auto">
 				<div className="flex justify-center w-full">
 					<div className="flex flex-col items-center max-w-2xl">
@@ -120,7 +112,7 @@ const Login = () => {
 									</div>
 								</form>
 
-								<form onSubmit={onResetSubmit}>
+								<form onSubmit={onResetSubmit} className="my-10">
 									<p className="w-full text-center">Reset password</p>
 									<div className="flex items-end mt-2">
 										<label className="w-1/3 mr-2">Email</label>
@@ -151,7 +143,7 @@ const Login = () => {
 					</div>
 				</div>
 			</div>
-		</>
+		</Layout>
 	)
 }
 

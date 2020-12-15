@@ -27,26 +27,26 @@ const Header = () => {
 
 	return (
 		<div className="flex justify-center mb-4">
-			<header className="flex items-center justify-between w-full max-w-3xl py-4 text-gray-700">
+			<header className="flex flex-wrap items-center justify-between w-full max-w-4xl px-6 py-6 text-gray-700">
 				<Link href="/">
-					<a className="text-3xl text-blue-700">Sport Guesser</a>
+					<a className="w-full mb-2 text-2xl text-blue-700 sm:mb-0 sm:w-auto sm:text-3xl">Sport Guesser</a>
 				</Link>
 
-				<div className="flex space-x-4">
+				<div className="flex justify-between w-full space-x-2 sm:w-auto sm:space-x-4">
 					{user ? (
 						<>
 							<div>
 								<Link href="/guess">
-									<a className="px-2 py-1 transition-all duration-300 transform shadow-none rounded-2xl hover:shadow-lg">Guess</a>
+									<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:shadow-lg hover:text-blue-700">Guess</a>
 								</Link>
 							</div>
 							<div>
 								<Link href="/profile">
-									<a className="px-2 py-1 transition-all duration-300 transform shadow-none rounded-2xl hover:shadow-lg">Profile</a>
+									<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:shadow-lg hover:text-blue-700">Profile</a>
 								</Link>
 							</div>
 							<div>
-								<span onClick={logout} className="px-3 py-2 text-blue-700 transition-all duration-300 transform border-2 border-blue-500 rounded-lg shadow-lg cursor-pointer bg-gradient-to-br from-white to-blue-50 hover:shadow-lg">Logout</span>
+								<span onClick={logout} className="transition-all duration-300 transform cursor-pointer hover:text-blue-700">Logout</span>
 							</div>
 						</>
 					) : (
