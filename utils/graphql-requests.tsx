@@ -498,6 +498,7 @@ export const getNewLeagueData = async (token: string) => {
 					members {
 						data {
 							username
+							_id
 						}
 					}
 				}

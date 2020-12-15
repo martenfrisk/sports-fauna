@@ -52,8 +52,8 @@ const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], t
 					</Link>
 				</div>
 			)}
-			<div className="flex w-full mt-4 ">
-				<div className="flex flex-wrap items-start w-1/2 p-4 mx-4 bg-blue-100 rounded-md">
+			<div className="flex flex-wrap w-full mt-4">
+				<div className="flex flex-wrap items-start order-2 w-full p-4 mx-4 bg-blue-100 rounded-md sm:order-1 sm:w-1/2">
 					<div className="w-full">
 						Upcoming games
 					</div>
@@ -102,23 +102,28 @@ const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], t
 					}
 				</div>
 				{data ? (
-					<div className="flex flex-col items-start w-1/2">
-						<h2>
-						League name: {data.name}
-						</h2>
-						<div>
-						League members: 
-							{data.members && data.members.data.length > 0 ? (
-								data.members.data.map((item) => (
-									<div key={item.username}>
-										{item.username} ({item.email})
-									</div>
-								))
-							) : (
-								<span className="ml-2 text-sm italics">
+					<div className="flex flex-col items-center order-1 w-full mb-4 sm:items-start sm:order-2 sm:w-1/2">
+						<div className="flex justify-between w-full">
+							<div className="w-1/2">League name:</div>
+							<div className="w-1/2 text-left">{data.name}</div>
+						</div>
+						<div className="flex justify-between w-full">
+							<div className="w-1/2">
+								Members: 
+							</div>
+							<div className="flex flex-col w-1/2">
+								{data.members && data.members.data.length > 0 ? (
+									data.members.data.map((item) => (
+										<div key={item.username}>
+											{item.username}
+										</div>
+									))
+								) : (
+									<span className="ml-2 text-sm italics">
 								No members :(
-								</span>
-							)}
+									</span>
+								)}
+							</div>
 						</div>
 						<div className="mt-4">
 							<p className="text-sm text-center">

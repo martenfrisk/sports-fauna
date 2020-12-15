@@ -77,7 +77,7 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 	return (
 		<Layout>
 			<div className="flex flex-wrap justify-center">
-				<div className="mb-4 text-2xl">
+				<div className="w-full mb-4 text-2xl text-center">
 					{league.name}
 				</div>
 				{/* <p className="w-full mb-4 text-center">
@@ -109,20 +109,20 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 							return (
 								<div key={team.teamId}>
 									<div
-										className="flex items-start w-full mb-4"
+										className="flex flex-wrap items-start w-full mb-4"
 									>
-										<div className="flex items-center w-1/3 text-right">
+										<div className="flex flex-wrap items-center mb-6 text-right wm-full sm:w-1/3 sm:mb-0">
 											<Image src={team.badge} height={30} width={30} />
 											<span className="ml-4">
 												{team.teamName}
 											</span>
 										</div>
-										<div className="w-2/3">
+										<div className="w-full sm:w-2/3">
 											{mergedGames.map(
 												(event: Event) => (
-													<div className="p-2 mb-4 rounded-md bg-gray-50" key={event.dateTime}>
+													<div className="p-2 mb-4 bg-opacity-25 rounded-md shadow-md bg-blue-50" key={event.dateTime}>
 														<div className="flex flex-wrap justify-between w-full mb-2">
-															<span className="w-full -mb-4 text-sm text-left">
+															<span className="w-full text-sm text-left sm:-mb-4">
 																{new Date(event.dateTime).toLocaleDateString()}
 															</span>
 															<div className="flex justify-center w-full">
@@ -201,10 +201,10 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 				</div>
 
 				{unsaved &&
-				<div className="fixed bottom-0 flex flex-col items-center px-10 py-2 bg-white rounded-md bg-opacity-90 ">
+				<div className="fixed bottom-0 flex flex-col items-center px-10 py-6 bg-white rounded-md bg-opacity-90 ">
 							You have {newWinnerGuess.length} unsaved {newWinnerGuess.length === 1 ? 'guess' : 'guesses'}
 					<button
-						className="px-3 py-1 text-white rounded-md bg-gradient-to-b from-blue-500 to-blue-700"
+						className="px-3 py-1 mt-2 text-white rounded-md bg-gradient-to-b from-blue-500 to-blue-700"
 						onClick={handleSave}
 					>
 							Save
