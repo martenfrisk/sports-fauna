@@ -8,6 +8,48 @@ import Layout from '@/components/layout'
 import { convertEnum, convertToEnum } from '@/utils/converters'
 import { useRouter } from 'next/router'
 
+const InputNoPrevious = ({handleInputChange, event}: {handleInputChange: any, event: Event}) => (
+	<>
+		<div className="flex justify-center w-full">
+			<label className="inline-flex items-center">
+				<input name={event._id} type="radio" value="1" className="border-gray-500 border-px" onChange={e => handleInputChange(e, event, 'winner')} />
+				<span className="ml-2">1</span>
+			</label>
+			<label className="inline-flex items-center mx-2">
+				<input name={event._id} type="radio" value="X" className="bg-blue-100 " onChange={e => handleInputChange(e, event, 'winner')} />
+				<span className="ml-2">X</span>
+			</label>
+			<label className="inline-flex items-center">
+				<input name={event._id} type="radio" value="2" className="" onChange={e => handleInputChange(e, event, 'winner')} />
+				<span className="ml-2">2</span>
+			</label>
+		</div>
+	</>
+)
+
+const InputWithPrevious = (
+	event: Event,
+	userID: string,
+	handleRemoveGuess: (guessId: string) => Promise<void>
+) => (
+	<div className="flex justify-between w-full p-1 text-xs bg-green-100 rounded-md">
+		<span className="w-1/5"></span>
+		<div className="flex justify-center w-3/5">
+			<span className="mr-1 text-xs">
+				Your guess:
+			</span>
+			<span className="font-semibold">
+				{convertEnum(event.submittedGuesses.data.find((x) => x.user._id === userID).winner)}
+			</span>
+		</div>
+		<span
+			className="w-1/5 pr-2 text-right cursor-pointer hover:underline font-xs"
+			onClick={() => handleRemoveGuess(event.submittedGuesses.data.find((x) => x.user._id === userID)._id)}
+		>
+			delete
+		</span>
+	</div>
+)
 
 const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [UserGuess], token: string, userID: string}) => {
 	const router = useRouter()
@@ -80,20 +122,6 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 				<div className="w-full mb-4 text-2xl text-center">
 					{league.name}
 				</div>
-				{/* <p className="w-full mb-4 text-center">
-					{guessesFromDb.length > 0 ? (
-						`You have ${guessesFromDb.length} ${guessesFromDb.length === 1 ? 'guess' : 'guesses'}`
-					) : (
-						'You have not guessed any games yet.'
-					)}
-				</p>
-				<div className="flex flex-col items-center w-full">
-					{guessesFromDb.map((guess: UserGuess) => (
-						<div className="flex w-full" key={guess._id}>
-							<MyGuesses {...guess} />
-						</div>
-					))}
-				</div> */}
 				<div key={league.slug} className="w-full max-w-2xl mt-10">
 					
 					{league.options.teams.map(
@@ -136,58 +164,12 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 														</div>
 														<div className="flex items-center w-full">
 															{userID && event.submittedGuesses.data.find((x) => x.user._id === userID) ? (
-																<div className="flex justify-between w-full p-1 text-xs bg-green-100 rounded-md">
-																	<span className="w-1/5"></span>
-																	<div className="flex justify-center w-3/5">
-																		<span className="mr-1 text-xs">
-																					Your guess:
-																		</span>
-																		<span className="font-semibold">
-																			{convertEnum(event.submittedGuesses.data.find((x) => x.user._id === userID).winner)}
-																		</span>
-																	</div>
-																	<span
-																		className="w-1/5 pr-2 text-right cursor-pointer hover:underline font-xs"
-																		onClick={() => handleRemoveGuess(event.submittedGuesses.data.find((x) => x.user._id === userID)._id)}
-																	>
-																		delete
-																	</span>
-																</div>
+																InputWithPrevious(event, userID, handleRemoveGuess)
 															) : (
-																<>
-																	<div className="flex justify-center w-full">
-																		<label className="inline-flex items-center">
-																			<input
-																				name={event._id}
-																				type="radio"
-																				value="1"
-																				className="border-gray-500 border-px"
-																				onChange={(e) => handleInputChange(e, event, 'winner')}
-																			/>
-																			<span className="ml-2">1</span>
-																		</label>
-																		<label className="inline-flex items-center mx-2">
-																			<input
-																				name={event._id}
-																				type="radio"
-																				value="X"
-																				className="bg-blue-100 "
-																				onChange={(e) => handleInputChange(e, event, 'winner')}
-																			/>
-																			<span className="ml-2">X</span>
-																		</label>
-																		<label className="inline-flex items-center">
-																			<input
-																				name={event._id}
-																				type="radio"
-																				value="2"
-																				className=""
-																				onChange={(e) => handleInputChange(e, event, 'winner')}
-																			/>
-																			<span className="ml-2">2</span>
-																		</label>
-																	</div>
-																</>
+																<InputNoPrevious
+																	handleInputChange={handleInputChange}
+																	event={event}
+																/>
 															)}
 														</div>
 													</div>
@@ -235,3 +217,7 @@ export const getServerSideProps = async (ctx: any) => {
 }
 
 export default Guess
+
+
+
+  

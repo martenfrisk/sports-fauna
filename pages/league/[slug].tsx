@@ -9,6 +9,54 @@ import { League as LeagueType, TeamType } from '@/utils/types'
 import Image from 'next/image'
 import Link from 'next/link'
 
+const SavePopup = ({saveChanges, unsavedChanges, updateMessage}: {saveChanges: any, unsavedChanges: boolean, updateMessage: any}) => {
+	return (<div className="flex flex-col items-center w-full my-6">
+		<button onClick={() => saveChanges()} className={`px-6 py-2 text-lg border ${unsavedChanges ? 'border-red-600 text-red-600' : 'border-blue-600'} rounded-md`}>
+			{unsavedChanges ? 'You have unsaved changes. Click to save.' : 'Save changes'}
+		</button>
+		{updateMessage && <p className="absolute mt-12 text-sm">{updateMessage}</p>}
+	</div>)
+}
+
+const teamEvent: (value: any, index: number, array: any[]) => JSX.Element = (team) => {
+	const mergedGames = [...team.events.homeEvents.data, ...team.events.awayEvents.data]
+	mergedGames.sort((a, b) => {
+		const varA = a.dateTime.toUpperCase()
+		const varB = b.dateTime.toUpperCase()
+		if (varA > varB)
+			return 1
+		if (varA < varB)
+			return -1
+		return 0
+	})
+	return (
+		<div key={team.name} className="flex flex-wrap items-start w-full mt-4">
+			<div className="w-1/5 text-lg text-gray-800">
+				<Image src={team.events.badge} alt={`${team.name} badge`} height={30} width={30} />
+			</div>
+			<div className="w-4/5">
+				{mergedGames.slice(0, 2).map((event) => (
+					<>
+						<p>
+							<span className={`${event.homeTeamName === team.name && 'font-semibold'} mr-1`}>
+								{event.homeTeamName}
+							</span>
+							<span className="text-sm">
+								vs
+							</span>
+							<span className={`${event.awayTeamName === team.name && 'font-semibold'} ml-1`}>
+								{event.awayTeamName}
+							</span>
+						</p>
+						<p className="text-xs text-gray-800">{new Date(
+							event.dateTime)
+							.toLocaleDateString()}</p>
+					</>
+				))}
+			</div>
+		</div>
+	)
+}
 const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], token: any }) => {
 	const [pickedTeam, setPickedTeam] = useState(
 		data.options.teams
@@ -58,44 +106,7 @@ const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], t
 						Upcoming games
 					</div>
 					{upcomingEvents !== [] ? (
-						upcomingEvents.map((team) => {
-							JSON.stringify(team)
-							const mergedGames = [...team.events.homeEvents.data, ...team.events.awayEvents.data]
-							mergedGames.sort((a, b) => {
-								const varA = a.dateTime.toUpperCase()
-								const varB = b.dateTime.toUpperCase()
-								if (varA > varB) return 1
-								if (varA < varB) return -1
-								return 0
-							})
-							return (
-								<div key={team.name} className="flex flex-wrap items-start w-full mt-4">
-									<div className="w-1/5 text-lg text-gray-800">
-										<Image src={team.events.badge} alt={`${team.name} badge`} height={30} width={30} />
-									</div>
-									<div className="w-4/5">
-										{mergedGames.slice(0, 2).map((event) => (
-											<>
-												<p>
-													<span className={`${event.homeTeamName === team.name && 'font-semibold'} mr-1`}>
-														{event.homeTeamName}	
-													</span>
-													<span className="text-sm">
-															vs
-													</span>
-													<span className={`${event.awayTeamName === team.name && 'font-semibold'} ml-1`}>
-														{event.awayTeamName}	
-													</span>
-												</p>
-												<p className="text-xs text-gray-800">{new Date(
-													event.dateTime)
-													.toLocaleDateString()}</p>
-											</>
-										))}
-									</div>
-								</div>
-							)
-						})
+						upcomingEvents.map(teamEvent)
 					) : (
 						<div>Loading...</div>
 					)
@@ -143,17 +154,13 @@ const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], t
 
 				</div>
 			</div>
-			<div className="flex flex-col items-center w-full my-6">
-				<button
-					onClick={() => saveChanges()}
-					className={`px-6 py-2 text-lg border ${unsavedChanges ? 'border-red-600 text-red-600' : 'border-blue-600'} rounded-md`}	
-				>
-					{unsavedChanges ? 'You have unsaved changes. Click to save.' : 'Save changes'}
-				</button>
-				{updateMessage && (
-					<p className="absolute mt-12 text-sm">{updateMessage}</p>
-				)}
-			</div>
+			
+			<SavePopup 
+				saveChanges={saveChanges}
+				unsavedChanges={unsavedChanges}
+				updateMessage={updateMessage}
+			/>
+			
 			{errorMessage && (
 				<p>{errorMessage}</p>
 			)}
@@ -172,11 +179,15 @@ export async function getServerSideProps(ctx: any) {
 	const teams = await getAllTeamTypes(token)
 	const data = await FindLeague(token, slug)
 
-	return { props: { 
-		token: token || null,
-		data: data?.findLeague.data[0],
-		teams: teams?.allTeams.data
-	} }
+	return { 
+		props: { 
+			token: token || null,
+			data: data?.findLeague.data[0],
+			teams: teams?.allTeams.data
+		} 
+	}
 }
+
+    
 
 export default League
