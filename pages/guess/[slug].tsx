@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import { createNewUserGuess, FindLeagueBySlug, FindUserGuessByID, RemoveGuess } from '@/utils/graphql-requests'
+import { gql, request } from 'graphql-request'
 import { League, UserGuess, TeamType, Event } from '@/utils/types'
 import Layout from '@/components/layout'
 // import MyGuesses from '@/components/guesses/my-guesses'
@@ -26,6 +27,8 @@ const InputNoPrevious = ({handleInputChange, event}: {handleInputChange: any, ev
 		</div>
 	</>
 )
+
+
 
 const InputWithPrevious = (
 	event: Event,
@@ -56,6 +59,7 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 
 	const [unsaved, setUnsaved] = useState(false)
 	const [newWinnerGuess, setNewWinnerGuess] = useState([])
+	const [eventResults, setEventResults] = useState([])
 	
 	const [guessesFromDb, setGuessesFromDb] = useState([])
 	const filterOwn = myGuesses.filter(x => x.user._id === userID)
@@ -100,6 +104,47 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 	// 	setGuessesFromDb(myGuesses)
 	// 	console.log('new import')
 	// }, [unsaved])
+	const checkIfFinished = (date: string) => {
+		const eventDate = new Date(date)
+		const today = new Date()
+		if (eventDate.getDate() < today.getDate()) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	const getEventResultExternal = async (eventId: string) => {
+		const query = gql`
+		query GetResult($id: ID!){
+			event(id: $id) {
+				id
+				name
+				away {
+					score
+				}
+				home {
+					score
+				}
+				name    
+			}
+		}
+		`
+		try {
+			await request('https://sportsdb.netlify.app/', query, { id: eventId })
+				.then(async ({event}) => {
+					const obj = await event[0]
+					console.log({obj})
+					if (eventResults.some(x => x.id === eventId)) {
+						return null
+					} else {
+						setEventResults((prev) => [...prev, obj])
+					}
+				})
+		} catch (err) {
+			console.error(err)
+		}
+	}
 
 	const handleSave = async () => {
 		newWinnerGuess.map(guess => {
@@ -150,16 +195,42 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 												(event: Event) => (
 													<div className="p-2 mb-4 bg-opacity-25 rounded-md shadow-md bg-blue-50" key={event.dateTime}>
 														<div className="flex flex-wrap justify-between w-full mb-2">
-															<span className="w-full text-sm text-left sm:-mb-4">
+															<span className={`w-full text-sm text-left sm:-mb-4 ${checkIfFinished(event.dateTime) && 'text-gray-400'}`}>
 																{new Date(event.dateTime).toLocaleDateString()}
 															</span>
 															<div className="flex justify-center w-full">
-																<span className={`text-base w-1/2 text-right mr-2 ${team.teamName === event.homeTeamName && 'font-semibold'}`}>
-																	{event.homeTeamName}
-																</span>
-																<span className={`text-base w-1/2 ml-2 ${team.teamName === event.awayTeamName && 'font-semibold'}`}>
-																	{event.awayTeamName}
-																</span>
+																{checkIfFinished(event.dateTime) ? (										
+																	<>
+																		<span className={`text-base w-1/2 text-right mr-2 ${team.teamName === event.homeTeamName && 'font-semibold'}`}>
+																			{event.homeTeamName}
+																		</span>
+																		<span className={`text-base flex justify-between w-1/2 ml-2 ${team.teamName === event.awayTeamName && 'font-semibold'}`}>
+																			<span>
+																				{event.awayTeamName}
+																			</span>
+																			<span className="font-normal cursor-pointer" onClick={() => getEventResultExternal(event.eventId)}>
+																				{eventResults.find(x => x.id === event.eventId) ? (
+																					<>
+																						{eventResults.find(x => x.id === event.eventId).home.score}
+																						&nbsp;-&nbsp;
+																						{eventResults.find(x => x.id === event.eventId).away.score}
+																					</>
+																				) : (
+																					'get res'
+																				)}
+																			</span>
+																		</span>
+																	</>
+																) : (
+																	<>
+																		<span className={`text-base w-1/2 text-right mr-2 ${team.teamName === event.homeTeamName && 'font-semibold'}`}>
+																			{event.homeTeamName}
+																		</span>
+																		<span className={`text-base w-1/2 ml-2 ${team.teamName === event.awayTeamName && 'font-semibold'}`}>
+																			{event.awayTeamName}
+																		</span>
+																	</>
+																)}
 															</div>
 														</div>
 														<div className="flex items-center w-full">
@@ -206,12 +277,14 @@ export const getServerSideProps = async (ctx: any) => {
 
 	const data = await FindLeagueBySlug(token, slug)
 
+
+		
 	return {
 		props: {
 			token: token || null,
 			userID: userID || null,
 			league: data?.findLeague.data[0],
-			myGuesses: myGuesses?.allGuesses.data || null
+			myGuesses: myGuesses?.allGuesses.data || null,
 		}
 	}
 }

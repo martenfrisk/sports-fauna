@@ -101,7 +101,7 @@ const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], t
 				</div>
 			)}
 			<div className="flex flex-wrap w-full mt-4">
-				<div className="flex flex-wrap items-start order-2 w-full p-4 mx-4 bg-blue-100 rounded-md sm:order-1 sm:w-1/2">
+				<div className="flex flex-wrap items-start order-2 w-full p-4 bg-blue-100 rounded-md sm:order-1 sm:w-1/2">
 					<div className="w-full">
 						Upcoming games
 					</div>
@@ -113,7 +113,7 @@ const League = ({ data, teams, token }: { data: LeagueType, teams: [TeamType], t
 					}
 				</div>
 				{data ? (
-					<div className="flex flex-col items-center order-1 w-full mb-4 sm:items-start sm:order-2 sm:w-1/2">
+					<div className="flex flex-col items-center order-1 w-full p-4 mb-4 sm:items-start sm:order-2 sm:w-1/2">
 						<div className="flex justify-between w-full">
 							<div className="w-1/2">League name:</div>
 							<div className="w-1/2 text-left">{data.name}</div>

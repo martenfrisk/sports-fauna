@@ -9,23 +9,28 @@ const Home = ({token}: { token: any}) => {
 
 	return (
 		<Layout>
-			<div className="flex flex-col items-center w-full py-10 mx-auto">
+			<div className="flex flex-col items-center w-full mx-auto mb-10">
 				{token ? (
-					<>
-						<div className="my-6 space-x-2">
-							<Link href="/league/new">
-								<a className="btn-blue">
+					<div className="flex flex-col flex-wrap w-full sm:flex-row">
+						<div className="flex justify-center w-full sm:items-center sm:w-1/2">
+							<div className="my-6 space-x-2">
+								<Link href="/league/new">
+									<a className="btn-blue">
 									Create League
-								</a>
-							</Link>
-							<Link href="/guess">
-								<a className="btn-blue">
+									</a>
+								</Link>
+								<Link href="/guess">
+									<a className="btn-blue">
 									Start guessing
-								</a>
-							</Link>
+									</a>
+								</Link>
+							</div>
+
 						</div>
-						<Leagues token={token} />
-					</>
+						<div className="w-full sm:w-1/2">
+							<Leagues token={token} />
+						</div>
+					</div>
 				)	 : (
 					<div className="flex flex-wrap w-full">
 						<div className="flex flex-col items-center justify-center w-full md:w-1/2">

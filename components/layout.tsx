@@ -3,7 +3,7 @@ import Header from '@/components/header'
 
 export default function Layout({ children }: { children: any }) {
 	return (
-		<div className="w-screen h-full px-4 py-4 radialgradient">
+		<div className="w-screen h-full min-h-screen px-4 py-4 radialgradient">
 			<div className="bg-white border-4 border-blue-400 bg-opacity-85 rounded-3xl shadow-blue-lg border-opacity-30">
 
 				<Head>

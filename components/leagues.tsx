@@ -13,26 +13,33 @@ const Leagues = ({ token }: { token: any }) => {
 		data && setLeagueInfo(() => data.allLeagues.data)
 	}
 
+	
 	const toggleMembership = async (action: string, leagueId: string) => {
 		if (action === 'join') {
-			await joinLeague(token, userID.id, leagueId).then(() => getData())
+			await joinLeague(token, userID.id, leagueId)
+				.then(() => getData())
 		} else if (action === 'leave') {
-			await leaveLeague(token, userID.id, leagueId).then(() => getData())
+			await leaveLeague(token, userID.id, leagueId)
+				.then(() => getData())
 		}
 	}
 	useEffect(() => {
 		getData()
 	}, [])
+	
 
 	return userID
 		? leagueInfo.length > 0 && (
-			<div>
-				<p className="text-lg">Leagues</p>
+			<div className="flex flex-col items-center">
+				<p className="mb-4 text-2xl font-light text-center text-blue-800">Leagues</p>
 				{leagueInfo.map((league: League) => (
-					<div className="flex flex-wrap justify-between mb-4" key={league._id}>
-						<div className="w-1/2">
+					<div className="flex flex-wrap justify-between max-w-sm px-6 py-4 mb-4 bg-white rounded-md shadow-blue-lg" key={league._id}>
+						<div >
 							<Link href={`/league/${league.slug}`}>
-								{league.name}
+								<a className="text-lg font-light text-blue-800 border-b-2 border-white border-dashed hover:border-blue-400">
+									{league.name}
+
+								</a>
 							</Link>
 						</div>
 						{league.members.data.some(
@@ -40,22 +47,23 @@ const Leagues = ({ token }: { token: any }) => {
 						) ? (
 								<button
 									onClick={() => toggleMembership('leave', league._id)}
+									className="px-2 py-px text-blue-700 transition-all duration-500 bg-white border-2 border-blue-300 rounded-md bg-gradient-to-br from-white to-blue-100 shadow-blue-lg via-white hover:to-blue-200"
 								>
                   Leave
 								</button>
 							) : (
-								<button onClick={() => toggleMembership('join', league._id)}>
+								<button
+									onClick={() => toggleMembership('join', league._id)}
+									className="px-2 py-px text-blue-700 transition-all duration-500 bg-white border-2 border-blue-300 rounded-md bg-gradient-to-br from-white to-blue-100 shadow-blue-lg via-white hover:to-blue-200"
+								>
                   Join
 								</button>
 							)}
-						<div className="flex flex-col w-full p-2 border border-gray-400 rounded-md">
+						<div className="flex flex-col w-full p-2 ">
 							{league.members.data.length > 0 ? (
 								<>
-									<p>
-									League members
-									</p>
 									{league.members.data.map((member: User) => (
-										<span className="text-sm" key={member._id}>
+										<span className="text-base font-light" key={member._id}>
 											{member.username}
 										</span>
 									))}
