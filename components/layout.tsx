@@ -8,6 +8,7 @@ export default function Layout({ children }: { children: any }) {
 
 				<Head>
 					<title>Sport Guess - guess football results with friends</title>
+					<meta name="Description" content="Guess football results and compete with your friends." />
 				</Head>
 				<Header />
 				<div className="w-full max-w-6xl px-6 mx-auto">
