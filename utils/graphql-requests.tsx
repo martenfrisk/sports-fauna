@@ -192,6 +192,11 @@ export const getLeagues = async (token: string, id: string) => {
           data {
             name
             slug
+						members {
+							data {
+								username
+							}
+						}
             options {
               teams {
                 teamId
