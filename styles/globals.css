@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+	button {
+		@apply select-none;
+	}
+	a {
+		@apply select-none;
+	}
+}
+
 @layer components {
 	.btn-blue {
 		@apply px-4 py-2 mt-4 text-sm text-white transition-colors border-2 border-transparent rounded-md shadow-md bg-gradient-to-tr from-blue-800 to-blue-400 hover:from-white hover:to-white hover:border-blue-800 hover:text-blue-800 focus:outline-none;

@@ -37,21 +37,21 @@ const Header = () => {
 
 						<div>
 							<Link href="/guess">
-								<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:shadow-lg hover:text-blue-700">Guess</a>
+								<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:text-blue-700">Guess</a>
 							</Link>
 						</div>
 						<div>
 							<Link href="/profile">
-								<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:shadow-lg hover:text-blue-700">Profile</a>
+								<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:text-blue-700">Profile</a>
 							</Link>
 						</div>
 						<div>
-							<span onClick={logout} className="transition-all duration-300 transform cursor-pointer hover:text-blue-700">Logout</span>
+							<span onClick={logout} className="transition-all duration-300 transform cursor-pointer select-none hover:text-blue-700">Logout</span>
 						</div>
 					</div>
 				) : (
 					<Link href="/login">
-						<a className="px-3 py-2 text-blue-700 transition-all duration-300 transform border-2 border-blue-500 rounded-lg shadow-lg cursor-pointer bg-gradient-to-br from-white to-blue-50 hover:shadow-lg">Login</a>
+						<a className="px-3 py-2 text-blue-700 transition-all duration-300 transform border-2 border-blue-500 rounded-lg shadow-lg cursor-pointer bg-gradient-to-br from-white to-blue-50 ">Login</a>
 					</Link>
 				)}
 			</header>
