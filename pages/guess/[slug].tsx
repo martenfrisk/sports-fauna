@@ -208,7 +208,7 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 																			<span>
 																				{event.awayTeamName}
 																			</span>
-																			<span className="font-normal cursor-pointer" onClick={() => getEventResultExternal(event.eventId)}>
+																			<span className="font-normal cursor-pointer select-none" onClick={() => getEventResultExternal(event.eventId)}>
 																				{eventResults.find(x => x.id === event.eventId) ? (
 																					<>
 																						{eventResults.find(x => x.id === event.eventId).home.score}
@@ -216,7 +216,7 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 																						{eventResults.find(x => x.id === event.eventId).away.score}
 																					</>
 																				) : (
-																					'get res'
+																					'Result?'
 																				)}
 																			</span>
 																		</span>
