@@ -1,8 +1,9 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/layout'
 import Leagues from '@/components/leagues'
 import { getAuthCookie } from '@/utils/auth-cookies'
-import {Trophy, Training, Illustration} from '@/components/svg/landing-page'
+import { Trophy, Training } from '@/components/svg/landing-page'
 // import { useState } from 'react'
 
 const Home = ({token}: { token: any}) => {
@@ -34,15 +35,15 @@ const Home = ({token}: { token: any}) => {
 				)	 : (
 					<div className="flex flex-wrap w-full">
 						<div className="flex flex-col items-center justify-center w-full md:w-1/2">
-							<div className="text-xl text-center text-blue-700 md:text-3xl">
+							<div className="font-serif text-xl text-center text-gray-700 md:text-3xl">
 								<h1>Guess football results</h1>
-								<h1  className="my-6">Compete with your friends</h1>
+								<h1  className="my-4">Compete with your friends</h1>
 							</div>
 							<Link href="/signup">
 								<a className="px-4 py-px mt-4 mb-12 text-lg font-semibold text-white border-2 border-blue-500 rounded-md shadow-xl bg-gradient-to-br from-blue-600 to-blue-300">Join</a>
 							</Link>
 
-							<div className="px-6 py-4 text-lg font-normal text-blue-700 bg-white rounded-md shadow-blue-lg">
+							<div className="px-4 py-4 text-lg font-normal text-blue-700 bg-white rounded-md sm:px-12 shadow-blue-2xl">
 								<div className="flex items-center w-full">
 									<div className="w-1/2">
 										<p className="">1.&nbsp;Create&nbsp;a&nbsp;league</p>
@@ -63,8 +64,8 @@ const Home = ({token}: { token: any}) => {
 								</div>
 							</div>
 						</div>
-						<div className="flex items-center justify-center w-full pt-6 overflow-visible md:w-1/2">
-							<Illustration />
+						<div className="flex items-center justify-center w-full pt-6 md:w-1/2" style={{ filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))' }}>
+							<Image src="/person.png" width="279" height="463" />
 						</div>
 					</div>
 				)}

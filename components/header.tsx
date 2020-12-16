@@ -29,7 +29,7 @@ const Header = () => {
 		<div className="flex justify-center mb-4">
 			<header className="flex flex-wrap items-center justify-between w-full max-w-4xl px-6 py-6 text-gray-700">
 				<Link href="/">
-					<h1 className="mb-2 text-4xl font-light text-blue-700 sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
+					<h1 className="mb-2 text-4xl font-semibold tracking-tight text-blue-700 lowercase sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
 				</Link>
 
 				{user ? (
