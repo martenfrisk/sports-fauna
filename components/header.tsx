@@ -29,7 +29,7 @@ const Header = () => {
 		<div className="flex justify-center mb-4">
 			<header className="flex flex-wrap items-center justify-between w-full max-w-4xl px-6 py-6 text-gray-700">
 				<Link href="/">
-					<h1 className="mb-2 text-4xl font-normal tracking-tight text-blue-700 lowercase font-logo sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
+					<h1 className="mb-2 text-3xl font-medium tracking-tight text-blue-600 lowercase font-logo sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
 				</Link>
 
 				{user ? (
@@ -51,7 +51,10 @@ const Header = () => {
 					</div>
 				) : (
 					<Link href="/login">
-						<a className="px-3 py-2 text-blue-700 transition-all duration-300 transform border-2 border-blue-500 rounded-lg shadow-lg cursor-pointer bg-gradient-to-br from-white to-blue-50 ">Login</a>
+						<a
+							className="px-4 py-1 text-blue-700 transition-colors border-2 border-blue-400 border-opacity-50 rounded-lg cursor-pointer bg-gradient-to-br from-white to-blue-50 hover:border-blue-500"
+							style={{ boxShadow: '0px 7px 20px -4px rgba(28, 100, 242, 0.3)' }}
+						>Log in</a>
 					</Link>
 				)}
 			</header>
