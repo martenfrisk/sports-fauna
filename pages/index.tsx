@@ -65,7 +65,7 @@ const Home = ({token}: { token: any}) => {
 							</div>
 						</div>
 						<div className="flex items-center justify-center w-full pt-6 md:w-1/2" style={{ filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))' }}>
-							<Image src="/person.png" width="279" height="463" />
+							<Image src="/person.png" width={279} height={463} alt="Picture of person looking intrigued" />
 						</div>
 					</div>
 				)}
