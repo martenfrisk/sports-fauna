@@ -35,9 +35,9 @@ const Home = ({token}: { token: any}) => {
 				)	 : (
 					<div className="flex flex-wrap w-full">
 						<div className="flex flex-col items-center justify-center w-full md:w-1/2">
-							<div className="font-serif text-xl text-center text-gray-700 md:text-3xl">
+							<div className="text-xl text-center text-gray-700 font-logo md:text-3xl">
 								<h1>Guess football results</h1>
-								<h1  className="my-4">Compete with your friends</h1>
+								<h1 className="my-4">Compete with your friends</h1>
 							</div>
 							<Link href="/signup">
 								<a className="px-4 py-px mt-4 mb-12 text-lg font-semibold text-white border-2 border-blue-500 rounded-md shadow-xl bg-gradient-to-br from-blue-600 to-blue-300">Join</a>

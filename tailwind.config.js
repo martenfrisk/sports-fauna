@@ -31,6 +31,9 @@ module.exports = {
 	},	
 	darkMode: false, // or 'media' or 'class'
 	theme: {
+		fontFamily: {
+			'logo': ['Maven Pro', 'sans-serif']
+		},
 		extend: {
 			boxShadow: {
 				...makeShadow('cool-gray', '71, 85, 104'),
