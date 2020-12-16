@@ -25,6 +25,11 @@
 /out_publish/
 /out_functions/
 
+/public/sw.js
+/public/sw.js.map
+/public/workbox*
+/public/worker-development.js
+
 
 # debug
 npm-debug.log*
