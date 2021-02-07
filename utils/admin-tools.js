@@ -97,3 +97,99 @@ export const getEventsAndPopulateDB = async (token) => {
 		console.error(err)
 	}
 }
+export const getAllUsers = gql`
+ {
+  allUsers {
+    data {
+      role
+      username
+      leagues {
+        data {
+          name
+        }
+      }
+      email
+      favTeam
+      _id
+    }
+  }
+}
+`
+
+export const queryGetAll = gql`
+{
+	allTeams {
+		data {
+			teamId
+			teamName
+			_id
+			_ts
+			awayEvents {
+				data {
+					_ts
+					dateTime
+				}
+			}
+			homeEvents {
+				data {
+					_ts
+					dateTime
+				}
+			}
+		}
+	}
+}
+`
+export const queryStandings = gql`
+	{
+		allLeagues {
+			data {
+				standings {
+					data {
+						league {
+							name
+						}
+						points
+						member {
+							username
+						}
+					}
+				}
+			}
+		}
+	}
+`
+export const queryEvents = gql`
+	{
+		allEvents {
+			data {
+				_id
+				eventId
+				dateTime
+				homeTeamId {
+					teamId
+					teamName
+				}
+				awayTeamId {
+					teamId
+					teamName
+				}
+				dateTime
+				submittedGuesses {
+					data {
+						_id
+						corrected
+						winner
+						league {
+							_id
+						}
+						user {
+							username
+							_id
+						}
+					}
+				}
+			}
+		}
+	}
+`

@@ -2,7 +2,7 @@ import FinishedEvents from '@/components/admin/finished-events'
 import { useContext, useState } from 'react'
 import Link from 'next/link'
 import Layout from '@/components/layout'
-
+import EditUser from '@/components/admin/edit-user'
 import { UserContext } from '@/utils/user-context'
 // import { getEventsAndPopulateDB } from '@/utils/admin-tools'
 import { getAuthCookie } from '@/utils/auth-cookies'
@@ -10,6 +10,7 @@ import { getAuthCookie } from '@/utils/auth-cookies'
 import { gql, GraphQLClient, request } from 'graphql-request'
 import { Event, Standings, TeamType } from '@/utils/types'
 import { graphQLClient } from '@/utils/graphql-client'
+import { getAllUsers, queryGetAll, queryStandings, queryEvents } from '@/utils/admin-tools'
 
 
 const adminGraphQLClient = () => {
@@ -113,7 +114,7 @@ const getEventsAndPopulateDB = async (token: any, teamId: TeamType['_id'], id: a
 
 }
 
-const Admin = ({ token, data, events }: { token: any, data: any, standings: [Standings], events: [Event] }) => {
+const Admin = ({ token, data, events, users }: { token: any, data: any, standings: [Standings], events: [Event], users: any }) => {
 
 	const {userID} = useContext(UserContext)
 	const [results, setResults] = useState([])
@@ -139,7 +140,6 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 		try {
 			request('https://sportsdb.netlify.app/', query, { id: eventId })
 				.then(({event}) => {
-					console.log(event)
 					const obj = {
 						eventId,
 						data: event
@@ -244,7 +244,6 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 	const eventsWithGuess = events.filter((event: Event) => event.submittedGuesses.data.length > 0)
 
 	const pastEventsWithGuess = eventsWithGuess.map((event: Event) => {
-		console.log(event)
 		const eventDate = new Date(event.dateTime)
 		const today = new Date()
 		if (eventDate < today) {
@@ -254,62 +253,80 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 	
 	return (
 		<Layout>
-			{userID ? (
-				userID.admin ? (
-					<div>
+			<div className="min-h-screen my-10">
+				{userID ? (
+					userID.admin ? (
 						<div>
-							{pastEventsWithGuess && pastEventsWithGuess.map((event: Event) => {
-								const resultForThis = results.find(x => x.eventId === event.eventId)
-								if (event) {
-									getEventResult(event.eventId)
-									return (
-										<FinishedEvents resultForThis={resultForThis} event={event}  updateStandings={updateStandings} setStandingsUpdated={setStandingsUpdated} standingsUpdated={standingsUpdated} />	)}
-							}
+							<div>
+								<details>
+									<summary>Update standings</summary>
+									{pastEventsWithGuess && pastEventsWithGuess.map((event: Event) => {
+										const resultForThis = results.find(x => x.eventId === event.eventId)
+										if (event) {
+											getEventResult(event.eventId)
+										}
+										return (
+											<FinishedEvents key={event._id} resultForThis={resultForThis} event={event}  updateStandings={updateStandings} setStandingsUpdated={setStandingsUpdated} standingsUpdated={standingsUpdated} />	
+										)
+									})}
+								</details>
+							</div>
+							<details>
+								<summary>
+							Populate database with events
+
+								</summary>
+								{data && (
+									data.allTeams.data.map((team: TeamType) => {
+										const games = [...team.awayEvents.data, ...team.homeEvents.data].sort((a, b) => b._ts - a._ts )
+										return (
+											<div key={team._id} className="flex justify-between w-full ">
+												<span>
+													{team.teamName}
+												</span>
+												<span className="text-xs">
+										Last updated: {new Date(games[0]._ts / 1000 ).toUTCString()} 
+												</span>
+												<button onClick={() => getEventsAndPopulateDB(token, team.teamId, team._id, data.allTeams.data)}>
+										Get events
+												</button>
+												<span>{team.awayEvents.data.length === 0 && team.awayEvents.data.length === 0 ? (
+													<span className="bg-red-100">
+											No events
+													</span>
+												) : (
+													<span className="bg-green-100">
+												Has events
+													</span>
+												)}</span>
+											</div>
+										)})
+								)}
+						
+							</details>
+							{users && (
+								<details>
+									<summary>User administration</summary>
+									{users.allUsers.data.map(user => (
+										<EditUser key={user._id} user={user} token={token} />
+									))}
+								</details>
 							)}
 						</div>
-						<div>
-							Populate database with events
-						</div>
-						{data && (
-							data.allTeams.data.map((team: TeamType) => {
-								const games = [...team.awayEvents.data, ...team.homeEvents.data].sort((a, b) => b._ts - a._ts )
-								return (
-									<div key={team._id} className="flex justify-between w-full ">
-										<span>
-											{team.teamName}
-										</span>
-										<span className="text-xs">
-										Last updated: {new Date(games[0]._ts / 1000 ).toUTCString()} 
-										</span>
-										<button onClick={() => getEventsAndPopulateDB(token, team.teamId, team._id, data.allTeams.data)}>
-										Get events
-										</button>
-										<span>{team.awayEvents.data.length === 0 && team.awayEvents.data.length === 0 ? (
-											<span className="bg-red-100">
-											No events
-											</span>
-										) : (
-											<span className="bg-green-100">
-												Has events
-											</span>
-										)}</span>
-									</div>
-								)})
-						)}
-					</div>
-				) : (
-					<>
-						<div>
+					) : (
+						<>
+							<div>
 							Looks like you ended up here by accident. Go home.
-						</div>
-						<Link href="/">
-							<a className="btn-blue">Back</a>
-						</Link>
-					</>
-				)
-			) : (
-				<div>Loading...</div>
-			)}
+							</div>
+							<Link href="/">
+								<a className="btn-blue">Back</a>
+							</Link>
+						</>
+					)
+				) : (
+					<div>Loading...</div>
+				)}
+			</div>
 		</Layout>
 	)
 }
@@ -318,84 +335,7 @@ export default Admin
 
 export const getServerSideProps = async (ctx: any) => {
 	const token = getAuthCookie(ctx.req)
-	const queryGetAll = gql`
-	{
-		allTeams {
-			data {
-				teamId
-				teamName
-				_id
-				_ts
-				awayEvents {
-					data {
-						_ts
-						dateTime
-					}
-				}
-				homeEvents {
-					data {
-						_ts
-						dateTime
-					}
-				}
-			}
-  	}
-	}
-	`
-	const queryStandings = gql`
-		{
-			allLeagues {
-				data {
-					standings {
-						data {
-							league {
-								name
-							}
-							points
-							member {
-								username
-							}
-						}
-					}
-				}
-			}
-		}
-	`
-	const queryEvents = gql`
-		{
-			allEvents {
-				data {
-					_id
-					eventId
-					dateTime
-					homeTeamId {
-						teamId
-						teamName
-					}
-					awayTeamId {
-						teamId
-						teamName
-					}
-					dateTime
-					submittedGuesses {
-						data {
-							_id
-							corrected
-							winner
-							league {
-								_id
-							}
-							user {
-								username
-								_id
-							}
-						}
-					}
-				}
-			}
-		}
-	`
-
+	const users = await graphQLClient(token).request(getAllUsers)
 	const data = await graphQLClient(token).request(queryGetAll)
 	const standings = await graphQLClient(token).request(queryStandings)
 	const events = await graphQLClient(token).request(queryEvents)
@@ -403,6 +343,7 @@ export const getServerSideProps = async (ctx: any) => {
 		props: {
 			token: token || null,
 			data,
+			users,
 			standings,
 			events: events?.allEvents.data
 		}
