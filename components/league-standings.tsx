@@ -1,4 +1,6 @@
-const LeagueStandings = ({ data }: { data: any}) => {
+import { Standings } from '@/utils/types'
+
+const LeagueStandings = ({ data }: { data: Standings[]}) => {
 	const sorted = data.sort((a, b) => {
 		if(a.points > b.points) return -1
 		if(a.points < b.points) return 1
