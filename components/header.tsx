@@ -1,14 +1,13 @@
 import { UserContext } from '@/utils/user-context'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 const Header = () => {
 	const router = useRouter()
 	const { setUserID } = useContext(UserContext)
 	// const fetcher = (url) => fetch(url).then((r) => r.json())
-	
 	const fetcher = (url) => fetch(url).then((r) => r.json())
 	
 	const { data: user, mutate: mutateUser } = useSWR('/api/user', fetcher)
@@ -34,7 +33,11 @@ const Header = () => {
 
 				{user ? (
 					<div className="flex justify-between w-full space-x-2 sm:w-auto sm:space-x-4">
-
+						<div>
+							<Link href="/search">
+								<a className="transition-all duration-300 transform shadow-none cursor-pointer rounded-2xl hover:text-blue-700">Search</a>
+							</Link>
+						</div>
 						<div>
 							<Link href="/guess">
 								<a className="transition-all duration-300 transform shadow-none cursor-pointer rounded-2xl hover:text-blue-700">Guess</a>
