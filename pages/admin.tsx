@@ -313,28 +313,30 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 							Populate database with events
 						</div>
 						{data && (
-							data.allTeams.data.map((team: TeamType) => (
-								<div key={team._id} className="flex justify-between w-full ">
-									<span>
-										{team.teamName}
-									</span>
-									<span className="text-xs">
-										Last updated: {new Date(team._ts / 1000 ).toUTCString()} 
-									</span>
-									<button onClick={() => getEventsAndPopulateDB(token, team.teamId, team._id, data.allTeams.data)}>
+							data.allTeams.data.map((team: TeamType) => {
+								const games = [...team.awayEvents.data, ...team.homeEvents.data].sort((a, b) => b._ts - a._ts )
+								return (
+									<div key={team._id} className="flex justify-between w-full ">
+										<span>
+											{team.teamName}
+										</span>
+										<span className="text-xs">
+										Last updated: {new Date(games[0]._ts / 1000 ).toUTCString()} 
+										</span>
+										<button onClick={() => getEventsAndPopulateDB(token, team.teamId, team._id, data.allTeams.data)}>
 										Get events
-									</button>
-									<span>{team.awayEvents.data.length === 0 && team.awayEvents.data.length === 0 ? (
-										<span className="bg-red-100">
+										</button>
+										<span>{team.awayEvents.data.length === 0 && team.awayEvents.data.length === 0 ? (
+											<span className="bg-red-100">
 											No events
-										</span>
-									) : (
-										<span className="bg-green-100">
+											</span>
+										) : (
+											<span className="bg-green-100">
 												Has events
-										</span>
-									)}</span>
-								</div>
-							))
+											</span>
+										)}</span>
+									</div>
+								)})
 						)}
 					</div>
 				) : (
@@ -369,11 +371,13 @@ export const getServerSideProps = async (ctx: any) => {
 				awayEvents {
 					data {
 						_ts
+						dateTime
 					}
 				}
 				homeEvents {
 					data {
 						_ts
+						dateTime
 					}
 				}
 			}
