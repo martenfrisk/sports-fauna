@@ -85,6 +85,8 @@ const getEventsAndPopulateDB = async (token: any, teamId: TeamType['_id'], id: a
 		request('https://sportsdb.netlify.app/', queryFetch, { teamId: teamId })
 			.then(({eventsNext}) => {
 				eventsNext.forEach(async (event) => {
+					console.log(event)
+					if (event.league[0].name !== 'English Premier League') return null
 					const homeTeam = allTeams.find((x) => x.teamId === event.home.id)
 					const awayTeam = allTeams.find((x) => x.teamId === event.away.id)
 					const variables = {
@@ -307,9 +309,9 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 								)}
 							)}
 						</div>
-						<button>
+						<div>
 							Populate database with events
-						</button>
+						</div>
 						{data && (
 							data.allTeams.data.map((team: TeamType) => (
 								<div key={team._id} className="flex justify-between w-full ">
