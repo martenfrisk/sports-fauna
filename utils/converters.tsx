@@ -14,3 +14,9 @@ export const convertEnumToTeamName = (enumInput: string, away: string, home: str
 	if (enumInput === 'DRAW') return 'Draw'
 	if (enumInput === 'AWAYWIN') return home
 }
+
+export const isEventFinished = (eventDate: Date) => {
+	const today = new Date()
+	if (eventDate > today) return false
+	return true
+}
