@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import { createNewUserGuess, FindLeagueBySlug, FindUserGuessByID, RemoveGuess } from '@/utils/graphql-requests'
-import { gql, request } from 'graphql-request'
+// import { gql, request } from 'graphql-request'
 import { League, UserGuess, TeamType, Event } from '@/utils/types'
 import Layout from '@/components/layout'
 // import MyGuesses from '@/components/guesses/my-guesses'
@@ -59,7 +59,7 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 
 	const [unsaved, setUnsaved] = useState(false)
 	const [newWinnerGuess, setNewWinnerGuess] = useState([])
-	const [eventResults, setEventResults] = useState([])
+	// const [eventResults, setEventResults] = useState([])
 	
 	const [guessesFromDb, setGuessesFromDb] = useState([])
 	const filterOwn = myGuesses.filter(x => x.user._id === userID)
@@ -114,37 +114,37 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 	// 	}
 	// }
 
-	const getEventResultExternal = async (eventId: string) => {
-		const query = gql`
-		query GetResult($id: ID!){
-			event(id: $id) {
-				id
-				name
-				away {
-					score
-				}
-				home {
-					score
-				}
-				name    
-			}
-		}
-		`
-		try {
-			await request('https://sportsdb.netlify.app/', query, { id: eventId })
-				.then(async ({event}) => {
-					const obj = await event[0]
-					console.log({obj})
-					if (eventResults.some(x => x.id === eventId)) {
-						return null
-					} else {
-						setEventResults((prev) => [...prev, obj])
-					}
-				})
-		} catch (err) {
-			console.error(err)
-		}
-	}
+	// const getEventResultExternal = async (eventId: string) => {
+	// 	const query = gql`
+	// 	query GetResult($id: ID!){
+	// 		event(id: $id) {
+	// 			id
+	// 			name
+	// 			away {
+	// 				score
+	// 			}
+	// 			home {
+	// 				score
+	// 			}
+	// 			name    
+	// 		}
+	// 	}
+	// 	`
+	// 	try {
+	// 		await request('https://sportsdb.netlify.app/', query, { id: eventId })
+	// 			.then(async ({event}) => {
+	// 				const obj = await event[0]
+	// 				console.log({obj})
+	// 				if (eventResults.some(x => x.id === eventId)) {
+	// 					return null
+	// 				} else {
+	// 					setEventResults((prev) => [...prev, obj])
+	// 				}
+	// 			})
+	// 	} catch (err) {
+	// 		console.error(err)
+	// 	}
+	// }
 
 	const handleSave = async () => {
 		newWinnerGuess.map(guess => {
