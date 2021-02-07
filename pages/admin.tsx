@@ -1,3 +1,4 @@
+import FinishedEvents from '@/components/admin/finished-events'
 import { useContext, useState } from 'react'
 import Link from 'next/link'
 import Layout from '@/components/layout'
@@ -7,7 +8,7 @@ import { UserContext } from '@/utils/user-context'
 import { getAuthCookie } from '@/utils/auth-cookies'
 
 import { gql, GraphQLClient, request } from 'graphql-request'
-import { Event, Standings, TeamType, UserGuess } from '@/utils/types'
+import { Event, Standings, TeamType } from '@/utils/types'
 import { graphQLClient } from '@/utils/graphql-client'
 
 
@@ -242,13 +243,12 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 
 	const eventsWithGuess = events.filter((event: Event) => event.submittedGuesses.data.length > 0)
 
-	const pastEventsWithGuess = eventsWithGuess.filter((event: Event) => {
+	const pastEventsWithGuess = eventsWithGuess.map((event: Event) => {
+		console.log(event)
 		const eventDate = new Date(event.dateTime)
 		const today = new Date()
-		if (eventDate.getDate() < today.getDate()) {
+		if (eventDate < today) {
 			return event
-		} else {
-			return null
 		}
 	})
 	
@@ -260,53 +260,11 @@ const Admin = ({ token, data, events }: { token: any, data: any, standings: [Sta
 						<div>
 							{pastEventsWithGuess && pastEventsWithGuess.map((event: Event) => {
 								const resultForThis = results.find(x => x.eventId === event.eventId)
-								getEventResult(event.eventId)
-								return (
-									<div key={event._id} className="flex justify-between">
-										<div>
-											{event.homeTeamId.teamName} vs {event.awayTeamId.teamName}
-										</div>
-										<div>
-											{new Date(event.dateTime).toDateString()}
-										</div>
-										{resultForThis && (
-											<>
-												<div className="ml-4">
-													{event.submittedGuesses.data.map((guess: UserGuess) => {
-														let correctWinner: string
-														if (resultForThis.data[0].home.score > resultForThis.data[0].away.score) correctWinner = 'HOMEWIN'
-														if (resultForThis.data[0].home.score < resultForThis.data[0].away.score) correctWinner = 'AWAYWIN'
-														if (resultForThis.data[0].home.score === resultForThis.data[0].away.score) correctWinner = 'DRAW'
-														console.log({guess})
-														return (
-															<div
-																key={guess._id}
-															>
-																{guess.corrected ? (
-																	<span className="mr-2 text-xs bg-green-100">Already done</span>
-																) : (
-																	<button
-																		className="mr-2" 
-																		onClick={() => {
-																			updateStandings(
-																				guess.league._id, guess.user._id,
-																				correctWinner === guess.winner ? 3 : 0, guess._id
-																			)
-																			setStandingsUpdated(() => [...standingsUpdated, { _id: guess._id }])
-																		}}
-																	>{standingsUpdated.some(x => x._id === guess._id) ? <span className="line-through">Inserted</span> : 'Update standings'}</button>
-																)}
-																{guess.user.username} - {guess.winner}
-															</div>
-														)})}
-												</div>
-												<div>
-											Result: {resultForThis.data[0].home.score} - {resultForThis.data[0].away.score}
-												</div>
-											</>
-										)}
-									</div>
-								)}
+								if (event) {
+									getEventResult(event.eventId)
+									return (
+										<FinishedEvents resultForThis={resultForThis} event={event}  updateStandings={updateStandings} setStandingsUpdated={setStandingsUpdated} standingsUpdated={standingsUpdated} />	)}
+							}
 							)}
 						</div>
 						<div>
