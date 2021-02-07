@@ -27,9 +27,9 @@ const Header = () => {
 
 	return (
 		<div className="flex justify-center mb-4">
-			<header className="flex flex-wrap items-center justify-between w-full max-w-4xl px-6 py-6 text-gray-700">
+			<header className="flex flex-wrap items-center justify-between w-full max-w-4xl px-6 py-6 text-gray-700 select-none">
 				<Link href="/">
-					<h1 className="mb-2 text-3xl font-medium tracking-tight text-blue-600 lowercase font-logo sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
+					<h1 className="mb-2 text-3xl font-medium tracking-tight text-blue-600 lowercase cursor-pointer font-logo sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
 				</Link>
 
 				{user ? (
@@ -37,12 +37,12 @@ const Header = () => {
 
 						<div>
 							<Link href="/guess">
-								<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:text-blue-700">Guess</a>
+								<a className="transition-all duration-300 transform shadow-none cursor-pointer rounded-2xl hover:text-blue-700">Guess</a>
 							</Link>
 						</div>
 						<div>
 							<Link href="/profile">
-								<a className="transition-all duration-300 transform shadow-none rounded-2xl hover:text-blue-700">Profile</a>
+								<a className="transition-all duration-300 transform shadow-none cursor-pointer rounded-2xl hover:text-blue-700">Profile</a>
 							</Link>
 						</div>
 						<div>
