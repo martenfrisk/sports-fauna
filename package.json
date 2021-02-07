@@ -20,6 +20,7 @@
     "cookie": "^0.4.1",
     "encoding": "^0.1.13",
     "faunadb": "^4.0.0",
+    "fuse.js": "^6.4.6",
     "graphql": "^15.4.0",
     "graphql-request": "^3.3.0",
     "isomorphic-unfetch": "^3.1.0",
