@@ -6,7 +6,7 @@ import { gql, request } from 'graphql-request'
 import { League, UserGuess, TeamType, Event } from '@/utils/types'
 import Layout from '@/components/layout'
 // import MyGuesses from '@/components/guesses/my-guesses'
-import { convertEnum, convertToEnum } from '@/utils/converters'
+import { convertEnum, convertToEnum, isEventFinished } from '@/utils/converters'
 import { useRouter } from 'next/router'
 
 const InputNoPrevious = ({handleInputChange, event}: {handleInputChange: any, event: Event}) => (
@@ -104,15 +104,15 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 	// 	setGuessesFromDb(myGuesses)
 	// 	console.log('new import')
 	// }, [unsaved])
-	const checkIfFinished = (date: string) => {
-		const eventDate = new Date(date)
-		const today = new Date()
-		if (eventDate.getDate() < today.getDate()) {
-			return true
-		} else {
-			return false
-		}
-	}
+	// const checkIfFinished = (date: string) => {
+	// 	const eventDate = new Date(date)
+	// 	const today = new Date()
+	// 	if (eventDate.getDate() < today.getDate()) {
+	// 		return true
+	// 	} else {
+	// 		return false
+	// 	}
+	// }
 
 	const getEventResultExternal = async (eventId: string) => {
 		const query = gql`
@@ -191,60 +191,35 @@ const Guess = ({league, myGuesses, token, userID}: {league: League, myGuesses: [
 											</span>
 										</div>
 										<div className="w-full sm:w-2/3">
-											{mergedGames.map(
-												(event: Event) => (
-													<div className="p-2 mb-4 bg-opacity-25 rounded-md shadow-md bg-blue-50" key={event.dateTime}>
-														<div className="flex flex-wrap justify-between w-full mb-2">
-															<span className={`w-full text-sm text-left sm:-mb-4 ${checkIfFinished(event.dateTime) && 'text-gray-400'}`}>
-																{new Date(event.dateTime).toLocaleDateString()}
+											{mergedGames.map((event: Event) => !isEventFinished(new Date(event.dateTime)) && (
+												<div className="p-2 mb-4 bg-opacity-25 rounded-md shadow-md bg-blue-50" key={event.dateTime}>
+													<div className="flex flex-wrap justify-between w-full mb-2">
+														<span className={'w-full text-sm text-left sm:-mb-4'}>
+															{new Date(event.dateTime).toLocaleDateString('sv-SE')}
+														</span>
+														<div className="flex justify-center w-full">
+															<span className={`text-base w-1/2 text-right mr-2 ${team.teamName === event.homeTeamName && 'font-semibold'}`}>
+																{event.homeTeamName}
 															</span>
-															<div className="flex justify-center w-full">
-																{checkIfFinished(event.dateTime) ? (										
-																	<>
-																		<span className={`text-base w-1/2 text-right mr-2 ${team.teamName === event.homeTeamName && 'font-semibold'}`}>
-																			{event.homeTeamName}
-																		</span>
-																		<span className={`text-base flex justify-between w-1/2 ml-2 ${team.teamName === event.awayTeamName && 'font-semibold'}`}>
-																			<span>
-																				{event.awayTeamName}
-																			</span>
-																			<span className="font-normal cursor-pointer select-none" onClick={() => getEventResultExternal(event.eventId)}>
-																				{eventResults.find(x => x.id === event.eventId) ? (
-																					<>
-																						{eventResults.find(x => x.id === event.eventId).home.score}
-																						&nbsp;-&nbsp;
-																						{eventResults.find(x => x.id === event.eventId).away.score}
-																					</>
-																				) : (
-																					'Result?'
-																				)}
-																			</span>
-																		</span>
-																	</>
-																) : (
-																	<>
-																		<span className={`text-base w-1/2 text-right mr-2 ${team.teamName === event.homeTeamName && 'font-semibold'}`}>
-																			{event.homeTeamName}
-																		</span>
-																		<span className={`text-base w-1/2 ml-2 ${team.teamName === event.awayTeamName && 'font-semibold'}`}>
-																			{event.awayTeamName}
-																		</span>
-																	</>
-																)}
-															</div>
-														</div>
-														<div className="flex items-center w-full">
-															{userID && event.submittedGuesses.data.find((x) => x.user._id === userID) ? (
-																InputWithPrevious(event, userID, handleRemoveGuess)
-															) : (
-																<InputNoPrevious
-																	handleInputChange={handleInputChange}
-																	event={event}
-																/>
-															)}
+															<span className={`text-base flex justify-between w-1/2 ml-2 ${team.teamName === event.awayTeamName && 'font-semibold'}`}>
+																<span>
+																	{event.awayTeamName}
+																</span>
+															</span>
 														</div>
 													</div>
-												)
+													<div className="flex items-center w-full">
+														{userID && event.submittedGuesses.data.find((x) => x.user._id === userID) ? (
+															InputWithPrevious(event, userID, handleRemoveGuess)
+														) : (
+															<InputNoPrevious
+																handleInputChange={handleInputChange}
+																event={event}
+															/>
+														)}
+													</div>
+												</div>
+											)
 											)}
 										</div>
 									</div>
