@@ -55,9 +55,6 @@ const FinishedEvents = ({
                 resultForThis.data[0].away.score
 							)
 								correctWinner = 'DRAW'
-							console.log({
-								guess,
-							})
 							return (
 								<div key={guess._id}>
 									{guess.corrected ? (
@@ -78,7 +75,7 @@ const FinishedEvents = ({
 											)}
 										</button>
 									)}
-									{guess.user.username} - {guess.winner}
+									{guess.user && guess.user.username} - {guess.winner}
 								</div>
 							)
 						})}
