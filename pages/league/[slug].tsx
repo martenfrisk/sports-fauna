@@ -19,23 +19,17 @@ const SavePopup = ({saveChanges, unsavedChanges, updateMessage}: {saveChanges: a
 }
 
 const teamEvent: (value: any, index: number, array: any[]) => JSX.Element = (team) => {
-	const mergedGames = [...team.events.homeEvents.data, ...team.events.awayEvents.data]
-	mergedGames.sort((a, b) => {
-		const varA = a.dateTime.toUpperCase()
-		const varB = b.dateTime.toUpperCase()
-		if (varA > varB)
-			return 1
-		if (varA < varB)
-			return -1
-		return 0
-	})
+	const mergedGames  = [...team.events.homeEvents.data, ...team.events.awayEvents.data]
+	const filteredGames = mergedGames
+		.filter(game => new Date(game.dateTime) > new Date() && game)
+		.sort((a, b) => b.dateTime - a.dateTime)
 	return (
 		<div key={team.name} className="flex flex-wrap items-start w-full mt-4">
 			<div className="w-1/5 text-lg text-gray-800">
 				<Image src={team.events.badge} alt={`${team.name} badge`} height={30} width={30} />
 			</div>
 			<div className="w-4/5">
-				{mergedGames.slice(0, 2).map((event) => (
+				{filteredGames.slice(0, 2).map((event) => (
 					<>
 						<p>
 							<span className={`${event.homeTeamName === team.name && 'font-semibold'} mr-1`}>
@@ -50,7 +44,7 @@ const teamEvent: (value: any, index: number, array: any[]) => JSX.Element = (tea
 						</p>
 						<p className="text-xs text-gray-800">{new Date(
 							event.dateTime)
-							.toLocaleDateString()}</p>
+							.toLocaleDateString('sv-SE')}</p>
 					</>
 				))}
 			</div>
