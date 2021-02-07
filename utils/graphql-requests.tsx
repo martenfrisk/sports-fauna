@@ -406,6 +406,7 @@ export const FindLeague = async (token: string, slug: League['slug']) => {
 					standings {
 						data {
 							_id
+							_ts
 							member {
 								username
 							}
