@@ -1,18 +1,15 @@
-import { query as q } from 'faunadb'
-import { authClient } from '@/utils/fauna-client'
-import { getAuthCookie, removeAuthCookie } from '@/utils/auth-cookies'
+import { unsetAuthCookies } from 'next-firebase-auth'
+import initAuth from '@/utils/initAuth'
 
-export default async function logout(req, res) {
-	const token = getAuthCookie(req)
+initAuth()
 
-	if (!token) return res.status(200).end()
-
+const handler = async (req, res) => {
 	try {
-		await authClient(token).query(q.Logout(false))
-		removeAuthCookie(res)
-		res.status(200).end()
-	} catch (error) {
-		console.error(error)
-		res.status(error.requestResult.statusCode).send(error.message)
+		await unsetAuthCookies(req, res)
+	} catch (e) {
+		return res.status(500).json({ error: 'Unexpected error.' })
 	}
+	return res.status(200).json({ success: true })
 }
+
+export default handler

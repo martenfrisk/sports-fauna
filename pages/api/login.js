@@ -1,31 +1,15 @@
-import { query as q } from 'faunadb'
-import { guestClient } from '@/utils/fauna-client'
-import { setAuthCookie } from '@/utils/auth-cookies'
+import { setAuthCookies } from 'next-firebase-auth'
+import initAuth from '@/utils/initAuth'
 
-export default async function login(req, res) {
-	const { email, password } = req.body
+initAuth()
 
-	if (!email || !password) {
-		return res.status(400).send('Email and password not provided')
-	}
-
+const handler = async (req, res) => {
 	try {
-		const auth = await guestClient.query(
-			q.Login(q.Match(q.Index('unique_User_email'), q.Casefold(email)), {
-				password,
-			})
-		)
-
-		if (!auth.secret) {
-			return res.status(404).send('Auth secret is missing')
-		}
-		const userRef = auth.instance.toString()
-		const user = userRef.split(',')[1].split('"')[1]
-		setAuthCookie(res, auth.secret, user)
-
-		res.status(200).end()
-	} catch (error) {
-		console.error(error)
-		res.status(error.requestResult.statusCode).send(error.message)
+		await setAuthCookies(req, res)
+	} catch (e) {
+		return res.status(500).json({ error: 'Unexpected error.' })
 	}
+	return res.status(200).json({ success: true })
 }
+
+export default handler
