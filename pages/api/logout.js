@@ -1,11 +1,8 @@
-import { unsetAuthCookies } from 'next-firebase-auth'
-import initAuth from '@/utils/initAuth'
-
-initAuth()
+import { removeAuthCookie } from '@/utils/auth-cookies'
 
 const handler = async (req, res) => {
 	try {
-		await unsetAuthCookies(req, res)
+		await removeAuthCookie(res)
 	} catch (e) {
 		return res.status(500).json({ error: 'Unexpected error.' })
 	}
