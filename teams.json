@@ -1,0 +1,164 @@
+{
+  "teams": {
+  "33": {
+    "country": "England",
+    "founded": 1878,
+    "id": 33,
+    "logo": "https://media.api-sports.io/football/teams/33.png",
+    "name": "Manchester United",
+    "national": false
+  },
+  "34": {
+    "country": "England",
+    "founded": 1892,
+    "id": 34,
+    "logo": "https://media.api-sports.io/football/teams/34.png",
+    "name": "Newcastle",
+    "national": false
+  },
+  "36": {
+    "country": "England",
+    "founded": 1879,
+    "id": 36,
+    "logo": "https://media.api-sports.io/football/teams/36.png",
+    "name": "Fulham",
+    "national": false
+  },
+  "39": {
+    "country": "England",
+    "founded": 1877,
+    "id": 39,
+    "logo": "https://media.api-sports.io/football/teams/39.png",
+    "name": "Wolves",
+    "national": false
+  },
+  "40": {
+    "country": "England",
+    "founded": 1892,
+    "id": 40,
+    "logo": "https://media.api-sports.io/football/teams/40.png",
+    "name": "Liverpool",
+    "national": false
+  },
+  "41": {
+    "country": "England",
+    "founded": 1885,
+    "id": 41,
+    "logo": "https://media.api-sports.io/football/teams/41.png",
+    "name": "Southampton",
+    "national": false
+  },
+  "42": {
+    "country": "England",
+    "founded": 1886,
+    "id": 42,
+    "logo": "https://media.api-sports.io/football/teams/42.png",
+    "name": "Arsenal",
+    "national": false
+  },
+  "44": {
+    "country": "England",
+    "founded": 1882,
+    "id": 44,
+    "logo": "https://media.api-sports.io/football/teams/44.png",
+    "name": "Burnley",
+    "national": false
+  },
+  "45": {
+    "country": "England",
+    "founded": 1878,
+    "id": 45,
+    "logo": "https://media.api-sports.io/football/teams/45.png",
+    "name": "Everton",
+    "national": false
+  },
+  "46": {
+    "country": "England",
+    "founded": 1884,
+    "id": 46,
+    "logo": "https://media.api-sports.io/football/teams/46.png",
+    "name": "Leicester",
+    "national": false
+  },
+  "47": {
+    "country": "England",
+    "founded": 1882,
+    "id": 47,
+    "logo": "https://media.api-sports.io/football/teams/47.png",
+    "name": "Tottenham",
+    "national": false
+  },
+  "48": {
+    "country": "England",
+    "founded": 1895,
+    "id": 48,
+    "logo": "https://media.api-sports.io/football/teams/48.png",
+    "name": "West Ham",
+    "national": false
+  },
+  "49": {
+    "country": "England",
+    "founded": 1905,
+    "id": 49,
+    "logo": "https://media.api-sports.io/football/teams/49.png",
+    "name": "Chelsea",
+    "national": false
+  },
+  "50": {
+    "country": "England",
+    "founded": 1880,
+    "id": 50,
+    "logo": "https://media.api-sports.io/football/teams/50.png",
+    "name": "Manchester City",
+    "national": false
+  },
+  "51": {
+    "country": "England",
+    "founded": 1901,
+    "id": 51,
+    "logo": "https://media.api-sports.io/football/teams/51.png",
+    "name": "Brighton",
+    "national": false
+  },
+  "52": {
+    "country": "England",
+    "founded": 1905,
+    "id": 52,
+    "logo": "https://media.api-sports.io/football/teams/52.png",
+    "name": "Crystal Palace",
+    "national": false
+  },
+ "60": {
+    "country": "England",
+    "founded": 1878,
+    "id": 60,
+    "logo": "https://media.api-sports.io/football/teams/60.png",
+    "name": "West Brom",
+    "national": false
+  },
+ "62": {
+    "country": "England",
+    "founded": 1889,
+    "id": 62,
+    "logo": "https://media.api-sports.io/football/teams/62.png",
+    "name": "Sheffield Utd",
+    "national": false
+  },
+ "63": {
+    "country": "England",
+    "founded": 1919,
+    "id": 63,
+    "logo": "https://media.api-sports.io/football/teams/63.png",
+    "name": "Leeds",
+    "national": false
+  },
+ "66": {
+    "country": "England",
+    "founded": 1874,
+    "id": 66,
+    "logo": "https://media.api-sports.io/football/teams/66.png",
+    "name": "Aston Villa",
+    "national": false
+  }
+}
+}
