@@ -8968,7 +8968,7 @@ fsevents@~2.1.2:
     postcss: ^8.1.10
     react: 17.0.1
     react-dom: 17.0.1
-    react-firebaseui: ^4.1.0
+    react-firebaseui: canary
     react-hook-form: ^6.12.1
     slugify: ^1.4.6
     swr: ^0.3.9
@@ -10325,15 +10325,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-firebaseui@npm:^4.1.0":
-  version: 4.2.0
-  resolution: "react-firebaseui@npm:4.2.0"
+"react-firebaseui@npm:canary":
+  version: 5.0.0-canary1
+  resolution: "react-firebaseui@npm:5.0.0-canary1"
   dependencies:
     firebaseui: ^4.7.1
   peerDependencies:
-    firebase: ">=6.3.4 <9"
-    react: ">=15 <17"
-  checksum: b0fdc3ac410638bf981324507b41f5f431e9468cd695369b11268d3ee91b8fe93d756b3aa3e1c6c14bfb95bee73e87a69bc4a8662e026b41c3027b0773ccde76
+    firebase: ">=7.11.0"
+    react: ">=15 <=17"
+  checksum: 6f053ecbbab1a82a0c583e50ca817664c7f437d67d1c755fbeddd9e56097ae30ec8f4b533ef484da983fab1854e90fef848818482092dce697ddb9bb58e3a148
   languageName: node
   linkType: hard
 
