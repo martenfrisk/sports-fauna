@@ -19,14 +19,14 @@ const LeagueOptions = ({ optionsData }: { optionsData: any }) => {
 			</select> */}
 			<div className="flex justify-center space-x-2 text-sm">
 				<button
-					className={`${options.public && 'bg-blue-300'} w-20 border border-blue-200 p-2 rounded-md`}
-					onClick={() => setOptions((prev) => ({...prev, public: true }))}
+					className={`${options && 'bg-blue-300'} w-20 border border-blue-200 p-2 rounded-md`}
+					onClick={() => setOptions(true)}
 				>
 				Public
 				</button>
 				<button
-					className={`${!options.public && 'bg-blue-300'}  w-20 border border-blue-200 p-2 rounded-md`}
-					onClick={() => setOptions((prev) => ({...prev, public: false }))}
+					className={`${!options && 'bg-blue-300'}  w-20 border border-blue-200 p-2 rounded-md`}
+					onClick={() => setOptions(false)}
 				>
 				Private
 				</button>
