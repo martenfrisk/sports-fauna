@@ -7,10 +7,12 @@ import 'firebase/auth'
 // so we don't need to.
 
 const firebaseAuthConfig = {
-	signInFlow: 'popup',
+	signInFlow: 'redirect',
 	// Auth providers
 	// https://github.com/firebase/firebaseui-web#configure-oauth-providers
 	signInOptions: [
+		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+		firebase.auth.GithubAuthProvider.PROVIDER_ID,
 		{
 			provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
 			requireDisplayName: false,
