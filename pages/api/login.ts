@@ -1,9 +1,4 @@
 import { setAuthCookie } from '@/utils/auth-cookies'
-// import { UserContext } from '@/utils/user-context'
-// import { useContext } from 'react'
-// import { setAuthCookies } from 'next-firebase-auth'
-// import initAuth from '@/utils/initAuth'
-// initAuth()
 
 import { auth, db } from '@/utils/firebase'
 
