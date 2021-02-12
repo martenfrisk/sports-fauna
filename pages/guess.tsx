@@ -1,7 +1,7 @@
 import Layout from '@/components/layout'
 import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import { findUserByID } from '@/utils/graphql-requests'
-import { League } from '@/utils/types'
+import { League } from '@/utils/types/types'
 import { NextPageContext } from 'next'
 import Link from 'next/link'
 

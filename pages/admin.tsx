@@ -8,7 +8,7 @@ import { UserContext } from '@/utils/user-context'
 import { getAuthCookie } from '@/utils/auth-cookies'
 
 import { gql, GraphQLClient, request } from 'graphql-request'
-import { Event, Standings, TeamType } from '@/utils/types'
+import { Event, Standings, TeamType } from '@/utils/types/types'
 import { graphQLClient } from '@/utils/graphql-client'
 import { getAllUsers, queryGetAll, queryStandings, queryEvents } from '@/utils/admin-tools'
 

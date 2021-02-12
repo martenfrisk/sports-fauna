@@ -1,4 +1,4 @@
-import { Standings } from '@/utils/types'
+import { Standings } from '@/utils/types/types'
 
 const LeagueStandings = ({ data }: { data: Standings[]}) => {
 	const sorted = data.sort((a, b) => {

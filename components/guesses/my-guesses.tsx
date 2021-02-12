@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { convertEnumToTeamName } from '@/utils/converters'
-import { UserGuess } from '@/utils/types'
+import { UserGuess } from '@/utils/types/types'
 
 const MyGuesses = (guess: UserGuess) => (
 	<div className="flex w-full mb-3">
