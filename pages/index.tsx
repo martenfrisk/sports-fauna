@@ -2,37 +2,48 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '@/components/layout'
 import Leagues from '@/components/leagues'
-import { getAuthCookie } from '@/utils/auth-cookies'
 import { Trophy, Training } from '@/components/svg/landing-page'
-// import { useState } from 'react'
+import { getLeagues } from '@/utils/firebase-requests'
+import { UserContext } from '@/utils/user-context'
+import { useContext, useEffect } from 'react'
+import {  getUserCookie } from '@/utils/auth-cookies'
 
-const Home = ({token}: { token: any}) => {
-
+const Home = ({ user, leagues }: { user: any; leagues: any }) => {
+	const { userID, setUserID } = useContext(UserContext)
+	useEffect(() => {
+		if (user)
+			setUserID({ id: user.split('|')[0], username: user.split('|')[1] })
+	}, [])
 	return (
 		<Layout>
 			<div className="flex flex-col items-center w-full mx-auto mb-0">
-				{token ? (
+				{user ? (
 					<div className="flex flex-col flex-wrap w-full sm:flex-row">
 						<div className="flex justify-center w-full sm:items-center sm:w-1/2">
 							<div className="my-6 space-x-2">
 								<Link href="/league/new">
-									<a className="btn-blue">
-									Create League
-									</a>
+									<a className="btn-blue">Create League</a>
 								</Link>
 								<Link href="/guess">
-									<a className="btn-blue">
-									Start guessing
-									</a>
+									<a className="btn-blue">Start guessing</a>
 								</Link>
 							</div>
-
 						</div>
 						<div className="w-full sm:w-1/2">
-							<Leagues token={token} />
+							<p className="mb-4 text-2xl font-light text-center text-blue-800">
+								Leagues
+							</p>
+							{leagues && userID &&
+								leagues.map((league) => (
+									<Leagues
+										key={league.slug}
+										user={{ id: userID.id, username: userID.username }}
+										league={league}
+									/>
+								))}
 						</div>
 					</div>
-				)	 : (
+				) : (
 					<div className="flex flex-wrap w-full">
 						<div className="flex flex-col items-center w-full text-xl font-normal text-center text-blue-600 font-logo md:text-3xl">
 							<h1>Guess football results</h1>
@@ -43,7 +54,6 @@ const Home = ({token}: { token: any}) => {
 						</div>
 
 						<div className="flex flex-col items-center justify-center w-full mt-6 md:w-1/2">
-
 							<div className="px-2 overflow-hidden text-xl font-light text-blue-700 lowercase bg-white rounded-md sm:px-12 neumorph">
 								<div className="flex items-center w-full">
 									<div className="w-1/2">
@@ -65,8 +75,18 @@ const Home = ({token}: { token: any}) => {
 								</div>
 							</div>
 						</div>
-						<div className="flex items-end justify-center w-full pt-6 md:w-1/2" style={{ filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))' }}>
-							<Image src="/person.png" width={279} height={463} alt="Picture of person looking intrigued" />
+						<div
+							className="flex items-end justify-center w-full pt-6 md:w-1/2"
+							style={{
+								filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))',
+							}}
+						>
+							<Image
+								src="/person.png"
+								width={279}
+								height={463}
+								alt="Picture of person looking intrigued"
+							/>
 						</div>
 					</div>
 				)}
@@ -77,10 +97,9 @@ const Home = ({token}: { token: any}) => {
 				}
 				.neumorph {
 					mix-blend-mode: normal;
-					box-shadow: 
-						-10px 10px 20px rgba(224, 224, 224, 0.2), 
-						10px -10px 20px rgba(224, 224, 224, 0.2), 
-						-10px -10px 20px rgba(255, 255, 255, 0.9), 
+					box-shadow: -10px 10px 20px rgba(224, 224, 224, 0.2),
+						10px -10px 20px rgba(224, 224, 224, 0.2),
+						-10px -10px 20px rgba(255, 255, 255, 0.9),
 						10px 10px 25px rgba(224, 224, 224, 0.9);
 				}
 			`}</style>
@@ -88,15 +107,18 @@ const Home = ({token}: { token: any}) => {
 	)
 }
 
-export async function getServerSideProps(ctx: any) {
-	const token = getAuthCookie(ctx.req)
-	
-	return { 
-		props: { 
-			token: token || null,
-		} 
+export const getServerSideProps = async (ctx) => {
+	const { req } = ctx
+	// const authCookie = await getAuthCookie(req)
+	const user = await getUserCookie(req)
+	console.log(user)
+	const leagues = await getLeagues()
+	return {
+		props: {
+			leagues: leagues || null,
+			user: user || null,
+		},
 	}
 }
 
 export default Home
-
