@@ -4,13 +4,13 @@ import Header from '@/components/header'
 export default function Layout({ children }: { children: any }) {
 	return (
 		<div className="w-screen h-full min-h-screen px-4 py-6 sm:px-10 radialgradient">
-			<div className="bg-white bg-opacity-50 border-4 border-blue-400 rounded-3xl border-opacity-30 innerbox">
+			<Header />
+			<div className="min-h-screen bg-white bg-opacity-50 border-4 border-blue-400 rounded-3xl border-opacity-30 innerbox">
 
 				<Head>
 					<title>Sport Guess - guess football results with friends</title>
 					<meta name="Description" content="Guess football results and compete with your friends." />
 				</Head>
-				<Header />
 				<div className="w-full max-w-6xl px-6 mx-auto">
 					{children}
 				</div>
