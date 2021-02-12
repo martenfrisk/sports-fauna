@@ -1,144 +1,146 @@
-import { useContext, useState } from 'react'
-import Router from 'next/router'
-import { gql } from 'graphql-request'
+import { useState } from 'react'
+// import Router from 'next/router'
 import { useForm } from 'react-hook-form'
 import slugify from 'slugify'
 import Layout from '../../components/layout'
-import { graphQLClient } from '../../utils/graphql-client'
-import { getAuthCookie } from '@/utils/auth-cookies'
-import { UserContext } from '@/utils/user-context'
+import { db } from '@/utils/firebase'
 import LeagueOptions from '@/components/league-options'
 import TeamPicker from '@/components/teampicker'
-import { getAllTeamTypes } from '@/utils/graphql-requests'
+import { useRouter } from 'next/router'
+import { getUserCookie } from '@/utils/auth-cookies'
+import { UserFromDBType } from '@/utils/types/firebase-types'
+import { getAllTeams } from '@/utils/firebase-requests'
+import Link from 'next/link'
 
-const New = ({token, teams}: {token: any, teams: any, teamsWithId: any}) => {
+const New = ({
+	teams,
+	userData,
+	userID,
+}: {
+  teams: any
+  userData: UserFromDBType
+  userID: string
+}) => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const [pickedTeams, setPickedTeams] = useState([])
-	const [options, setOptions] = useState({
-		name: '',
-		class: 'SINGLEDIVISION',
-		public: true
-	})
+	const [isPublic, setIsPublic] = useState(true)
+	const [leagueName, setLeagueName] = useState('')
 	const { handleSubmit, errors } = useForm()
-	const { userID } = useContext(UserContext)
+	// const { userID } = useContext(UserContext)
+	const Router = useRouter()
 
 	const onSubmit = handleSubmit(async () => {
 		if (errorMessage) setErrorMessage('')
-		const filterTeams = pickedTeams.map((x) => x._id)
-		const slug = slugify(options.name, { lower: true })
-		const mutation = gql`
-      mutation NewLeague(
-				$name: String!, 
-				$slug: String!,
-				$members: [ID], 
-				$standingsMembers: ID, 
-				$class: LeagueType, 
-				$public: Boolean, 
-				$teams: [ID], 
-			) {
-        createLeague(
-					data: { 
-						name: $name
-						slug: $slug
-						members: { 
-							connect: $members,
-						} 
-						options: { 
-							create: {
-								class: $class,
-								public: $public,
-								teams: $teams
-							}
-						}
-						standings: {
-              create: {
-                member: {
-                  connect: $standingsMembers
-                }
-                points: 0
-              }
-            }
-					}
-				) {
-					name
-				}
-      }
-		`
-		
+		const slug = slugify(leagueName, { lower: true })
+
 		const variables = {
-			name: options.name,
+			name: leagueName,
 			slug,
-			members: userID && userID.id,
-			standingsMembers: userID && userID.id,
-			class: options.class,
-			public: options.public,
-			teams: filterTeams,
+			members: {
+				[userID]: {
+					username: userData.username
+				} 
+			},
+			public: isPublic,
+			teams: pickedTeams,
 		}
 
-		try {
-			await graphQLClient(token).request(mutation, variables)
-			Router.push('/')
-		} catch (error) {
-			console.error(error)
-			setErrorMessage(error.message)
-		}
+		await fetch('/api/league/new', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(variables),
+		})
+			.then(async (res) => {
+				if (res.ok) {
+					Router.push('/')
+				} else {
+					const msg = await res.text()
+					setErrorMessage(msg)
+				}
+			})
+			.catch((error) => {
+				console.error(error)
+				setErrorMessage(error.message)
+			})
 	})
 
 	return (
 		<Layout>
-			<h1 className="text-3xl">Create new league</h1>
-			<div className="flex flex-col items-center w-full">
-				<form>
-					<div className="flex flex-col items-center">
-						<label className="mb-2">League name</label>
-						<input
-							type="text"
-							name="name"
-							className="px-4 py-2 text-gray-700 border border-blue-400 rounded-md"
-							placeholder="Your League name"
-							value={options.name}
-							onChange={(e) => setOptions({...options, name: e.target.value})}
-						/>
-						{errors.name && (
-							<span role="alert" className="text-xs text-red-800">
-								{errors.name.message}
-							</span>
-						)}
+			<h1 className="w-full mt-4 text-3xl text-center">Create new league</h1>
+			{userData ? (
+				<div className="flex flex-col items-center w-full">
+					{errorMessage && (
+						<p
+							role="alert"
+							className="w-1/2 my-8 text-base text-center text-red-700"
+						>
+							{/* {errorMessage.split(':')[0]} */}
+							{errorMessage}
+						</p>
+					)}
+					<form>
+						<div className="flex flex-col items-center">
+							<label className="mb-2">League name</label>
+							<input
+								type="text"
+								name="name"
+								className="px-4 py-2 text-gray-700 border border-blue-400 rounded-md"
+								placeholder="Your League name"
+								value={leagueName}
+								onChange={(e) => setLeagueName(e.target.value)}
+							/>
+							{errors.name && (
+								<span role="alert" className="text-xs text-red-800">
+									{errors.name.message}
+								</span>
+							)}
+						</div>
+					</form>
+					<p className="my-2">Options</p>
+					<LeagueOptions optionsData={[isPublic, setIsPublic]} />
 
-					</div>
-				</form>
-				<p className="my-2">Options</p>
-				<LeagueOptions optionsData={[options, setOptions]} />
-
-				<button
-					type="submit"
-					className="mb-4 btn-blue"
-					onClick={onSubmit}
-				>
-						Create
-				</button>
-				<TeamPicker picker={[pickedTeams, setPickedTeams]} teams={teams} />
-				{errorMessage && (
-					<p role="alert" className="w-1/2 mt-8 text-xs text-center text-red-800">
-						{/* {errorMessage.split(':')[0]} */}
-						{errorMessage}
-					</p>
-				)}
-			</div>
+					<button
+						type="submit"
+						className={`mb-4 btn-blue ${
+							pickedTeams.length === 0 ? 'cursor-not-allowed' : ''
+						}`}
+						onClick={onSubmit}
+						disabled={pickedTeams.length < 1}
+					>
+            Create
+					</button>
+					<TeamPicker picker={[pickedTeams, setPickedTeams]} teams={teams} />
+				</div>
+			) : (
+				<p>
+          Please{' '}
+					<Link href="/login">
+						<a className="underline">log in</a>
+					</Link>{' '}
+          before creating a league.
+				</p>
+			)}
 		</Layout>
 	)
 }
 
-
 export const getServerSideProps = async (ctx: any) => {
-	const token = getAuthCookie(ctx.req)
+	const teams = await getAllTeams('2021')
+	const userID = await getUserCookie(ctx.req)
+	const userData = await db
+		.ref(`users/${userID}`)
+		.get()
+		.then((data) => data.toJSON())
 
-	const teams = await getAllTeamTypes(token)
-	return { props: { 
-		token: token || null,
-		teams: teams?.allTeams.data
-	} }
+	return {
+		props: {
+			userID: userID || null,
+			userData: userData || null,
+			teams: teams || null,
+		},
+	}
 }
-
 
 export default New
