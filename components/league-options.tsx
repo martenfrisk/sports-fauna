@@ -9,7 +9,7 @@
 const LeagueOptions = ({ optionsData }: { optionsData: any }) => {
 	const [options, setOptions] = optionsData
 	return (
-		<div className="flex flex-col items-start w-auto p-2 rounded-lg bg-gray-50">
+		<div className="flex flex-col items-start w-auto p-2 bg-white rounded-lg">
 			{/* <select
 				className="p-2 my-2 rounded-md"
 				value={options.class}
