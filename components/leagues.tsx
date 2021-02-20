@@ -27,14 +27,14 @@ const Leagues = ({
 	}, [])
 	useEffect(() => {
 		if (leagueInfo && leagueInfo.members) {
-			const checkIfMember = Object.values(leagueInfo.members).some((member: any) => member.username === user.username)
+			const checkIfMember = Object.values(leagueInfo.members).some(
+				(member: any) => member.username === user.username
+			)
 			setIsMember(!!checkIfMember)
 		} else {
 			setIsMember(false)
 		}
-
 	}, [leagueInfo])
-
 
 	const toggleMembership = async (
 		action: string,
@@ -58,56 +58,52 @@ const Leagues = ({
 	// 	setLeagueInfo(league)
 	// }, [])
 
-	return (
-		<div className="flex flex-col items-center">
-			{leagueInfo && (
-				<div
-					className="flex flex-wrap justify-between max-w-sm px-6 py-4 mb-4 bg-white rounded-md shadow-blue-lg"
-					key={leagueInfo.name}
+	return leagueInfo ? (
+		<div
+			className="flex flex-wrap justify-between w-full px-6 py-4 mb-4 bg-white rounded-md shadow-blue-lg"
+			key={leagueInfo.name}
+		>
+			<div>
+				<Link href={`/league/${leagueInfo.slug}`}>
+					<a className="text-lg font-light text-blue-800 border-b-2 border-white border-dashed hover:border-blue-400">
+						{leagueInfo.name}
+					</a>
+				</Link>
+			</div>
+			{isMember ? (
+				<button
+					onClick={() =>
+						toggleMembership('leave', leagueInfo.name, leagueInfo.id)
+					}
+					className="px-2 py-px text-blue-700 transition-all duration-500 bg-white border-2 border-blue-300 rounded-md bg-gradient-to-br from-white to-blue-100 shadow-blue-lg via-white hover:to-blue-200"
 				>
-					<div>
-						<Link href={`/league/${leagueInfo.slug}`}>
-							<a className="text-lg font-light text-blue-800 border-b-2 border-white border-dashed hover:border-blue-400">
-								{leagueInfo.name}
-							</a>
-						</Link>
-					</div>
-					{isMember ? (
-						<button
-							onClick={() =>
-								toggleMembership('leave', leagueInfo.name, leagueInfo.id)
-							}
-							className="px-2 py-px text-blue-700 transition-all duration-500 bg-white border-2 border-blue-300 rounded-md bg-gradient-to-br from-white to-blue-100 shadow-blue-lg via-white hover:to-blue-200"
-						>
-								Leave
-						</button>
-					) : (
-						<button
-							onClick={() =>
-								toggleMembership('join', leagueInfo.name, leagueInfo.id)
-							}
-							className="px-2 py-px text-blue-700 transition-all duration-500 bg-white border-2 border-blue-300 rounded-md bg-gradient-to-br from-white to-blue-100 shadow-blue-lg via-white hover:to-blue-200"
-						>
-								Join
-						</button>
-					)}
-					<div className="flex flex-col w-full p-2 ">
-						{leagueInfo.members ? (
-							<>
-								{Object.values(leagueInfo.members).map((member: any) => (
-									<span className="text-base font-light" key={member.username}>
-										{member.username}
-									</span>
-								))}
-							</>
-						) : (
-							<p className="text-sm">No members</p>
-						)}
-					</div>
-				</div>
+					Leave
+				</button>
+			) : (
+				<button
+					onClick={() =>
+						toggleMembership('join', leagueInfo.name, leagueInfo.id)
+					}
+					className="px-2 py-px text-blue-700 transition-all duration-500 bg-white border-2 border-blue-300 rounded-md bg-gradient-to-br from-white to-blue-100 shadow-blue-lg via-white hover:to-blue-200"
+				>
+					Join
+				</button>
 			)}
+			<div className="flex flex-col w-full p-2 ">
+				{leagueInfo.members ? (
+					<>
+						{Object.values(leagueInfo.members).map((member: any) => (
+							<span className="text-base font-light" key={member.username}>
+								{member.username}
+							</span>
+						))}
+					</>
+				) : (
+					<p className="text-sm">No members</p>
+				)}
+			</div>
 		</div>
-	)
+	) : null
 }
 
 export default Leagues
