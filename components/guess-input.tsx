@@ -25,13 +25,13 @@ const GuessInput = ({
 	}, [guess])
 	const saveGuess = () => {
 		if (guess !== '') {
-			updateUserGuess(userId, match.id, league, guess)
+			updateUserGuess(userId, match.id, league, guess, match.utcDate, mainTeam)
 			setUnsaved(false)
 		}
 	}
 	return (
 		<div
-			className="p-2 mb-4 bg-opacity-25 rounded-md shadow-md bg-blue-50"
+			className="p-2 mb-4 bg-white rounded-md shadow-md"
 			key={Number(match.utcDate)}
 		>
 			<div className="flex flex-wrap justify-between w-full mb-2">
