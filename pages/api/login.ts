@@ -14,7 +14,7 @@ const login = async (req, res) => {
 				setAuthCookie(res, id, User.user.uid, userData)
 			}
 		})
-		.then(() => res.status(200).end())
+		.then(() => res.status(200).send('Login successful'))
 		.catch((error) => {
 			const { code, message } = error
 			switch (code) {
