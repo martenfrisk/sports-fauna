@@ -117,11 +117,11 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 				</div>
 				{data ? (
 					<div className="flex flex-col items-center order-1 w-full p-4 mb-4 sm:items-start sm:order-2 sm:w-1/2">
-						<div className="flex justify-between w-full">
+						<div className="flex justify-between w-full px-4 py-2 mb-2 bg-white rounded-md shadow-md">
 							<div className="w-1/2">League name:</div>
 							<div className="w-1/2 text-left">{data.name}</div>
 						</div>
-						<div className="flex justify-between w-full">
+						<div className="flex justify-between w-full px-4 py-2 bg-white rounded-md shadow-md">
 							<div className="w-1/2">Members:</div>
 							<div className="flex flex-col w-1/2">
 								{data.members ? (
@@ -133,11 +133,11 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 								)}
 							</div>
 						</div>
-						<div className="mt-4">
-							<p className="text-sm text-center">League options</p>
+						<LeagueStandings data={data.members} />
+						<div className="w-1/2 px-4 py-2 mt-4 bg-white rounded-md shadow-md">
+							<p className="text-sm text-left">League options</p>
 							<LeagueOptions optionsData={[isPublic, setIsPublic]} />
 						</div>
-						{data.standings && <LeagueStandings data={data.standings.data} />}
 					</div>
 				) : (
 					<div>Loading...</div>
