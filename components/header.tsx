@@ -1,20 +1,25 @@
+import { fetcher } from '@/utils/extra-functions'
 import { UserContext } from '@/utils/user-context'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
-// import useSWR from 'swr'
+import { useContext, useEffect } from 'react'
+import useSWR from 'swr'
 
 
 const Header = () => {
 	const router = useRouter()
 	const { userID, setUserID } = useContext(UserContext)
-	// const fetcher = (url) => fetch(url).then((r) => r.json())
-	// const { data: user, mutate: mutateUser } = useSWR('/api/user', fetcher)
-	
-	// useEffect(() => {
-	// 	setUserID(user)
-	// }, [user])
-
+	const { data, error } = useSWR('/api/user', fetcher)
+	if (error) console.log(error)
+	useEffect(() => {
+		// console.log(data)
+		if (data) {
+			setUserID({ id: data.id, username: data.username })
+		} else if (error) {
+			setUserID(null)
+			// router.push('/')
+		}
+	}, [data])
 	const logout = async () => {
 		const res = await fetch('/api/logout')
 		if (res.ok) {
@@ -25,7 +30,7 @@ const Header = () => {
 
 
 	return (
-		<div className="flex justify-center w-full mb-4">
+		<div className="relative z-10 flex justify-center w-full mb-4">
 			<header className="flex flex-wrap items-center justify-between w-full max-w-4xl px-6 py-6 text-gray-700 select-none">
 				<Link href="/">
 					<h1 className="mb-2 text-3xl font-medium tracking-tight text-blue-600 lowercase cursor-pointer font-logo sm:mb-0 sm:w-auto sm:text-4xl">Sport Guesser</h1>
