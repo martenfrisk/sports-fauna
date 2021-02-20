@@ -1,21 +1,19 @@
 import { gql, request } from 'graphql-request'
 import { graphQLClient } from '@/utils/graphql-client'
-import {
-	League,
-	TeamType,
-	UserGuess,
-} from './types/types'
+import { League, TeamType, UserGuess } from './types/types'
 import { auth, db } from './firebase'
 
 export const updateUserGuess = async (
 	userId: string,
 	eventId: number,
 	leagueName: string,
-	guess: string
+	guess: string,
+	eventDate: Date,
+	teamId: any
 ) => {
 	await db
 		.ref(`/users/${userId}/guess/${leagueName}/${eventId}`)
-		.set(guess)
+		.set({ guess, corrected: false, eventDate, team: teamId, eventId })
 		.catch((error) => console.error(error))
 }
 
@@ -71,23 +69,14 @@ export const getEventsFromDb = async (leagueId: string, teamId: string) => {
 	return events
 }
 
-export const findUserByID = async (token: string, id: any) => {
-	const query = gql`
-		query FindUser($id: ID!) {
-			findUserByID(id: $id) {
-				username
-				leagues {
-					data {
-						name
-						slug
-					}
-				}
-			}
-		}
-	`
-
-	const res = await graphQLClient(token).request(query, { id })
-	return res
+export const getLeaguesByUser = async (userId: string) => {
+	const leagues = []
+	await db.ref(`/users/${userId}/leagues`).once('value', (snapshot) => {
+		snapshot.forEach((snap) => {
+			leagues.push(snap.key)
+		})
+	})
+	return leagues
 }
 
 export const getLeaguesWithTeams = async (
@@ -224,56 +213,57 @@ export const updateLeagueOptions = async (
 		.catch((error) => setErrorMessage(error))
 }
 
-export const getNewLeagueData = async (token: string) => {
-	const query = gql`
-		{
-			allLeagues {
-				data {
-					_id
-					name
-					slug
-					members {
-						data {
-							username
-							_id
-						}
-					}
-				}
-			}
-		}
-	`
-	const res = await graphQLClient(token).request(query)
+export const getNewLeagueData = async () => {
+	const res = []
+	try {
+		await db
+			.ref('leagues')
+			.once('value', (snapshot) => {
+				snapshot.forEach((snap) => {
+					res.push({ ...snap.val() })
+				})
+			})
+	} catch (error) {
+		console.error(error)
+	}
 	return res
 }
 
-export const getUserDetails = () => {
-	const user = auth.currentUser
-	return user
+export const getUser = async () => {
+	auth.onAuthStateChanged((user) => {
+		if (user) {
+			return user
+		} else {
+			throw new Error('User not found')
+		}
+	})
 }
 
 export const joinLeague = async (
 	league: {
-		id: string,
-		name: string,
+		id: string
+		name: string
 	},
 	user: {
 		id: string
-		name: string 
-	},
+		name: string
+	}
 ) => {
-	db.ref(`/user/${user.id}/leagues/${league.name}`).set('')
-	db.ref(`/leagues/${league.name}/members/${user.id}`).set({ username: user.name })
+	db.ref(`/users/${user.id}/leagues/${league.name}`).set('')
+	db.ref(`/leagues/${league.name}/members/${user.id}`).set({
+		username: user.name,
+	})
 }
 export const leaveLeague = async (
 	league: {
-		id: string,
-		name: string,
+		id: string
+		name: string
 	},
 	user: {
 		id: string
-		name: string 
-	},
+		name: string
+	}
 ) => {
-	db.ref(`/user/${user.id}/leagues/${league.name}`).remove()
+	db.ref(`/users/${user.id}/leagues/${league.name}`).remove()
 	db.ref(`/leagues/${league.name}/members/${user.id}`).remove()
 }
