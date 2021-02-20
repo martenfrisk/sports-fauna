@@ -20,6 +20,7 @@ export default async function signup(req, res) {
 					email,
 					username,
 					favTeam,
+					verified: false,
 				})
 				setAuthCookie(res, token, userID, username)
 			}).then(() => {
