@@ -8,6 +8,7 @@ import Layout from '@/components/layout'
 const Login = () => {
 	const router = useRouter()
 	const [errorMessage, setErrorMessage] = useState('')
+	const [successMessage, setSuccessMessage] = useState('')
 	const [loading, setLoading] = useState(false)
 	const { handleSubmit, register, errors } = useForm()
 	const { 
@@ -49,7 +50,8 @@ const Login = () => {
 			})
 			
 			if (res.ok) {
-				router.push('/')
+				const resText = await res.text()
+				setSuccessMessage(resText)
 			} else {
 				throw new Error(await res.text())
 			}
@@ -98,6 +100,7 @@ const Login = () => {
 										<label className="w-1/3 mr-2">Password</label>
 										<input
 											type="password"
+											autoComplete="current-password"
 											name="password"
 											className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
 											ref={register({ required: 'Password is required' })}
@@ -135,6 +138,9 @@ const Login = () => {
 									</div>
 								</form>
 							</>
+						)}
+						{successMessage && (
+							<p>{successMessage}</p>
 						)}
 				
 						{errorMessage && (
