@@ -15,9 +15,9 @@ const Guess = ({
 	myGuesses,
 	userID,
 }: {
-  league: any
-  myGuesses: any
-  userID: string
+	league: any
+	myGuesses: any
+	userID: string
 }) => {
 	const [myEvents, setMyEvents] = useState([])
 	useEffect(() => {
@@ -27,38 +27,56 @@ const Guess = ({
 			if (eventsByTeam) {
 				setMyEvents((prev) => [
 					...prev,
-					{ team: team.name, teamId: team.id, crestUrl: team.crestUrl, events: eventsByTeam },
+					{
+						team: team.name,
+						teamId: team.id,
+						crestUrl: team.crestUrl,
+						events: eventsByTeam,
+					},
 				])
 			}
 		})
 	}, [])
 
+	// Disable this check during beta period to allow guessing finished games 
+	// const checkIfFinished = (eventDate: Date) =>
+	// 	new Date(eventDate).getTime() < new Date().getTime() ? true : false
+	
+
 	return (
 		<Layout>
 			<div>
-				<div className="flex flex-wrap justify-center">
+				<div className="flex flex-wrap justify-center rounded-lg bg-blue-50">
 					<div className="w-full my-4 text-2xl text-center">{league.name}</div>
 					<div className="flex flex-col">
-						
-						{myEvents && myEvents.map((eventItem: any) => (
-							<div key={eventItem.team}>
-								<div className="flex flex-wrap items-start w-full mb-4">
-									<div className="flex flex-wrap items-center mb-6 text-right wm-full sm:w-1/3 sm:mb-0">
+						{myEvents &&
+							myEvents.map((eventItem: any) => (
+								<div
+									key={eventItem.team}
+									className="flex flex-wrap items-start w-full mb-4 "
+								>
+									<div className="flex flex-wrap items-center mb-6 text-right wm-full sm:w-1/3 sm:mb-2">
 										<Image src={eventItem.crestUrl} height={30} width={30} />
 										<span className="ml-4">{eventItem.team}</span>
 									</div>
 									<div className="w-full">
 										{eventItem.events.map(
 											(event: Match) =>
-												event.status === 'SCHEDULED' && (
-													<GuessInput userId={userID} league={league.name} mainTeam={eventItem.teamId} match={event} prevInput={myGuesses.find(guess => guess.event == event.id)} />
-												)
+												
+												<GuessInput
+													key={event.id}
+													userId={userID.split('|')[0]}
+													league={league.name}
+													mainTeam={eventItem.teamId}
+													match={event}
+													prevInput={myGuesses.find(
+														(guess) => guess.event == event.id
+													)}
+												/>
 										)}
 									</div>
 								</div>
-							</div>
-						))}
-					
+							))}
 					</div>
 				</div>
 			</div>
@@ -70,7 +88,7 @@ export const getServerSideProps = async (ctx: any) => {
 	const token = getAuthCookie(ctx.req)
 	const userID = getUserCookie(ctx.req)
 	const { slug } = ctx.params
-	const myGuesses = await FindUserGuessByID(userID, slug)
+	const myGuesses = await FindUserGuessByID(userID.split('|')[0], slug)
 
 	const data: any = await FindLeague(slug)
 
