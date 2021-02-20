@@ -130,13 +130,13 @@ export const getServerSideProps = async (ctx: any) => {
 	const teams = await getAllTeams('2021')
 	const userID = await getUserCookie(ctx.req)
 	const userData = await db
-		.ref(`users/${userID}`)
+		.ref(`users/${userID.split('|')[0]}`)
 		.get()
 		.then((data) => data.toJSON())
 
 	return {
 		props: {
-			userID: userID || null,
+			userID: userID.split('|')[0] || null,
 			userData: userData || null,
 			teams: teams || null,
 		},
