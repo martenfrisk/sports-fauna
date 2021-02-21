@@ -12,16 +12,19 @@ export default async function user(req, res) {
 
 	try {
 		const data = await getUserDetails(token)
-		let username 
+		let username
 		if (data) {
-			username = await db.ref(`users/${data.uid}`).once('value').then((data) => data.child('username').val())
+			username = await db
+				.ref(`users/${data.uid}`)
+				.once('value')
+				.then((data) => data.child('username').val())
 		}
 
 		// console.log(data)
-		res.status(200).json({ id: data.user_id, username})
+		res.status(200).json({ id: data.user_id, username })
 	} catch (error) {
 		console.error(error)
-		removeAuthCookie(res)
+		// removeAuthCookie(res)
 		res.status(404).send(error)
 	}
 }
