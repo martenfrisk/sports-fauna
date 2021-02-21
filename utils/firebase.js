@@ -1,4 +1,6 @@
 import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
 
 export const clientCredentials = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,14 +15,6 @@ export const clientCredentials = {
 
 if (!firebase.apps.length) {
 	firebase.initializeApp(clientCredentials)
-	// Check that `window` is in scope for the analytics module!
-	if (typeof window !== 'undefined') {
-		// Enable analytics. https://firebase.google.com/docs/analytics/get-started
-		if ('measurementId' in clientCredentials) {
-			firebase.analytics()
-			firebase.performance()
-		}
-	}
 }
 
 export const auth = firebase.auth()
