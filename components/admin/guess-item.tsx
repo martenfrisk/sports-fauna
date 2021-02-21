@@ -31,7 +31,7 @@ const GuessItem = ({
 					.ref(`leagues/${leagueId}/members/${userId}/points`)
 					.get()
 					.then((Snap) => {
-						console.log(Snap.val())
+						// console.log(Snap.val())
 						return Snap.val()
 					})
 

@@ -25,7 +25,7 @@ const Signup = () => {
 			
 			const data = await res.json()
 			// console.log(res)
-			console.log(data)
+			// console.log(data)
 			if (res.ok) {
 				router.push('/')
 			} else if (data.code) {

@@ -1,9 +1,7 @@
-import { Standings } from '@/utils/types/types'
-
 const LeagueStandings = ({ data }: { data: any}) => {
 	const users = []
 	Object.values(data).map((user: any) => (users.push(user)))
-	console.log(users)
+	// console.log(users)
 	
 	const sorted = users.sort((a, b) => {
 		if(a.points > b.points) return -1

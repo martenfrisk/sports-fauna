@@ -28,10 +28,10 @@ const Guess = ({ data }: { data: string[] }) => {
 
 export const getServerSideProps = async (ctx: NextPageContext) => {
 	const userID = getUserCookie(ctx.req)
-	console.log(userID.split('|')[0])
+	// console.log(userID.split('|')[0])
 
 	const data = await getLeaguesByUser(userID.split('|')[0])
-	console.log(data)
+	// console.log(data)
 
 	return {
 		props: {
