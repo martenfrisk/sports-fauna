@@ -18,9 +18,9 @@ const SavePopup = ({
 	unsavedChanges,
 	updateMessage,
 }: {
-  saveChanges: any
-  unsavedChanges: boolean
-  updateMessage: any
+	saveChanges: any
+	unsavedChanges: boolean
+	updateMessage: any
 }) => {
 	return (
 		<div className="flex flex-col items-center w-full my-6">
@@ -48,7 +48,6 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 	const [upcomingEvents, setUpcomingEvents] = useState([])
 	const [errorMessage, setErrorMessage] = useState('')
 	const [updateMessage, setUpdateMessage] = useState('')
-
 	const saveChanges = () => {
 		updateLeagueOptions(
 			data.slug,
@@ -63,7 +62,7 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 	useEffect(() => {
 		if (
 			isPublic !== data.public ||
-      pickedTeam.length !== Object.values(data.teams).length
+			pickedTeam.length !== Object.values(data.teams).length
 		) {
 			setUnsavedChanges(true)
 			setUpdateMessage('')
@@ -103,9 +102,7 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 									{event.crestUrl && (
 										<Image src={event.crestUrl} width={30} height={30} />
 									)}
-									<span className="ml-4 text-lg">
-										{event.team}
-									</span>
+									<span className="ml-4 text-lg">{event.team}</span>
 								</p>
 								<EventItem event={event.events} team={event.team} />
 							</div>
@@ -161,12 +158,10 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 
 export async function getServerSideProps(ctx: any) {
 	const { slug } = ctx.params
-	// const token = getAuthCookie(ctx.req)
 	const teams = await getAllTeams('2021')
 	const data = await FindLeague(slug)
 	return {
 		props: {
-			// token: token || null,
 			data: data || null,
 			teams: teams || null,
 		},
