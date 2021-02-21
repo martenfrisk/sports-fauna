@@ -4,7 +4,12 @@ import admin from 'firebase-admin'
 
 if (!admin.apps.length) {
 	admin.initializeApp({
-		credential: admin.credential.applicationDefault(),
+		credential: admin.credential.cert({
+			clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+			privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY,
+			projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+		}),
+		databaseURL: 'https://sportguess-d27fd-default-rtdb.firebaseio.com',
 	})
 }
 export const getUserDetails = async (token: string) => {
