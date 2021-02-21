@@ -69,9 +69,7 @@ const Guess = ({
 													league={league.name}
 													mainTeam={eventItem.teamId}
 													match={event}
-													prevInput={myGuesses.find(
-														(guess) => guess.event == event.id
-													)}
+													prevInput={myGuesses.find((guess) => guess.event == event.id)}
 												/>
 										)}
 									</div>
