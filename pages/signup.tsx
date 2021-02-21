@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import Layout from '@/components/layout'
+import { setAuthCookie } from '@/utils/auth-cookies'
 
 const Signup = () => {
 	const router = useRouter()
@@ -21,15 +22,17 @@ const Signup = () => {
 				},
 				body: JSON.stringify(formData)
 			})
-
+			
+			const data = await res.json()
+			// console.log(res)
+			// console.log(data)
 			if (res.ok) {
 				router.push('/')
-			} else {
-				throw new Error(await res.text())
+			} else if (data.code) {
+				setErrorMessage(() => data.message)
 			}
 		} catch (error) {
-			console.error(error)
-			setErrorMessage(error.message)
+			console.error(error.message)
 		}
 	})
 

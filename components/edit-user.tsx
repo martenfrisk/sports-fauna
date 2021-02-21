@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
-// import Router from 'next/router'
-import { gql } from 'graphql-request'
 import { useForm } from 'react-hook-form'
-import { graphQLClient } from '@/utils/graphql-client'
+import { db } from '@/utils/firebase'
 
-const EditUser = ({ defaultValues, setData, id, token }: { defaultValues: any, setData: any, id: any, token: any }) => {
+const EditUser = ({ defaultValues, id }: { defaultValues: any, id: string }) => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const [updateMessage, setUpdateMessage] = useState('')
-	// const fetcher = async (query) => await graphQLClient(token).request(query)
-	// const { data, error } = useSWR('/api/user', fetcher)
 
 	const { handleSubmit, register, reset, errors } = useForm({
 		defaultValues: {
@@ -19,27 +15,14 @@ const EditUser = ({ defaultValues, setData, id, token }: { defaultValues: any, s
 	const onSubmit = handleSubmit(async ({ email, username, favTeam }) => {
 		if (errorMessage) setErrorMessage('')
 		setUpdateMessage(() => '')
-		const query = gql`
-      mutation UpdateAUser($id: ID!, $email: String!, $username: String!, $favTeam: String) {
-        updateUser(id: $id, data: { email: $email, username: $username, favTeam: $favTeam}) {
-          email
-					username
-          favTeam
-        }
-      }
-    `
-
-		const variables = {
-			id,
-			email,
-			username,
-			favTeam,
-		}
-
+		
 		try {
-			await graphQLClient(token).request(query, variables)
+			db.ref(`users/${id}`).update({
+				username,
+				favTeam
+			})
 			setUpdateMessage(() => 'Profile updated')
-			setData(() => variables)
+			// setData(() => ({ email, username, favTeam }))
 		} catch (error) {
 			console.error(error)
 			setErrorMessage(error.message)
@@ -54,6 +37,21 @@ const EditUser = ({ defaultValues, setData, id, token }: { defaultValues: any, s
 		<>
 			<form onSubmit={onSubmit} className="w-full">
 				<div className="flex items-center justify-between w-full mb-2">
+					<label>Email</label>
+					<input
+						type="text"
+						disabled={true}
+						name="email"
+						className="p-2 ml-2 text-right border-2 border-blue-100 rounded-md shadow-md" 
+						ref={register({ required: 'Email is required' })}
+					/>
+					{errors.email && (
+						<span role="alert">
+							{errors.email.message}
+						</span>
+					)}
+				</div>
+				<div className="flex items-center justify-between w-full mb-2">
 					<label>Username</label>
 					<input
 						type="text"
@@ -64,20 +62,6 @@ const EditUser = ({ defaultValues, setData, id, token }: { defaultValues: any, s
 					{errors.username && (
 						<span role="alert">
 							{errors.username.message}
-						</span>
-					)}
-				</div>
-				<div className="flex items-center justify-between w-full mb-2">
-					<label>Email</label>
-					<input
-						type="text"
-						name="email"
-						className="p-2 ml-2 text-right border-2 border-blue-100 rounded-md shadow-md" 
-						ref={register({ required: 'Email is required' })}
-					/>
-					{errors.email && (
-						<span role="alert">
-							{errors.email.message}
 						</span>
 					)}
 				</div>

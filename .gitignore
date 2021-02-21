@@ -45,10 +45,14 @@ yarn-error.log*
 
 .yarn/*
 .yarn/cache
-!.yarn/releases
+.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-
+yarn.lock
+ui-debug.log
+database-debug.log
+sportguess-d27fd-firebase-adminsdk-mw72c-6c36c6c610.json
 # vercel
 .vercel
+test.http

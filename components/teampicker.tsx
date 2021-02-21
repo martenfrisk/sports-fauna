@@ -1,14 +1,14 @@
+import { Team } from '@/utils/types/api-teams-types'
 import Image from 'next/image'
 import { useState } from 'react'
 
 const TeamPicker = ({ 
 	teams, picker
 }: { 
-	teams: any; picker: any
+	teams: Team[]; picker: any
  }) => {
 	const [selectAll, setSelectAll] = useState(false)
 	const [pickedTeam, setPickedTeam] = picker
-
 	const toggleSelectAll = () => {
 		if (!selectAll) {
 			setPickedTeam(teams)
@@ -19,11 +19,11 @@ const TeamPicker = ({
 		}
 	}
 
-	const toggleTeam = (teamId: string, teamName: string, _id: any) => {
-		if (pickedTeam.some((x) => x.teamId === teamId)) {
-			setPickedTeam(pickedTeam.filter((x) => (x.teamId !== teamId)))
+	const toggleTeam = (id: number, name: string, crestUrl: string) => {
+		if (pickedTeam.some((x) => x.id === id)) {
+			setPickedTeam(pickedTeam.filter((x) => (x.id !== id)))
 		} else {
-			setPickedTeam([...pickedTeam, { _id, teamId, teamName }])
+			setPickedTeam([...pickedTeam, { id, name, crestUrl }])
 		}
 	}
 
@@ -38,19 +38,19 @@ const TeamPicker = ({
 					{selectAll ? 'Select none' : 'Select all'}
 				</button>
 			</div>
-			{teams.map((team) => (
+			{Object.values(teams).map((team: Team) => (
 				<div
-					key={team.teamId}
-					onClick={() => toggleTeam(team.teamId, team.teamName, team._id)}
+					key={team.id}
+					onClick={() => toggleTeam(team.id, team.name, team.crestUrl)}
 					className="w-1/2 px-2 cursor-pointer sm:w-1/4"
 				>
 					<div
 						className={`flex items-center flex-col sm:flex-row shadow-sm w-full py-2 px-1 sm:px-4 mx-2 my-2 rounded-md bg-blue-50 ${
-							pickedTeam.some((x) => x.teamId === team.teamId) && 'bg-gradient-to-b from-blue-200 to-blue-100'
+							pickedTeam.some((x) => x.id === team.id) && 'bg-gradient-to-b from-blue-200 to-blue-100'
 						}`}
 					>
-						<Image src={team.badge} width={30} height={30} />
-						<span className="mt-2 text-sm sm:mt-0 sm:text-base sm:ml-4">{team.teamName}</span>
+						<Image src={team.crestUrl} width={30} height={30} />
+						<span className="mt-2 text-sm sm:mt-0 sm:text-base sm:ml-4">{team.shortName}</span>
 					</div>
 				</div>
 			))}

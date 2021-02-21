@@ -1,6 +1,6 @@
 import { gql, request } from 'graphql-request'
 import { graphQLClient } from '@/utils/graphql-client'
-import { Event, League, LeagueOptions, TeamType, User, UserGuess, WinnerEnum } from './types'
+import { Event, League, LeagueOptions, TeamType, User, UserGuess, WinnerEnum } from './types/types'
 
 export const createNewUserGuess = async (
 	token: string,

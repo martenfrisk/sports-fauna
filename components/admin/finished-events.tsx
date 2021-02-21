@@ -1,4 +1,4 @@
-import { Event, UserGuess } from '@/utils/types'
+import { Event, UserGuess } from '@/utils/types/types'
 
 const FinishedEvents = ({
 	resultForThis,
