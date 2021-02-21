@@ -48,7 +48,7 @@ const Profile = ({
 								)}
 							</div>
 
-							<EditUser defaultValues={userData} id={userID} />
+							<EditUser defaultValues={userData} id={userID.split('|')[0]} />
 							{firebaseUserDetails && (
 								<div className="flex justify-center w-full my-8">
 									{msg === '' ? (
