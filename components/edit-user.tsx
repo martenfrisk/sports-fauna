@@ -1,15 +1,10 @@
 import { useState, useEffect } from 'react'
-// import Router from 'next/router'
-import { gql } from 'graphql-request'
 import { useForm } from 'react-hook-form'
-import { graphQLClient } from '@/utils/graphql-client'
 import { db } from '@/utils/firebase'
 
-const EditUser = ({ defaultValues, id }: { defaultValues: any, id: any }) => {
+const EditUser = ({ defaultValues, id }: { defaultValues: any, id: string }) => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const [updateMessage, setUpdateMessage] = useState('')
-	// const fetcher = async (query) => await graphQLClient(token).request(query)
-	// const { data, error } = useSWR('/api/user', fetcher)
 
 	const { handleSubmit, register, reset, errors } = useForm({
 		defaultValues: {
