@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 var admin = require('firebase-admin')
 
-var serviceAccount = require('../sportguess-d27fd-firebase-adminsdk-mw72c-6c36c6c610.json')
-
 admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount),
+	credential: admin.credential.cert({
+		clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+		privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY,
+		projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+		
+	}),
 	databaseURL: 'https://sportguess-d27fd-default-rtdb.firebaseio.com',
 })
 
