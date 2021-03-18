@@ -55,7 +55,5 @@ module.exports = {
 			backgroundImage: ['hover']
 		},
 	},
-	plugins: [
-		require('@tailwindcss/custom-forms')
-	],
+	plugins: [],
 }
