@@ -5,43 +5,48 @@ import Link from 'next/link'
 import Layout from '@/components/layout'
 import EditUser from '@/components/admin/edit-user'
 import { UserContext } from '@/utils/user-context'
-// import { getEventsAndPopulateDB } from '@/utils/admin-tools'
 import { getAuthCookie } from '@/utils/auth-cookies'
-
-import { Event, Standings, TeamType } from '@/utils/types/types'
-import {
-	getAllUsers,
-	queryGetAll,
-	queryStandings,
-	queryEvents,
-} from '@/utils/admin-tools'
-import { db } from '@/utils/firebase'
+import { db, auth } from '@/utils/firebase'
 import { isEventFinished } from '@/utils/converters'
-import { convertWinner } from '@/utils/extra-functions'
-
-// const getEventsAndPopulateDB = async () => {
-
-// }
 
 const Admin = ({
 	token,
 	events,
 	users,
 	eventsLastUpdate,
+	isAdmin,
 }: {
 	token: any
 	events: any
 	users: any
 	eventsLastUpdate: any
+	isAdmin: any
 }) => {
 	const { userID } = useContext(UserContext)
 	const [updateMsg, setUpdateMsg] = useState('')
 	const importEvents = async () => {
 		await fetch('/api/functions/events-import', {
 			method: 'POST',
-			body: JSON.stringify({ league: 2021 })
-		}).then((res) => res.text()).then((data) => setUpdateMsg(data))
+			body: JSON.stringify({ league: 2021 }),
+		})
+			.then((res) => res.text())
+			.then((data) => setUpdateMsg(data))
 	}
+	// .then((idTokenResult) => {
+	// 	console.log(idTokenResult)
+	//    // Confirm the user is an Admin.
+	//    if (!!idTokenResult.claims.admin) {
+	//      // Show admin UI.
+	// 		 setIsAdmin(true)
+	// 		} else {
+	// 			// Show regular user UI.
+	// 			setIsAdmin(false)
+	//    }
+	// })
+	// .catch((error) => {
+	//   console.log(error);
+	// });
+
 	// const [standingsUpdated, setStandingsUpdated] = useState([{_id: ''}])
 
 	// const getEventResult = async (eventId: string) => {
@@ -63,72 +68,92 @@ const Admin = ({
 	return (
 		<Layout>
 			<div className="min-h-screen my-10">
-				{eventsLastUpdate && (
-					<div>
-						<p>
-							Events last imported: {new Date(eventsLastUpdate).toISOString()}
-						</p>
-						<p>Today: {new Date().toISOString()}</p>
-						{updateMsg === '' ? (
-							<button onClick={importEvents} className="px-2 py-px border-2 border-blue-400 rounded-md" type="button">Click to import new events/results</button>
-						) : (
-							<p>{updateMsg}</p>
-						)}
-					</div>
-				)}
-				{users && (
-					<div>
-						<p className="mb-2 text-lg">Users</p>
-						{users.map((user) => (
-							<div key={user.email} className="mb-4 ml-2">
-								<p>User: {user.email}</p>
-								{user.guess && (
-									<>
-										{Object.entries(user.guess).map(
-											([guessKey, guessValue]) => (
-												<>
-													<p>League name: {guessKey}</p>
-													{Object.entries(guessValue).map(
-														([eventId, guessOptions]) => {
-															const event = events.find(
-																(i) => i.id === guessOptions.eventId
-															)
-															if (
-																isEventFinished(
-																	new Date(guessOptions.eventDate)
-																) &&
-																!guessOptions.corrected &&
-																eventId !== 'points' &&
-																event.score.winner
-															) {
-																return (
-																	<div
-																		key={guessKey}
-																		className="px-4 py-2 my-2 bg-blue-50"
-																	>
-																		<p className="mb-2 text-lg">
-																			Event id: {eventId}
-																		</p>
-																		<GuessItem
-																			guessOptions={guessOptions}
-																			userId={user.id}
-																			leagueId={guessKey}
-																			eventId={eventId}
-																			event={event}
-																		/>
-																	</div>
-																)
-															}
-														}
-													)}
-												</>
-											)
-										)}
-									</>
+				{isAdmin ? (
+					<>
+						{eventsLastUpdate && (
+							<div>
+								<p>
+									Events last imported:{' '}
+									{new Date(eventsLastUpdate).toDateString()} -{' '}
+									{new Date(eventsLastUpdate).getHours()}
+								</p>
+								<p>Today: {new Date().toDateString()}</p>
+								{updateMsg === '' ? (
+									<button
+										onClick={importEvents}
+										className="px-2 py-px border-2 border-blue-400 rounded-md"
+										type="button"
+									>
+										Click to import new events/results
+									</button>
+								) : (
+									<p>{updateMsg}</p>
 								)}
 							</div>
-						))}
-					</div>
+						)}
+						{users && (
+							<div>
+								<p className="mb-2 text-lg">Users</p>
+								{users.map((user) => (
+									<div key={user.email} className="mb-4 ml-2">
+										<p>User: {user.email}</p>
+										{user.guess && (
+											<>
+												{Object.entries(user.guess).map(
+													([guessKey, guessValue]) => (
+														<>
+															<p>League name: {guessKey}</p>
+															{Object.entries(guessValue).map(
+																([eventId, guessOptions]) => {
+																	const event = events.find(
+																		(i) => i.id === guessOptions.eventId
+																	)
+																	if (
+																		isEventFinished(
+																			new Date(guessOptions.eventDate)
+																		) &&
+																		!guessOptions.corrected &&
+																		eventId !== 'points' &&
+																		event.score.winner
+																	) {
+																		return (
+																			<div
+																				key={eventId}
+																				className="px-4 py-2 my-2 bg-blue-50"
+																			>
+																				<p className="mb-2 text-lg">
+																					Event id: {eventId}
+																				</p>
+																				<GuessItem
+																					guessOptions={guessOptions}
+																					userId={user.id}
+																					leagueId={guessKey}
+																					key={`${guessKey}-${eventId}`}
+																					eventId={eventId}
+																					event={event}
+																				/>
+																			</div>
+																		)
+																	}
+																}
+															)}
+														</>
+													)
+												)}
+											</>
+										)}
+									</div>
+								))}
+							</div>
+						)}
+					</>
+				) : (
+					<>
+						<div>Looks like you ended up here by accident. Go home.</div>
+						<Link href="/">
+							<a className="btn-blue">Back</a>
+						</Link>
+					</>
 				)}
 
 				{/* {userID ? (
@@ -193,14 +218,7 @@ const Admin = ({
 							)}
 						</div>
 					) : (
-						<>
-							<div>
-							Looks like you ended up here by accident. Go home.
-							</div>
-							<Link href="/">
-								<a className="btn-blue">Back</a>
-							</Link>
-						</>
+				
 					)
 				) : (
 					<div>Loading...</div>
@@ -244,12 +262,19 @@ export const getServerSideProps = async (ctx: any) => {
 		.ref('teams/updateHistory/lastUpdate')
 		.once('value')
 		.then((Snap) => (eventsLastUpdate = Snap.val()))
+	let isAdmin: boolean
+	await auth.currentUser
+		.getIdTokenResult()
+		.then((token) =>
+			token.claims.admin ? (isAdmin = true) : (isAdmin = false)
+		)
 	return {
 		props: {
 			token: token || null,
 			users: users || null,
 			events: events || null,
 			eventsLastUpdate: eventsLastUpdate || null,
+			isAdmin: isAdmin || null,
 		},
 	}
 }
