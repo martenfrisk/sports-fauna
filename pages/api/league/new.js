@@ -1,8 +1,22 @@
-import { db } from '@/utils/firebase'
+// import { db } from '@/utils/firebase'
+import admin from 'firebase-admin'
+// import { clientCredentials } from '@/utils/firebase'
+// import adminCredentials from 'sportguess-d27fd-firebase-adminsdk-mw72c-6c36c6c610.json'
+
+if (!admin.apps.length) {
+	admin.initializeApp({
+		credential: admin.credential.cert({
+			clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+			privateKey: process.env.FIREBASE_PRIVATE_KEY ? JSON.parse(process.env.FIREBASE_PRIVATE_KEY) : undefined,
+			projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+		}),
+		databaseURL: 'https://sportguess-d27fd-default-rtdb.firebaseio.com',
+	})
+}
 
 const handler = async (req, res) => {
 	const { slug } = req.body
-	const ref = db.ref(`leagues/${slug}`)
+	const ref = admin.database().ref(`leagues/${slug}`)
 	ref.once('value')
 		.then(snapshot => {
 			if(snapshot.exists()) {

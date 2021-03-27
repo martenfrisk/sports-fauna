@@ -9,6 +9,12 @@ import {
 import Layout from '@/components/layout'
 import { Match } from '@/utils/types/api-response-types'
 import GuessInput from '@/components/guess-input'
+import {
+	withAuthUser,
+	useAuthUser,
+	AuthAction,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
 
 const Guess = ({
 	league,
@@ -65,7 +71,7 @@ const Guess = ({
 												
 												<GuessInput
 													key={event.id}
-													userId={userID.split('|')[0]}
+													userId={userID}
 													league={league.name}
 													mainTeam={eventItem.teamId}
 													match={event}
@@ -82,22 +88,24 @@ const Guess = ({
 	)
 }
 
-export const getServerSideProps = async (ctx: any) => {
-	const token = getAuthCookie(ctx.req)
-	const userID = getUserCookie(ctx.req)
-	const { slug } = ctx.params
-	const myGuesses = await FindUserGuessByID(userID.split('|')[0], slug)
+export const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser, params }) => {
+	// const token = getAuthCookie(ctx.req)
+	const userID = await AuthUser.id
+	const { slug } = params
+	const myGuesses = await FindUserGuessByID(userID, slug)
 
 	const data: any = await FindLeague(slug)
 
 	return {
 		props: {
-			token: token || null,
 			userID: userID || null,
 			league: data || null,
 			myGuesses: myGuesses || null,
 		},
 	}
-}
+})
+export default withAuthUser()(Guess)
 
-export default Guess
+

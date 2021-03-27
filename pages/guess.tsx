@@ -1,8 +1,12 @@
 import Layout from '@/components/layout'
-import { getUserCookie } from '@/utils/auth-cookies'
 import { getLeaguesByUser } from '@/utils/firebase-requests'
-import { NextPageContext } from 'next'
 import Link from 'next/link'
+
+import {
+	withAuthUser,
+	AuthAction,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
 
 const Guess = ({ data }: { data: string[] }) => {
 	return (
@@ -26,11 +30,14 @@ const Guess = ({ data }: { data: string[] }) => {
 	)
 }
 
-export const getServerSideProps = async (ctx: NextPageContext) => {
-	const userID = getUserCookie(ctx.req)
+
+export const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser }) => {
+	const userID = await AuthUser.id
 	// console.log(userID.split('|')[0])
 
-	const data = await getLeaguesByUser(userID.split('|')[0])
+	const data = await getLeaguesByUser(userID)
 	// console.log(data)
 
 	return {
@@ -38,6 +45,5 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
 			data: data || null,
 		},
 	}
-}
-
-export default Guess
+})
+export default withAuthUser()(Guess)

@@ -27,8 +27,8 @@ const Leagues = ({
 	}, [])
 	useEffect(() => {
 		if (leagueInfo && leagueInfo.members) {
-			const checkIfMember = Object.values(leagueInfo.members).some(
-				(member: any) => member.username === user.username
+			const checkIfMember = Object.keys(leagueInfo.members).some(
+				(member: any) => member === user.id
 			)
 			setIsMember(!!checkIfMember)
 		} else {

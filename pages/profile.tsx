@@ -1,26 +1,28 @@
 import Link from 'next/link'
 import Layout from '@/components/layout'
 import { db } from '@/utils/firebase'
-import { getAuthCookie, getUserCookie } from '@/utils/auth-cookies'
 import EditUser from '@/components/edit-user'
 import { getLeagues } from '@/utils/firebase-requests'
-import { getUserDetails } from '@/utils/serverside-requests'
 import { useState } from 'react'
-// import type { DecodedIdToken } from 'firebase-admin'
-import admin from 'firebase-admin'
+import {
+	withAuthUser,
+	useAuthUser,
+	AuthAction,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
+import { League, User } from '@/utils/types/types'
+import { snapshotToArray } from '@/utils/extra-functions'
 
 const Profile = ({
 	userData,
-	userID,
 	leagues,
-	firebaseUserDetails,
 }: {
-	userData
-	userID: any
+	userData: any
 	leagues: any
-	firebaseUserDetails: admin.auth.DecodedIdToken
 }) => {
 	const [msg, setMsg] = useState('')
+	const userLeagues = Object.keys(userData.leagues)
+	const AuthUser = useAuthUser()
 	const sendVerificationEmail = async () => {
 		await fetch('/api/email-verification', {
 			method: 'POST',
@@ -32,113 +34,124 @@ const Profile = ({
 		<Layout>
 			<div className="flex flex-col items-center w-full">
 				<div className="flex flex-col items-center w-full">
-					{userData ? (
-						<div className="flex flex-col mt-4">
-							<h1 className="mb-4 text-2xl">
-								{userData.admin ? 'Admin' : 'User'} profile
-							</h1>
-							<div
-								className="flex flex-wrap justify-between mb-4"
-								key={userData.id}
-							>
-								{userData.admin && (
-									<p className="w-full">
-										<Link href="/admin">Go to admin dashboard</Link>
-									</p>
-								)}
-							</div>
+					<div className="flex flex-col mt-4">
+						{/* <pre className="w-64">{JSON.stringify(AuthUser, null, 2)}</pre> */}
+						<h1 className="mb-4 text-2xl">
+							{userData.admin ? 'Admin' : 'User'} profile
+						</h1>
 
-							<EditUser defaultValues={userData} id={userID.split('|')[0]} />
-							{firebaseUserDetails && (
-								<div className="flex justify-center w-full my-8">
-									{msg === '' ? (
-										firebaseUserDetails.email_verified ? (
-											<p>Your account is verified.</p>
-										) : (
-											<p>
-												Your account is not verified. Click{' '}
-												<button type="submit" onClick={sendVerificationEmail}>
-													here
-												</button>{' '}
-												to send a verification link to your email.
-											</p>
-										)
-									) : (
-										<p>{msg}</p>
+						{userData.admin && (
+							<div className="w-full">
+								<Link href="/admin">Go to admin dashboard</Link>
+							</div>
+						)}
+
+						<EditUser defaultValues={userData} id={AuthUser.id} />
+
+						<div className="flex justify-center w-full my-8">
+							{msg === '' ? (
+								AuthUser.emailVerified ? (
+									<p>Your account is verified.</p>
+								) : (
+									<p>
+										Your account is not verified. Click{' '}
+										<button type="submit" onClick={sendVerificationEmail}>
+											here
+										</button>{' '}
+										to send a verification link to your email.
+									</p>
+								)
+							) : (
+								<p>{msg}</p>
+							)}
+						</div>
+
+						{leagues && (
+							<div>
+								<div className="flex flex-col items-center my-4">
+									<div className="my-4 text-xl font-light text-blue-700">
+										Your leagues
+									</div>
+									{snapshotToArray(leagues).map(
+										(league: any) =>
+											userLeagues.includes(league.name) && (
+												<div
+													className="flex flex-wrap justify-between px-6 py-4 mb-4 bg-white rounded-md w-72 shadow-blue-lg"
+													key={league._id}
+												>
+													<div>
+														<Link href={`/league/${league.slug}`}>
+															<a className="text-lg font-light text-blue-800 border-b-2 border-white border-dashed hover:border-blue-400">
+																{league.name}
+															</a>
+														</Link>
+													</div>
+													<div className="flex flex-col w-full p-2 ">
+														{league.members ? (
+															<>
+																{snapshotToArray(league.members).map(
+																	(member: User) => (
+																		<span
+																			className="text-base font-light"
+																			key={member._id}
+																		>
+																			{member.username}
+																		</span>
+																	)
+																)}
+															</>
+														) : (
+															<p className="text-sm">No members</p>
+														)}
+													</div>
+												</div>
+											)
 									)}
 								</div>
-							)}
-							{leagues && (
-								<div>
-									<div className="flex flex-col items-center my-4">
-										<div className="my-4 text-xl font-light text-blue-700">
-											Your leagues
-										</div>
-										{/* {leagues.map((league: League) => (
-									<div className="flex flex-wrap justify-between max-w-sm px-6 py-4 mb-4 bg-white rounded-md shadow-blue-lg" key={league._id}>
-										<div >
-											<Link href={`/league/${league.slug}`}>
-												<a className="text-lg font-light text-blue-800 border-b-2 border-white border-dashed hover:border-blue-400">
-													{league.name}
-
-												</a>
-											</Link>
-										</div>
-										<div className="flex flex-col w-full p-2 ">
-											{league.members && league.members.data.length > 0 ? (
-												<>
-													{league.members.data.map((member: User) => (
-														<span className="text-base font-light" key={member._id}>
-															{member.username}
-														</span>
-													))}
-												</>
-											) : (
-												<p className="text-sm">No members</p>
-											)}
-										</div>
-									</div>
-								))} */}
-									</div>
-								</div>
-							)}
-						</div>
-					) : (
-						<div>
-							<p>You need to be logged in to view your profile.</p>
-							<Link href="/login">
-								<a className="border-b border-blue-700 border-dashed">
-									Go to login page.
-								</a>
-							</Link>
-						</div>
-					)}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</Layout>
 	)
 }
 
-export const getServerSideProps = async (ctx: any) => {
-	const token = await getAuthCookie(ctx.req)
-	const userID = await getUserCookie(ctx.req)
-	let userData, firebaseUserDetails
-	if (userID) {
-		userData = await db
-			.ref(`users/${userID.split('|')[0]}`)
-			.get()
-			.then((data) => data.toJSON())
-		firebaseUserDetails = await getUserDetails(token)
-	}
-	const data = await getLeagues()
+export const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser }) => {
+	// const { req } = ctx
+	// const authCookie = await getAuthCookie(req)
+	// const user = await getUserCookie(req)
+	// console.log(user)
+	const userData = await db
+		.ref(`users/${AuthUser.id}`)
+		.get()
+		.then((data) => data.toJSON())
+	// const user = await AuthUser.id
+	const leagues = await getLeagues()
 	return {
 		props: {
-			userID: userID || null,
-			leagues: data || null,
+			leagues: leagues || null,
 			userData: userData || null,
-			firebaseUserDetails: firebaseUserDetails || null,
 		},
 	}
-}
+})
+// export const getServerSideProps = async (ctx: any) => {
+// 	const token = await getAuthCookie(ctx.req)
+// 	const userID = await getUserCookie(ctx.req)
+// 	let userData, firebaseUserDetails
+// 	if (userID) {
+// 		firebaseUserDetails = await getUserDetails(token)
+// 	}
+// 	return {
+// 		props: {
+// 			userID: userID || null,
+// 			leagues: data || null,
+// 			userData: userData || null,
+// 			firebaseUserDetails: firebaseUserDetails || null,
+// 		},
+// 	}
+// }
 
-export default Profile
+export default withAuthUser()(Profile)

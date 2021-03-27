@@ -9,20 +9,23 @@ import { getAuthCookie } from '@/utils/auth-cookies'
 import { db, auth } from '@/utils/firebase'
 import { isEventFinished } from '@/utils/converters'
 
+import {
+	withAuthUser,
+	AuthAction,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
+
 const Admin = ({
-	token,
 	events,
 	users,
 	eventsLastUpdate,
 	isAdmin,
 }: {
-	token: any
 	events: any
 	users: any
 	eventsLastUpdate: any
 	isAdmin: any
 }) => {
-	const { userID } = useContext(UserContext)
 	const [updateMsg, setUpdateMsg] = useState('')
 	const importEvents = async () => {
 		await fetch('/api/functions/events-import', {
@@ -95,7 +98,7 @@ const Admin = ({
 							<div>
 								<p className="mb-2 text-lg">Users</p>
 								{users.map((user) => (
-									<div key={user.email} className="mb-4 ml-2">
+									<div key={user.id} className="mb-4 ml-2">
 										<p>User: {user.email}</p>
 										{user.guess && (
 											<>
@@ -228,11 +231,10 @@ const Admin = ({
 	)
 }
 
-export default Admin
-
-export const getServerSideProps = async (ctx: any) => {
-	const token = getAuthCookie(ctx.req)
-
+export const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser }) => {
+	// const token = await AuthUser.getIdToken()
 	const users = []
 	await db
 		.ref('users')
@@ -262,19 +264,18 @@ export const getServerSideProps = async (ctx: any) => {
 		.ref('teams/updateHistory/lastUpdate')
 		.once('value')
 		.then((Snap) => (eventsLastUpdate = Snap.val()))
-	let isAdmin: boolean
-	await auth.currentUser
-		.getIdTokenResult()
-		.then((token) =>
-			token.claims.admin ? (isAdmin = true) : (isAdmin = false)
-		)
+	const isAdmin =	await db
+		.ref(`users/${AuthUser.id}`)
+		.get()
+		.then((data) => data.child('admin').exists())
 	return {
 		props: {
-			token: token || null,
 			users: users || null,
 			events: events || null,
 			eventsLastUpdate: eventsLastUpdate || null,
 			isAdmin: isAdmin || null,
 		},
 	}
-}
+})
+
+export default withAuthUser()(Admin)

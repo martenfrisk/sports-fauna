@@ -13,6 +13,13 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
+import {
+	withAuthUser,
+	useAuthUser,
+	AuthAction,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
+
 const SavePopup = ({
 	saveChanges,
 	unsavedChanges,
@@ -156,8 +163,10 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 	)
 }
 
-export async function getServerSideProps(ctx: any) {
-	const { slug } = ctx.params
+export const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser, params }) => {
+	const { slug } = params
 	const teams = await getAllTeams('2021')
 	const data = await FindLeague(slug)
 	return {
@@ -166,6 +175,6 @@ export async function getServerSideProps(ctx: any) {
 			teams: teams || null,
 		},
 	}
-}
+})
 
-export default League
+export default withAuthUser()(League)

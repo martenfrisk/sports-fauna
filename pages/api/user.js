@@ -1,8 +1,9 @@
 import { getAuthCookie, removeAuthCookie } from '@/utils/auth-cookies'
-import { db } from '@/utils/firebase'
+import { auth, db } from '@/utils/firebase'
 import { getUserDetails } from '@/utils/serverside-requests'
 
 export default async function user(req, res) {
+	// auth.currentUser.getIdToken()
 	const token = getAuthCookie(req)
 
 	if (!token) {
