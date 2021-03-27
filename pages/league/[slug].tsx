@@ -98,12 +98,12 @@ const League = ({ data, teams }: { data: any; teams: any }) => {
 					{upcomingEvents !== [] ? (
 						upcomingEvents.map((event) => (
 							<div className="w-full mb-4" key={event.team}>
-								<p className="flex items-center w-full mb-2">
+								<div className="flex items-center w-full mb-2">
 									{event.crestUrl && (
 										<Image src={event.crestUrl} width={30} height={30} />
 									)}
 									<span className="ml-4 text-lg">{event.team}</span>
-								</p>
+								</div>
 								<EventItem event={event.events} team={event.team} />
 							</div>
 							// <pre>{JSON.stringify(event, null, 2)}</pre>
