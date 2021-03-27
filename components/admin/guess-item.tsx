@@ -46,10 +46,11 @@ const GuessItem = ({
 				}
 			}
 			await db
-				.ref(`users/${userId}/guess/${leagueId}/${eventId}`)
-				.update({ corrected: true })
+				.ref(`users/${userId}/guess/${leagueId}/${eventId}/corrected`)
+				.set(true)
 		} catch (error) {
-			setMsg(error)
+			console.error(error)
+			setMsg(JSON.stringify(error))
 		} finally {
 			setMsg('Guess updated')
 		}
