@@ -11,21 +11,27 @@ import { getUserCookie } from '@/utils/auth-cookies'
 import { UserFromDBType } from '@/utils/types/firebase-types'
 import { getAllTeams } from '@/utils/firebase-requests'
 import Link from 'next/link'
+import {
+	withAuthUser,
+	useAuthUser,
+	AuthAction,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
 
 const New = ({
 	teams,
 	userData,
-	userID,
 }: {
   teams: any
   userData: UserFromDBType
-  userID: string
 }) => {
 	const [errorMessage, setErrorMessage] = useState('')
 	const [pickedTeams, setPickedTeams] = useState([])
 	const [isPublic, setIsPublic] = useState(true)
 	const [leagueName, setLeagueName] = useState('')
 	const { handleSubmit, errors } = useForm()
+	const AuthUser = useAuthUser()
+	const userID = AuthUser.id
 	// const { userID } = useContext(UserContext)
 	const Router = useRouter()
 
@@ -98,12 +104,13 @@ const New = ({
 							)}
 						</div>
 					</form>
-					<p className="my-2">Options</p>
-					<LeagueOptions optionsData={[isPublic, setIsPublic]} />
+					{/* <p className="my-2">Options</p> */}
+					{/* <LeagueOptions optionsData={[isPublic, setIsPublic]} /> */}
 
+					<TeamPicker picker={[pickedTeams, setPickedTeams]} teams={teams} />
 					<button
 						type="submit"
-						className={`mb-4 btn-blue ${
+						className={`mt-4 btn-blue ${
 							pickedTeams.length === 0 ? 'cursor-not-allowed' : ''
 						}`}
 						onClick={onSubmit}
@@ -111,7 +118,6 @@ const New = ({
 					>
             Create
 					</button>
-					<TeamPicker picker={[pickedTeams, setPickedTeams]} teams={teams} />
 				</div>
 			) : (
 				<p>
@@ -126,21 +132,22 @@ const New = ({
 	)
 }
 
-export const getServerSideProps = async (ctx: any) => {
+export const getServerSideProps = withAuthUserTokenSSR({
+	whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
+})(async ({ AuthUser }) => {
 	const teams = await getAllTeams('2021')
-	const userID = await getUserCookie(ctx.req)
+	const userID = await AuthUser.id
 	const userData = await db
-		.ref(`users/${userID.split('|')[0]}`)
+		.ref(`users/${userID}`)
 		.get()
 		.then((data) => data.toJSON())
 
 	return {
 		props: {
-			userID: userID.split('|')[0] || null,
 			userData: userData || null,
 			teams: teams || null,
 		},
 	}
-}
+})
 
-export default New
+export default withAuthUser()(New)
