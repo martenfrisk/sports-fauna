@@ -82,16 +82,11 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
 								filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))',
 							}}
 						>
-							<Image src="/footballnotepad-1.png" width={849} height={635} />
+							<Image src="/footballnotepad-1.png" alt="3d image of football and notepad" width={849} height={635} />
 						</div>
 					</div>
 				)}
 			</div>
-			<style jsx>{`
-				.dropshadow {
-					filter: drop-shadow(-3px 3px 2px rgba(29, 78, 216, 0.2));
-				}
-			`}</style>
 		</Layout>
 	)
 }
