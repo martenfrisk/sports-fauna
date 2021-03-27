@@ -7,14 +7,22 @@ import { getLeagues } from '@/utils/firebase-requests'
 import { UserContext } from '@/utils/user-context'
 import { useContext } from 'react'
 import { getUserCookie } from '@/utils/auth-cookies'
+import {
+	useAuthUser,
+	withAuthUser,
+	withAuthUserTokenSSR,
+} from 'next-firebase-auth'
+import { db } from '@/utils/firebase'
 
 const Home = ({ user, leagues }: { user: any; leagues: any }) => {
-	const { userID } = useContext(UserContext)
+	// const { userID } = useContext(UserContext)
+	const AuthUser = useAuthUser()
 
 	return (
 		<Layout>
 			<div className="flex flex-col items-center w-full mx-auto mb-0">
-				{user ? (
+				{/* <pre className="w-64">{JSON.stringify(AuthUser, null, 2)}</pre> */}
+				{AuthUser.id ? (
 					<div className="flex flex-col flex-wrap w-full sm:justify-between sm:flex-row">
 						<div className="flex justify-center w-full sm:items-center sm:w-1/2">
 							<div className="my-6 space-x-2">
@@ -31,11 +39,11 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
 								Leagues
 							</p>
 							{leagues &&
-								userID &&
+								AuthUser.id &&
 								leagues.map((league) => (
 									<Leagues
 										key={league.slug}
-										user={{ id: userID.id, username: userID.username }}
+										user={{ id: AuthUser.id, username: user.username }}
 										league={league}
 									/>
 								))}
@@ -82,7 +90,12 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
 								filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))',
 							}}
 						>
-							<Image src="/footballnotepad-1.png" alt="3d image of football and notepad" width={849} height={635} />
+							<Image
+								src="/footballnotepad-1.png"
+								alt="3d image of football and notepad"
+								width={849}
+								height={635}
+							/>
 						</div>
 					</div>
 				)}
@@ -90,19 +103,31 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
 		</Layout>
 	)
 }
+// export const getServerSideProps = withAuthUserTokenSSR()()
 
-export const getServerSideProps = async (ctx) => {
-	const { req } = ctx
-	// const authCookie = await getAuthCookie(req)
-	const user = await getUserCookie(req)
-	// console.log(user)
-	const leagues = await getLeagues()
-	return {
-		props: {
-			leagues: leagues || null,
-			user: user || null,
-		},
+export const getServerSideProps = withAuthUserTokenSSR()(
+	async ({ AuthUser }) => {
+		// const { req } = ctx
+		// const authCookie = await getAuthCookie(req)
+		// const user = await getUserCookie(req)
+		// console.log(user)
+		// let user = await AuthUser
+		let leagues, user
+		if (AuthUser.id) {
+			leagues = await getLeagues()
+			user = await db
+				.ref(`users/${AuthUser.id}`)
+				.get()
+				.then((data) => data.toJSON())
+			// user = { ...userData, ...user }
+		}
+		return {
+			props: {
+				leagues: leagues || null,
+				user: user || null,
+			},
+		}
 	}
-}
+)
 
-export default Home
+export default withAuthUser()(Home)
