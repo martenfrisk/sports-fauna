@@ -7,16 +7,16 @@ import 'firebase/auth'
 // so we don't need to.
 
 const firebaseAuthConfig = {
-	signInFlow: 'redirect',
+	signInFlow: 'popup',
 	// Auth providers
 	// https://github.com/firebase/firebaseui-web#configure-oauth-providers
 	signInOptions: [
-		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-		firebase.auth.GithubAuthProvider.PROVIDER_ID,
 		{
 			provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
 			requireDisplayName: false,
 		},
+		firebase.auth.GithubAuthProvider.PROVIDER_ID,
+		firebase.auth.GoogleAuthProvider.PROVIDER_ID,
 	],
 	signInSuccessUrl: '/',
 	credentialHelper: 'none',
@@ -25,7 +25,7 @@ const firebaseAuthConfig = {
 		signInSuccessWithAuthResult: () =>
 		// Don't automatically redirect. We handle redirecting based on
 		// auth state in withAuthComponent.js.
-			false,
+		true,
 	},
 }
 
