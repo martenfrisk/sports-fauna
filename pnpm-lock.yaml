@@ -13,7 +13,7 @@ dependencies:
   postcss: 8.2.8
   react: 17.0.1
   react-dom: 17.0.1_react@17.0.1
-  react-firebaseui: 5.0.0-canary1_firebase@8.3.1+react@17.0.1
+  react-firebaseui: 4.1.0_firebase@8.3.1+react@17.0.1
   react-hook-form: 6.15.5_react@17.0.1
   slugify: 1.5.0
   swr: 0.3.11_react@17.0.1
@@ -7077,17 +7077,17 @@ packages:
       react: 17.0.1
     resolution:
       integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
-  /react-firebaseui/5.0.0-canary1_firebase@8.3.1+react@17.0.1:
+  /react-firebaseui/4.1.0_firebase@8.3.1+react@17.0.1:
     dependencies:
       firebase: 8.3.1
       firebaseui: 4.8.0_firebase@8.3.1
       react: 17.0.1
     dev: false
     peerDependencies:
-      firebase: '>=7.11.0'
-      react: '>=15 <=17'
+      firebase: '>=6.3.4 <8'
+      react: '>=15 <17'
     resolution:
-      integrity: sha512-cCzB1QNGxPuL16F2O6+LOtbJ/PBSgaTi0HNbr76IiznvR84YUKMdq9BIaCssFm3GPg1mUUoIkcsZEOL2UlTPjg==
+      integrity: sha512-Y5pAom+W6/R5xZeF4xdvYiP7tObo7GDGWra1Pf2td+FxhtXtGQXQTKdW5Rs4js5zIuN0A3fApZzO+3sa1MHl9Q==
   /react-hook-form/6.15.5_react@17.0.1:
     dependencies:
       react: 17.0.1
@@ -9017,7 +9017,7 @@ specifiers:
   postcss: ^8.2.8
   react: 17.0.1
   react-dom: 17.0.1
-  react-firebaseui: canary
+  react-firebaseui: ^4.1.0
   react-hook-form: ^6.15.5
   slugify: ^1.5.0
   swr: ^0.3.11
