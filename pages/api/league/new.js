@@ -1,9 +1,9 @@
-// import { db } from '@/utils/firebase'
+import { db } from '@/utils/firebase'
 import admin from 'firebase-admin'
 // import { clientCredentials } from '@/utils/firebase'
 // import adminCredentials from 'sportguess-d27fd-firebase-adminsdk-mw72c-6c36c6c610.json'
 
-if (!admin.apps.length) {
+if (typeof window === 'undefined' && !admin.apps.length) {
 	admin.initializeApp({
 		credential: admin.credential.cert({
 			clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,

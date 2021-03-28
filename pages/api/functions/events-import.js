@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch'
-// import { db } from '../../../utils/firebase'
-import { FootballDataMatchResponse } from '@/utils/types/api-response-types'
+// import { db } from '@/utils/firebase'
+// import { FootballDataMatchResponse } from '@/utils/types/api-response-types'
 import admin from 'firebase-admin'
 // import { clientCredentials } from '@/utils/firebase'
 // import adminCredentials from 'sportguess-d27fd-firebase-adminsdk-mw72c-6c36c6c610.json'
@@ -19,18 +19,18 @@ if (!admin.apps.length) {
 const handler = async (req, res) => {
 	const { league } = await req.body
 
-	const addDays = (days: number) => {
+	const addDays = (days) => {
 		const result = new Date()
 		result.setDate(result.getDate() + days)
 		return result
 	}
-	const removeDays = (days: number) => {
+	const removeDays = (days) => {
 		const result = new Date()
 		result.setDate(result.getDate() - days)
 		return result
 	}
 
-	const toCorrectDateFormat = (date: Date) =>
+	const toCorrectDateFormat = (date) =>
 		date.toLocaleDateString('sv-SE', {
 			year: 'numeric',
 			month: '2-digit',
@@ -62,7 +62,7 @@ const handler = async (req, res) => {
 							},
 						}
 					)
-					const data: FootballDataMatchResponse = await response.json()
+					const data = await response.json()
 					if (data && data.matches) {
 						data.matches.forEach((eventItem) => {
 							resultData.push(eventItem)
