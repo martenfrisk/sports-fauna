@@ -9,7 +9,7 @@ if (!admin.apps.length) {
 	admin.initializeApp({
 		credential: admin.credential.cert({
 			clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-			privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY ? process.env.FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, '\n') : undefined,
+			privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY ? JSON.parse(process.env.FIREBASE_ADMIN_PRIVATE_KEY) : undefined,
 			projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
 		}),
 		databaseURL: 'https://sportguess-d27fd-default-rtdb.firebaseio.com',
