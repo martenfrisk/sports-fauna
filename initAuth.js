@@ -37,7 +37,7 @@ const initAuth = () => {
       overwrite: true,
       path: '/',
       sameSite: 'strict',
-      secure: false, // set this to false in local (non-HTTPS) development
+      secure: process.env.NODE_ENV === 'production' ? true : false, // set this to false in local (non-HTTPS) development
       signed: true,
     },
   })
