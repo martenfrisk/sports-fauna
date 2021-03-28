@@ -25,7 +25,7 @@ const firebaseAuthConfig = {
 		signInSuccessWithAuthResult: () =>
 		// Don't automatically redirect. We handle redirecting based on
 		// auth state in withAuthComponent.js.
-		true,
+		false,
 	},
 }
 
