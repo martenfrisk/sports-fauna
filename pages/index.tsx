@@ -1,20 +1,26 @@
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Layout from '@/components/layout';
 import Leagues from '@/components/leagues';
 import { Trophy, Training } from '@/components/svg/landing-page';
 import { getLeagues } from '@/utils/firebase-requests';
-import {
-  useAuthUser,
-  withAuthUser,
-  withAuthUserTokenSSR,
-} from 'next-firebase-auth';
+import { useAuthUser, withAuthUser } from 'next-firebase-auth';
 import { db } from '@/utils/firebase';
+import { useEffect, useState } from 'react';
 
-const Home = ({ user, leagues }: { user: any; leagues: any }) => {
+const Home = ({ leagues }: { leagues: any }) => {
   // const { userID } = useContext(UserContext)
   const AuthUser = useAuthUser();
-
+  // const [leagueState, setLeagueState] = useState(null);
+  const [userState, setUserState] = useState(null);
+  useEffect(() => {
+    // setLeagueState(leagues);
+    if (AuthUser.id) {
+      db.ref(`users/${AuthUser.id}`)
+        .get()
+        .then((data) => setUserState(data.toJSON()));
+    }
+  }, [AuthUser]);
   return (
     <Layout>
       <div className="flex flex-col items-center w-full mx-auto mb-0">
@@ -35,17 +41,15 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
               <p className="mb-4 text-2xl font-light text-left text-blue-800">
                 Leagues
               </p>
-              {leagues ? (
-                leagues.map((league) => (
+              {leagues
+                && userState
+                && leagues.map((league) => (
                   <Leagues
                     key={league.slug}
-                    user={{ id: AuthUser.id, username: user.username }}
+                    user={{ id: AuthUser.id, username: userState.username }}
                     league={league}
                   />
-                ))
-              ) : (
-                <div>Loading...</div>
-              )}
+                ))}
             </div>
           </div>
         ) : (
@@ -89,12 +93,16 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
                 filter: 'drop-shadow(5px 5px 8px rgba(59, 130, 246, 0.3))',
               }}
             >
-              <Image
-                src="/footballnotepad-1.png"
-                alt="3d image of football and notepad"
-                width={849}
-                height={635}
-              />
+              <picture>
+                <source srcSet="/footballnotepad-1.avif" />
+                <source srcSet="/footballnotepad-1.webp" />
+                <img
+                  src="/footballnotepad-1.png"
+                  alt="3d render of a football and a notepad"
+                  width={849}
+                  height={635}
+                />
+              </picture>
             </div>
           </div>
         )}
@@ -104,24 +112,12 @@ const Home = ({ user, leagues }: { user: any; leagues: any }) => {
 };
 // export const getServerSideProps = withAuthUserTokenSSR()()
 
-export const getServerSideProps = withAuthUserTokenSSR()(
-  async ({ AuthUser }) => {
-    let leagues;
-    let user;
-    if (AuthUser.id) {
-      leagues = await getLeagues();
-      user = await db
-        .ref(`users/${AuthUser.id}`)
-        .get()
-        .then((data) => data.toJSON());
-    }
-    return {
-      props: {
-        leagues: leagues || null,
-        user: user || null,
-      },
-    };
-  },
-);
-
+export const getServerSideProps = async () => {
+  const leagues = await getLeagues();
+  return {
+    props: {
+      leagues: leagues || null,
+    },
+  };
+};
 export default withAuthUser()(Home);
