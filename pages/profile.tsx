@@ -17,7 +17,7 @@ import { snapshotToArray } from '@/utils/extra-functions';
 
 const Profile = ({ userData, leagues }: { userData: any; leagues: any }) => {
   const [msg, setMsg] = useState('');
-  const userLeagues = Object.keys(userData.leagues);
+  const userLeagues = userData?.leagues ? Object.keys(userData.leagues) : null;
   const AuthUser = useAuthUser();
   const sendVerificationEmail = async () => {
     await fetch('/api/email-verification', {
@@ -66,7 +66,7 @@ const Profile = ({ userData, leagues }: { userData: any; leagues: any }) => {
               )}
             </div>
 
-            {leagues && (
+            {leagues !== null && userLeagues && (
               <div>
                 <div className="flex flex-col items-center my-4">
                   <div className="my-4 text-xl font-light text-blue-700">
