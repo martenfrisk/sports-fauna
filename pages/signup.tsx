@@ -28,7 +28,7 @@ const Signup = () => {
       // console.log(res)
       // console.log(data)
       if (res.ok) {
-        router.push('/');
+        router.push('/login');
       } else if (data.code) {
         setErrorMessage(() => data.message);
       }
