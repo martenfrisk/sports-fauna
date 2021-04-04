@@ -2,10 +2,6 @@
 // const withPWA = require('next-pwa');
 
 module.exports = {
-  future: {
-    webpack5: true,
-    strictPostcssConfiguration: true,
-  },
   target: 'serverless',
   images: {
     domains: [
