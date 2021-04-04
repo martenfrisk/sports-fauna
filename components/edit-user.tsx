@@ -45,7 +45,7 @@ const EditUser = ({ defaultValues, id }: { defaultValues: any, id: string }) => 
             type="text"
             disabled
             name="email"
-            className="p-2 ml-2 text-right border-2 border-blue-100 rounded-md shadow-md"
+            className="p-2 ml-2 text-right bg-gray-200 border-2 border-blue-100 rounded-md shadow-md cursor-not-allowed"
             ref={register({ required: 'Email is required' })}
           />
           {errors.email && (
