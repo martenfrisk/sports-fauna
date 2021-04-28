@@ -94,8 +94,8 @@ const Home = ({ leagues }: { leagues: any }) => {
               }}
             >
               <picture>
-                <source srcSet="/footballnotepad-1.avif" />
-                <source srcSet="/footballnotepad-1.webp" />
+                <source srcSet="/footballnotepad-1.avif" type="image/avif" />
+                <source srcSet="/footballnotepad-1.webp" type="image/webp" />
                 <img
                   src="/footballnotepad-1.png"
                   alt="3d render of a football and a notepad"
