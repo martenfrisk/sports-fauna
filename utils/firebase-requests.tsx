@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
-import { gql, request } from 'graphql-request';
-import { graphQLClient } from '@/utils/graphql-client';
 // eslint-disable-next-line import/extensions
-import { League, TeamType, UserGuess } from './types/types';
+import { League } from './types/types';
 import { auth, db } from './firebase';
 
 export const updateUserGuess = async (
@@ -19,46 +17,6 @@ export const updateUserGuess = async (
       guess, corrected: false, eventDate, team: teamId, eventId,
     })
     .catch((error) => console.error(error));
-};
-
-export const getEvents = async (team: TeamType, setEvents: any) => {
-  const query = gql`
-    query GetEvents($teamId: ID) {
-      eventsNext(teamId: $teamId) {
-        home {
-          name
-          id
-        }
-        away {
-          name
-          id
-        }
-        name
-        dateTime
-        league {
-          name
-        }
-      }
-    }
-  `;
-  const variables = {
-    teamId: team.teamId,
-  };
-  try {
-    request('https://sportsdb.netlify.app/', query, variables).then(
-      ({ eventsNext }) => {
-        setEvents((prev: any) => [
-          ...prev,
-          {
-            name: team.teamName,
-            events: eventsNext,
-          },
-        ]);
-      },
-    );
-  } catch (err) {
-    console.error(err);
-  }
 };
 
 export const getEventsFromDb = async (leagueId: string, teamId: string) => {
@@ -81,34 +39,6 @@ export const getLeaguesByUser = async (userId: string) => {
     });
   });
   return leagues;
-};
-
-export const getLeaguesWithTeams = async (
-  token: string,
-  id: any,
-  setLeagues: any,
-) => {
-  const query = gql`
-    query FindUser($id: ID!) {
-      findUserByID(id: $id) {
-        username
-        leagues {
-          data {
-            name
-            slug
-          }
-        }
-      }
-    }
-  `;
-
-  await graphQLClient(token)
-    .request(query, { id })
-    .then((res) => {
-      setLeagues(() => res.findUserByID);
-      console.log(res);
-    })
-    .catch((error) => console.error(error));
 };
 
 export const getLeagues = async () => {
@@ -143,23 +73,6 @@ export const getAllTeams = async (leagueId: string) => {
   return teams;
 };
 
-export const RemoveGuess = async (token: string, id: UserGuess['_id']) => {
-  const query = gql`
-    mutation RemoveUserGuess($id: ID!) {
-      deleteUserGuess(id: $id) {
-        user {
-          username
-        }
-      }
-    }
-  `;
-  try {
-    await graphQLClient(token).request(query, { id });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 export const FindUserGuessByID = async (user: string, leagueName: string) => {
   const res = [];
   try {
@@ -181,23 +94,6 @@ export const FindLeague = async (slug: League['slug']) => {
     .ref(`leagues/${slug}`)
     .get()
     .then((data) => data.toJSON());
-  return res;
-};
-
-export const getAllTeamTypes = async (token: string) => {
-  const query = gql`
-    {
-      allTeams {
-        data {
-          _id
-          teamId
-          teamName
-          badge
-        }
-      }
-    }
-  `;
-  const res = await graphQLClient(token).request(query);
   return res;
 };
 
