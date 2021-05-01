@@ -92,7 +92,7 @@ const Profile = ({ userData, leagues }: { userData: any; leagues: any }) => {
                               (member: User) => (
                                 <span
                                   className="text-base font-light"
-                                  key={member._id}
+                                  key={member.username}
                                 >
                                   {member.username}
                                 </span>
@@ -119,15 +119,10 @@ const Profile = ({ userData, leagues }: { userData: any; leagues: any }) => {
 export const getServerSideProps = withAuthUserTokenSSR({
   whenUnauthed: AuthAction.REDIRECT_TO_LOGIN,
 })(async ({ AuthUser }) => {
-  // const { req } = ctx
-  // const authCookie = await getAuthCookie(req)
-  // const user = await getUserCookie(req)
-  // console.log(user)
   const userData = await db
     .ref(`users/${AuthUser.id}`)
     .get()
     .then((data) => data.toJSON());
-  // const user = await AuthUser.id
   const leagues = await getLeagues();
   return {
     props: {
@@ -137,4 +132,5 @@ export const getServerSideProps = withAuthUserTokenSSR({
   };
 });
 
+// @ts-ignore
 export default withAuthUser()(Profile);

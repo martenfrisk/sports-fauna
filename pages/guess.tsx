@@ -43,4 +43,5 @@ export const getServerSideProps = withAuthUserTokenSSR({
     },
   };
 });
+// @ts-ignore
 export default withAuthUser()(Guess);

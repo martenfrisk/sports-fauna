@@ -25,7 +25,7 @@ const New = ({ teams, userData }: { teams: any; userData: UserFromDBType }) => {
   // eslint-disable-next-line no-unused-vars
   const [isPublic, setIsPublic] = useState(true);
   const [leagueName, setLeagueName] = useState('');
-  const { handleSubmit, errors } = useForm();
+  const { handleSubmit, formState: { errors } } = useForm();
   const AuthUser = useAuthUser();
   const userID = AuthUser.id;
   // const { userID } = useContext(UserContext)
@@ -148,4 +148,5 @@ export const getServerSideProps = withAuthUserTokenSSR({
   };
 });
 
+// @ts-ignore
 export default withAuthUser()(New);

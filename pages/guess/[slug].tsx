@@ -94,9 +94,9 @@ export const getServerSideProps = withAuthUserTokenSSR({
 	// const token = getAuthCookie(ctx.req)
 	const userID = await AuthUser.id
 	const { slug } = params
-	const myGuesses = await FindUserGuessByID(userID, slug)
+	const myGuesses = await FindUserGuessByID(userID, slug.toString())
 
-	const data: any = await FindLeague(slug)
+	const data: any = await FindLeague(slug.toString())
 
 	return {
 		props: {
@@ -106,6 +106,7 @@ export const getServerSideProps = withAuthUserTokenSSR({
 		},
 	}
 })
+//@ts-ignore
 export default withAuthUser()(Guess)
 
 

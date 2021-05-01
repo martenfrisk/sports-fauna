@@ -168,7 +168,7 @@ export const getServerSideProps = withAuthUserTokenSSR({
 })(async ({ AuthUser, params }) => {
 	const { slug } = params
 	const teams = await getAllTeams('2021')
-	const data = await FindLeague(slug)
+	const data = await FindLeague(slug.toString())
 	return {
 		props: {
 			data: data || null,
@@ -177,4 +177,5 @@ export const getServerSideProps = withAuthUserTokenSSR({
 	}
 })
 
+// @ts-ignore
 export default withAuthUser()(League)

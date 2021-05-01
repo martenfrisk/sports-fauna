@@ -9,7 +9,7 @@ const Signup = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const {
-    handleSubmit, register, watch, errors,
+    handleSubmit, register, watch, formState: { errors },
   } = useForm();
 
   const onSubmit = handleSubmit(async (formData) => {
@@ -50,10 +50,8 @@ const Signup = () => {
               <input
                 className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
                 type="email"
-                name="email"
-                placeholder="email@example.com"
-                ref={register({ required: 'Email is required' })}
-              />
+                {...register('email', { required: 'Email is required' })}
+                placeholder="email@example.com" />
               {errors.email && (
                 <span role="alert" className="text-red-700">
                   {errors.email.message}
@@ -66,10 +64,8 @@ const Signup = () => {
               <input
                 className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
                 type="text"
-                name="username"
-                placeholder="Your Username"
-                ref={register}
-              />
+                {...register('username')}
+                placeholder="Your Username" />
             </div>
 
             <div className="flex items-end mt-2">
@@ -77,10 +73,8 @@ const Signup = () => {
               <input
                 className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
                 type="text"
-                name="favTeam"
-                placeholder="Team name"
-                ref={register}
-              />
+                {...register('favTeam')}
+                placeholder="Team name" />
             </div>
 
             <div className="flex items-end mt-2">
@@ -88,10 +82,8 @@ const Signup = () => {
               <input
                 className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
                 type="password"
-                name="password"
-                placeholder="Your password"
-                ref={register({ required: 'Password is required' })}
-              />
+                {...register('password', { required: 'Password is required' })}
+                placeholder="Your password" />
               {errors.password && (
                 <span role="alert" className="text-red-700">
                   {errors.password.message}
@@ -104,12 +96,10 @@ const Signup = () => {
               <input
                 className="w-2/3 px-2 py-1 rounded-md bg-blue-50"
                 type="password"
-                name="password"
-                placeholder="Confirm password"
-                ref={register({
+                {...register('password', {
                   validate: (value) => value === watch('password') || 'Password does not match',
                 })}
-              />
+                placeholder="Confirm password" />
               {errors.password2 && (
                 <span role="alert" className="text-red-700">
                   {errors.password2.message}

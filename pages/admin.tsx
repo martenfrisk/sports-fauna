@@ -140,83 +140,6 @@ const Admin = ({
             </Link>
           </>
         )}
-
-        {/* {userID ? (
-					userID.admin ? (
-						<div>
-							<div>
-								<details>
-									<summary>Update standings</summary>
-									{pastEventsWithGuess && pastEventsWithGuess.map((event: Event) => {
-										const resultForThis = results.find(x => x.eventId === event.eventId)
-										if (event) {
-											getEventResult(event.eventId)
-										}
-										return (
-											<FinishedEvents key={event._id}
-											resultForThis={resultForThis}
-											event={event}
-											updateStandings={updateStandings}
-											setStandingsUpdated={setStandingsUpdated}
-											standingsUpdated={standingsUpdated} />
-										)
-									})}
-								</details>
-							</div>
-							<details>
-								<summary>
-							Populate database with events
-
-								</summary>
-								{data && (
-									data.allTeams.data.map((team: TeamType) => {
-										const games = [
-											...team.awayEvents.data,
-											...team.homeEvents.data].sort((a, b) => b._ts - a._ts )
-										return (
-											<div key={team._id} className="flex justify-between w-full ">
-												<span>
-													{team.teamName}
-												</span>
-												<span className="text-xs">
-										Last updated: {new Date(games[0]._ts / 1000 ).toUTCString()}
-												</span>
-												<button
-												// onClick={() => getEventsAndPopulateDB(
-													token, team.teamId, team._id, data.allTeams.data)}
-												>
-										Get events
-												</button>
-												<span>{team.awayEvents.data.length === 0 &&
-													team.awayEvents.data.length === 0 ? (
-													<span className="bg-red-100">
-											No events
-													</span>
-												) : (
-													<span className="bg-green-100">
-												Has events
-													</span>
-												)}</span>
-											</div>
-										)})
-								)}
-
-							</details>
-							{users && (
-								<details>
-									<summary>User administration</summary>
-									{users.allUsers.data.map(user => (
-										<EditUser key={user._id} user={user} token={token} />
-									))}
-								</details>
-							)}
-						</div>
-					) : (
-
-					)
-				) : (
-					<div>Loading...</div>
-				)} */}
       </div>
     </Layout>
   );
@@ -269,5 +192,5 @@ export const getServerSideProps = withAuthUserTokenSSR({
     },
   };
 });
-
+// @ts-ignore
 export default withAuthUser()(Admin);

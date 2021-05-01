@@ -120,4 +120,5 @@ export const getServerSideProps = async () => {
     },
   };
 };
+// @ts-ignore
 export default withAuthUser()(Home);
